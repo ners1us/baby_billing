@@ -8,5 +8,4 @@ public interface ICdrController {
     ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException;
 
     ResponseEntity<String> publishCdr();
-
 }
