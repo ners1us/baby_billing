@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -41,12 +40,11 @@ public class CdrService implements ICdrService {
     @Async("asyncTaskExecutor")
     public CompletableFuture<List<History>> generateCdr() {
         List<History> historyList = new ArrayList<>();
-        Random random = new Random();
         long startTime = 1617235200L;
         long endTime = startTime + 31536000L;
 
         while (startTime < endTime) {
-            int numCalls = random.nextInt(10) + 1;
+            int numCalls = randomGeneratorService.generateRandomNumberOfCalls();
             List<History> monthHistory = generateCdrForMonth(startTime, numCalls);
             historyList.addAll(monthHistory);
             startTime += 2592000L;

@@ -9,4 +9,6 @@ public interface IRandomGeneratorService {
     long generateRandomStartTime(long startTime, long endTime);
 
     long generateRandomEndTime(long startTime, long maxDuration);
+
+    int generateRandomNumberOfCalls();
 }

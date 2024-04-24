@@ -4,30 +4,35 @@ import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.repositories.IClientRepository;
 import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RandomGeneratorService implements IRandomGeneratorService {
 
+    @NonNull
     private final IClientRepository clientRepository;
+    private final Random random = new Random();
 
     public Client getRandomClient() {
         List<Client> clients = clientRepository.findAll();
-        Random random = new Random();
         return clients.get(random.nextInt(clients.size()));
     }
 
     public long generateRandomStartTime(long startTime, long endTime) {
-        Random random = new Random();
         return startTime + (long) (random.nextDouble() * (endTime - startTime));
     }
 
     public long generateRandomEndTime(long startTime, long maxDuration) {
-        Random random = new Random();
         return startTime + (long) (random.nextDouble() * maxDuration);
+    }
+
+    public int generateRandomNumberOfCalls() {
+        return random.nextInt(10) + 1;
     }
 }
