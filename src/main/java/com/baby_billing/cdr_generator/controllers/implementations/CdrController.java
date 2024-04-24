@@ -1,5 +1,6 @@
-package com.baby_billing.cdr_generator.controllers;
+package com.baby_billing.cdr_generator.controllers.implementations;
 
+import com.baby_billing.cdr_generator.controllers.ICdrController;
 import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
@@ -20,7 +21,7 @@ import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("/api/v1")
-public class CdrController {
+public class CdrController implements ICdrController {
 
     private final CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher;
     private final ICdrService cdrService;
