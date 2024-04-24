@@ -5,6 +5,7 @@ import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.baby_billing.cdr_generator.services.ICdrService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,11 @@ import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("/api/v1")
+@AllArgsConstructor
 public class CdrController implements ICdrController {
 
     private final CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher;
     private final ICdrService cdrService;
-
-    public CdrController(CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher, ICdrService cdrService) {
-        this.cdrToBrtRabbitMQPublisher = cdrToBrtRabbitMQPublisher;
-        this.cdrService = cdrService;
-    }
 
     @PostMapping("/generateCdr")
     public ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException {
