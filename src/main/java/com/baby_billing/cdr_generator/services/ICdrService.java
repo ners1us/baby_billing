@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface ICdrService {
+
     void processCdr(List<History> historyList);
+
     CompletableFuture<List<History>> generateCdr();
 }
