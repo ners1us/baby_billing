@@ -5,6 +5,7 @@ import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.baby_billing.cdr_generator.services.ICdrService;
+import com.baby_billing.cdr_generator.services.IFileManagerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +28,11 @@ public class CdrController implements ICdrController {
 
     private final CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher;
     private final ICdrService cdrService;
+    private final IFileManagerService fileManagerService;
 
     @PostMapping("/generateCdr")
-    public ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException {
+    public ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException, IOException{
+        fileManagerService.checkAndCleanDataFolder();
         Future<List<History>> futureHistoryList = cdrService.generateCdr();
         List<History> historyList = futureHistoryList.get();
         cdrService.processCdr(historyList);
