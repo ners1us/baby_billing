@@ -4,6 +4,7 @@ import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.repositories.IHistoryRepository;
 import com.baby_billing.cdr_generator.services.ICdrService;
+import com.baby_billing.cdr_generator.services.IDatabaseService;
 import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -20,14 +21,14 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class CdrService implements ICdrService {
 
-    private IHistoryRepository historyRepository;
+    private IDatabaseService databaseService;
     private IRandomGeneratorService randomGeneratorService;
 
     private static final int MAX_CALLS_PER_FILE = 10;
     private static final long MAX_DURATION_PER_CALL = 3600;
 
     public void processCdr(List<History> historyList) {
-        saveCdrToDatabase(historyList);
+        databaseService.saveCdrToDatabase(historyList);
 
         List<List<History>> files = splitIntoFiles(historyList);
         for (int i = 0; i < files.size(); i++) {
@@ -95,10 +96,6 @@ public class CdrService implements ICdrService {
         incomingCdr.setStartTime(outgoingCdr.getStartTime());
         incomingCdr.setEndTime(outgoingCdr.getEndTime());
         return incomingCdr;
-    }
-
-    private void saveCdrToDatabase(List<History> historyList) {
-        historyRepository.saveAll(historyList);
     }
 
     private void saveCdrToFile(List<History> historyList, String fileName) {
