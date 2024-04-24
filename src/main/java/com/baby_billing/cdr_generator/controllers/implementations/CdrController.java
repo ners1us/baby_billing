@@ -42,7 +42,7 @@ public class CdrController implements ICdrController {
     @PostMapping("/publishCdr")
     public ResponseEntity<String> publishCdr() {
         try {
-            List<History> historyList = readHistoryFromFile();
+            List<History> historyList = fileManagerService.readHistoryFromFile();
             for (History history : historyList) {
                 cdrToBrtRabbitMQPublisher.sendMessage(history);
             }
@@ -51,42 +51,5 @@ public class CdrController implements ICdrController {
             return ResponseEntity.badRequest().body("Error reading files from data folder");
         }
         return ResponseEntity.ok("Messages sent to RabbitMQ...");
-    }
-
-    private List<History> readHistoryFromFile() throws IOException {
-        List<History> historyList = new ArrayList<>();
-        File dataFolder = new File("data");
-        if (dataFolder.isDirectory()) {
-            File[] files = dataFolder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isFile() && file.getName().endsWith(".txt")) {
-                        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                            String line;
-                            while ((line = br.readLine()) != null) {
-                                String[] parts = line.split(",");
-                                if (parts.length == 5) {
-                                    History history = new History();
-                                    history.setType(parts[0]);
-                                    history.setClient(parseClient(parts[1]));
-                                    history.setCaller(parseClient(parts[2]));
-                                    history.setStartTime(Long.parseLong(parts[3]));
-                                    history.setEndTime(Long.parseLong(parts[4]));
-                                    historyList.add(history);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return historyList;
-    }
-
-
-    private Client parseClient(String phone) {
-        Client client = new Client();
-        client.setPhoneNumber(phone);
-        return client;
     }
 }
