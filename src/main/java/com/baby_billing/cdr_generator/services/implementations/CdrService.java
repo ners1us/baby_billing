@@ -103,7 +103,7 @@ public class CdrService implements ICdrService {
 
     private void saveCdrToFile(List<History> historyList, String fileName) {
         try {
-            Thread.sleep(4000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             e.printStackTrace();
