@@ -1,9 +1,11 @@
-package com.baby_billing.cdr_generator.services;
+package com.baby_billing.cdr_generator.services.implementations;
 
 import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.repositories.IClientRepository;
 import com.baby_billing.cdr_generator.repositories.IHistoryRepository;
+import com.baby_billing.cdr_generator.services.ICdrService;
+import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,8 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class CdrService implements ICdrService {
 
-    private IClientRepository clientRepository;
     private IHistoryRepository historyRepository;
+    private IRandomGeneratorService randomGeneratorService;
 
     private static final int MAX_CALLS_PER_FILE = 10;
     private static final long MAX_DURATION_PER_CALL = 3600;
@@ -45,7 +47,7 @@ public class CdrService implements ICdrService {
 
         while (startTime < endTime) {
             int numCalls = random.nextInt(10) + 1;
-            List<History> monthHistory = generateCdrForMonth(startTime, numCalls, random);
+            List<History> monthHistory = generateCdrForMonth(startTime, numCalls);
             historyList.addAll(monthHistory);
             startTime += 2592000L;
         }
@@ -53,11 +55,11 @@ public class CdrService implements ICdrService {
         return CompletableFuture.completedFuture(historyList);
     }
 
-    private List<History> generateCdrForMonth(long startTime, int numCalls, Random random) {
+    private List<History> generateCdrForMonth(long startTime, int numCalls) {
         List<History> monthHistory = new ArrayList<>();
 
         for (int i = 0; i < numCalls; i++) {
-            History outgoingCdr = generateRandomCall(startTime, random);
+            History outgoingCdr = generateRandomCall(startTime);
             History incomingCdr = generateReverseCall(outgoingCdr);
 
             monthHistory.add(outgoingCdr);
@@ -68,14 +70,14 @@ public class CdrService implements ICdrService {
         return monthHistory;
     }
 
-    private History generateRandomCall(long startTime, Random random) {
-        Client client = getRandomClient();
-        Client caller = getRandomClient();
-        long callStartTime = startTime + (long) (random.nextDouble() * 2592000L);
-        long callEndTime = callStartTime + (long) (random.nextDouble() * MAX_DURATION_PER_CALL);
+    private History generateRandomCall(long startTime) {
+        Client client = randomGeneratorService.getRandomClient();
+        Client caller = randomGeneratorService.getRandomClient();
+        long callStartTime = randomGeneratorService.generateRandomStartTime(startTime, startTime + 2592000L);
+        long callEndTime = randomGeneratorService.generateRandomEndTime(callStartTime, MAX_DURATION_PER_CALL);
 
         while (client.equals(caller)) {
-            client = getRandomClient();
+            client = randomGeneratorService.getRandomClient();
         }
 
         History outgoingCdr = new History();
@@ -117,12 +119,6 @@ public class CdrService implements ICdrService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private Client getRandomClient() {
-        List<Client> clients = clientRepository.findAll();
-        Random random = new Random();
-        return clients.get(random.nextInt(clients.size()));
     }
 
     private List<List<History>> splitIntoFiles(List<History> historyList) {
