@@ -3,7 +3,6 @@ package com.baby_billing.cdr_generator.services.implementations;
 import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.repositories.IClientRepository;
 import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
