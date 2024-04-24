@@ -5,6 +5,7 @@ import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.repositories.IHistoryRepository;
 import com.baby_billing.cdr_generator.services.ICdrService;
 import com.baby_billing.cdr_generator.services.IDatabaseService;
+import com.baby_billing.cdr_generator.services.IFileManagerService;
 import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -23,6 +24,7 @@ public class CdrService implements ICdrService {
 
     private IDatabaseService databaseService;
     private IRandomGeneratorService randomGeneratorService;
+    private IFileManagerService fileManagerService;
 
     private static final int MAX_CALLS_PER_FILE = 10;
     private static final long MAX_DURATION_PER_CALL = 3600;
@@ -30,10 +32,10 @@ public class CdrService implements ICdrService {
     public void processCdr(List<History> historyList) {
         databaseService.saveCdrToDatabase(historyList);
 
-        List<List<History>> files = splitIntoFiles(historyList);
+        List<List<History>> files = fileManagerService.splitIntoFiles(historyList, MAX_CALLS_PER_FILE);
         for (int i = 0; i < files.size(); i++) {
             String fileName = "data/cdr_" + (i + 1) + ".txt";
-            saveCdrToFile(files.get(i), fileName);
+            fileManagerService.saveCdrToFile(files.get(i), fileName);
         }
     }
 
@@ -96,45 +98,5 @@ public class CdrService implements ICdrService {
         incomingCdr.setStartTime(outgoingCdr.getStartTime());
         incomingCdr.setEndTime(outgoingCdr.getEndTime());
         return incomingCdr;
-    }
-
-    private void saveCdrToFile(List<History> historyList, String fileName) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            e.printStackTrace();
-        }
-
-        try (FileWriter writer = new FileWriter(fileName)) {
-            for (History history : historyList) {
-                writer.write(history.toString() + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private List<List<History>> splitIntoFiles(List<History> historyList) {
-        List<List<History>> files = new ArrayList<>();
-        List<History> currentFile = new ArrayList<>();
-        int count = 0;
-
-        for (History history : historyList) {
-            currentFile.add(history);
-            count++;
-
-            if (count == MAX_CALLS_PER_FILE) {
-                files.add(new ArrayList<>(currentFile));
-                currentFile.clear();
-                count = 0;
-            }
-        }
-
-        if (!currentFile.isEmpty()) {
-            files.add(new ArrayList<>(currentFile));
-        }
-
-        return files;
     }
 }

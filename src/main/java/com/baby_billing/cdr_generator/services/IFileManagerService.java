@@ -10,4 +10,8 @@ public interface IFileManagerService {
     void checkAndCleanDataFolder() throws IOException;
 
     List<History> readHistoryFromFile() throws IOException;
+
+    List<List<History>> splitIntoFiles(List<History> historyList, int maxCallsPerFile);
+
+    void saveCdrToFile(List<History> historyList, String fileName);
 }

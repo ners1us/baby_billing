@@ -5,10 +5,7 @@ import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.services.IFileManagerService;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +54,46 @@ public class FileManagerService implements IFileManagerService {
             }
         }
         return historyList;
+    }
+
+    public List<List<History>> splitIntoFiles(List<History> historyList, int maxCallsPerFile) {
+        List<List<History>> files = new ArrayList<>();
+        List<History> currentFile = new ArrayList<>();
+        int count = 0;
+
+        for (History history : historyList) {
+            currentFile.add(history);
+            count++;
+
+            if (count == maxCallsPerFile) {
+                files.add(new ArrayList<>(currentFile));
+                currentFile.clear();
+                count = 0;
+            }
+        }
+
+        if (!currentFile.isEmpty()) {
+            files.add(new ArrayList<>(currentFile));
+        }
+
+        return files;
+    }
+
+    public void saveCdrToFile(List<History> historyList, String fileName) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (History history : historyList) {
+                writer.write(history.toString() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private Client parseClient(String phone) {
