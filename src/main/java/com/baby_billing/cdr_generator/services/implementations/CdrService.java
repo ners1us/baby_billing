@@ -2,17 +2,14 @@ package com.baby_billing.cdr_generator.services.implementations;
 
 import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
-import com.baby_billing.cdr_generator.repositories.IHistoryRepository;
 import com.baby_billing.cdr_generator.services.ICdrService;
 import com.baby_billing.cdr_generator.services.IDatabaseService;
 import com.baby_billing.cdr_generator.services.IFileManagerService;
 import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,6 +25,13 @@ public class CdrService implements ICdrService {
 
     private static final int MAX_CALLS_PER_FILE = 10;
     private static final long MAX_DURATION_PER_CALL = 3600;
+
+    @PostConstruct
+    public void initialize() {
+        if (databaseService.countClients() == 0) {
+            databaseService.populateClientsData();
+        }
+    }
 
     public void processCdr(List<History> historyList) {
         databaseService.saveCdrToDatabase(historyList);
