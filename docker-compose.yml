@@ -1,19 +1,16 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8070:8070"
-    depends_on:
-      - cdr-db
-      - broker
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:h2:tcp://cdr-db:1521/test
-      SPRING_RABBITMQ_HOST: broker
-    volumes:
-      - ./sql:/docker-entrypoint-initdb.d
-      - ./H2:/opt/h2-data
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8070:8070"
+#    depends_on:
+#      - cdr-db
+#      - broker
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:h2:tcp://cdr-db:1521/test_db
+#      SPRING_RABBITMQ_HOST: broker
   broker:
     image: rabbitmq:3.13.1-management
     container_name: bb-rabbitmq
@@ -27,5 +24,8 @@ services:
     ports:
       - "1521:1521"
       - "81:81"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - ./H2:/opt/h2-data
     environment:
       - H2_OPTIONS=-ifNotExists
