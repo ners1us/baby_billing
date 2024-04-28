@@ -13,7 +13,7 @@ services:
       SPRING_RABBITMQ_HOST: broker
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
-      - ./H2_data:/opt/h2-data
+      - ./H2:/opt/h2-data
   broker:
     image: rabbitmq:3.13.1-management
     container_name: bb-rabbitmq
