@@ -22,10 +22,10 @@ public class History {
     @JoinColumn(name = "caller_id", nullable = false)
     private Client caller;
 
-    @Column(nullable = false)
+    @Column(name = "start_time", nullable = false)
     private long startTime;
 
-    @Column(nullable = false)
+    @Column(name = "end_time", nullable = false)
     private long endTime;
 
     @Override
