@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS clients (
                                        phone_number VARCHAR(14) NOT NULL
     );
 
-CREATE TABLE IF NOT EXISTS brtHistory (
+CREATE TABLE IF NOT EXISTS history (
                                        id INT AUTO_INCREMENT PRIMARY KEY,
                                        type VARCHAR(2) NOT NULL,
     client_id INT NOT NULL,
