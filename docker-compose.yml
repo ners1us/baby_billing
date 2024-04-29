@@ -20,7 +20,7 @@ services:
       - "5672:5672"
   cdr-db:
     image: oscarfonts/h2
-    container_name: h2
+    container_name: h2_cdr
     ports:
       - "1521:1521"
       - "81:81"
@@ -29,3 +29,29 @@ services:
       - ./H2:/opt/h2-data
     environment:
       - H2_OPTIONS=-ifNotExists
+#  brt-db:
+#    image: postgres:latest
+#    container_name: postgres_brt
+#    restart: unless-stopped
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ./sql/init-1.sql:/docker-entrypoint-initdb.d
+#      - ./BRT:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_USER=user1
+#      - POSTGRES_PASSWORD=password1
+#      - POSTGRES_DB=brt
+#  hrs-db:
+#      image: postgres:latest
+#      container_name: postgres_hrs
+#      restart: unless-stopped
+#      ports:
+#        - "5433:5432"
+#      volumes:
+#        - ./sql/hrs:/docker-entrypoint-initdb.d
+#        - ./HRS:/var/lib/postgresql/data
+#      environment:
+#        - POSTGRES_USER=user2
+#        - POSTGRES_PASSWORD=password2
+#        - POSTGRES_DB=hrs
