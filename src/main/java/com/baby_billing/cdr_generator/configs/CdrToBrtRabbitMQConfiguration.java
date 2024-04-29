@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CdrToBrtRabbitMQConfiguration {
 
-    @Value("${rabbitmq.queue.name}")
+    @Value("${rabbitmq.cdr.to.brt.queue.name}")
     private String cdrToBrtQueue;
 
     @Value("${rabbitmq.exchange.name}")

@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CdrToBrtRabbitMQConsumer {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrToBrtRabbitMQConsumer.class);
 
-    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
+    @RabbitListener(queues = {"${rabbitmq.cdr.to.brt.queue.name}"})
     public void consumeMessage(History history) {
         LOGGER.info(String.format("Consumed message -> %s", history.toString()));
     }
