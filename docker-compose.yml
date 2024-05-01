@@ -3,17 +3,25 @@ services:
 #    build:
 #      context: .
 #      dockerfile: Dockerfile
+#    restart: unless-stopped
 #    ports:
 #      - "8070:8070"
 #    depends_on:
-#      - postgres
-#      - broker
+#      cdr-db:
+#        condition: service_healthy
+#      broker:
+#        condition: service_healthy
+#      brt-db:
+#        condition: service_healthy
 #    environment:
-#      test_db-url: jdbc:postgres://postgres:5432/test_db
+#      test_db-url: jdbc:postgresql://cdr-db:5432/test_db
 #      test_db-username: sa
 #      test_db-password: password
+#      brt-url: jdbc:postgresql://brt-db:5432/brt
+#      brt-username: user1
+#      brt-password: password1
 #      rabbit_broker: broker
-#    restart: unless-stopped
+
   broker:
     image: rabbitmq:3.13.1-management
     container_name: bb-rabbitmq
@@ -21,32 +29,52 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-  postgres:
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  cdr-db:
     image: postgres:14.7
-    container_name: postgres
+    container_name: postgres_cdr
     restart: unless-stopped
     ports:
       - "5432:5432"
     volumes:
       - ./sql/test_db:/docker-entrypoint-initdb.d
-      - ./postgres:/var/lib/postgresql/data
+      - ./CDR:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=sa
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=test_db
-#  brt-db:
-#    image: postgres:latest
-#    container_name: postgres_brt
-#    restart: unless-stopped
-#    ports:
-#      - "5432:5432"
-#    volumes:
-#      - ./sql/init-1.sql:/docker-entrypoint-initdb.d
-#      - ./BRT:/var/lib/postgresql/data
-#    environment:
-#      - POSTGRES_USER=user1
-#      - POSTGRES_PASSWORD=password1
-#      - POSTGRES_DB=brt
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sa"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  brt-db:
+    image: postgres:14.7
+    container_name: postgres_brt
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./sql/brt:/docker-entrypoint-initdb.d
+      - ./BRT:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=user1
+      - POSTGRES_PASSWORD=password1
+      - POSTGRES_DB=brt
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
 #  hrs-db:
 #      image: postgres:latest
 #      container_name: postgres_hrs
