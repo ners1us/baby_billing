@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitMQConfiguration {
+public class BrtToHrsRabbitMQConfiguration {
 
     @Value("${rabbitmq.brt.to.hrs.queue.name}")
     private String queueName;
 
-    @Value("${rabbitmq.exchange.name}")
+    @Value("${rabbitmq.exchange.brt-hrs.name}")
     private String exchangeName;
 
     @Value("${rabbitmq.brt.to.hrs.key}")
@@ -31,7 +31,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public Binding brtToCdrBinding() {
+    public Binding brtToHrsBinding() {
         return BindingBuilder.bind(brtQueue()).
                 to(brtExchange())
                 .with(routingKey);
