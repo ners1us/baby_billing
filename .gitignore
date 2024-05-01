@@ -3,8 +3,9 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-postgres
 data
+CDR
+BRT
 
 ### STS ###
 .apt_generated
