@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CdrToBrtRabbitMQPublisher {
 
-    @Value("${rabbitmq.exchange.name}")
+    @Value("${rabbitmq.exchange.cdr-brt.name}")
     private String exchange;
 
     @Value("${rabbitmq.cdr.to.brt.key}")

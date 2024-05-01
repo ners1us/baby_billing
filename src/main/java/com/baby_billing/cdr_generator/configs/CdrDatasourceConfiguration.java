@@ -16,26 +16,25 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.baby_billing.cdr_generator.repositories",
+@EnableJpaRepositories(basePackages = {"com.baby_billing.cdr_generator.repositories"},
         entityManagerFactoryRef = "cdrManagerFactory",
         transactionManagerRef = "cdrTransactionManager")
 public class CdrDatasourceConfiguration {
-    @Bean
+    @Bean("cdrDataSourceProperties")
     @Primary
     @ConfigurationProperties("spring.datasource.cdr")
     public DataSourceProperties cdrDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Bean
+    @Bean("cdrDataSource")
     @Primary
-    @ConfigurationProperties("spring.datasource.cdr.configuration")
-    public DataSource cdrDataSource() {
+    @ConfigurationProperties("spring.datasource.cdr.configs")
+    public HikariDataSource cdrDataSource() {
         return cdrDataSourceProperties().initializeDataSourceBuilder()
                 .type(HikariDataSource.class)
                 .build();
