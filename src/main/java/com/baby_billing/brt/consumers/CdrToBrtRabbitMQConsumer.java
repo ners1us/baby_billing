@@ -1,17 +1,31 @@
 package com.baby_billing.brt.consumers;
 
+import com.baby_billing.brt.entities.BrtHistory;
+import com.baby_billing.brt.services.IBrtService;
+import com.baby_billing.brt.services.IBrtHistoryRecordManagerService;
 import com.baby_billing.cdr_generator.entities.History;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CdrToBrtRabbitMQConsumer {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrToBrtRabbitMQConsumer.class);
 
-    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
+    private final IBrtService brtService;
+
+    private final IBrtHistoryRecordManagerService brtHistoryRecordManagerService;
+
+    @RabbitListener(queues = {"${rabbitmq.cdr.to.brt.queue.name}"})
     public void consumeMessage(History history) {
         LOGGER.info(String.format("Consumed message -> %s", history.toString()));
+
+        BrtHistory brtHistory = brtHistoryRecordManagerService.convertToNewHistory(history);
+
+        brtService.processCdr(brtHistory);
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 public class DatabaseService implements IDatabaseService {
 
     private IHistoryRepository historyRepository;
+
     private IClientRepository clientRepository;
 
     public void saveCdrToDatabase(List<History> historyList) {
