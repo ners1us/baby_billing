@@ -42,7 +42,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./sql/test_db:/docker-entrypoint-initdb.d
       - ./CDR:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=sa
@@ -62,7 +61,6 @@ services:
     ports:
       - "5434:5432"
     volumes:
-      - ./sql/brt:/docker-entrypoint-initdb.d
       - ./BRT:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user1
@@ -76,15 +74,20 @@ services:
       start_period: 30s
 
 #  hrs-db:
-#      image: postgres:latest
+#      image: postgres:14.7
 #      container_name: postgres_hrs
 #      restart: unless-stopped
 #      ports:
-#        - "5433:5432"
+#        - "5435:5432"
 #      volumes:
-#        - ./sql/hrs:/docker-entrypoint-initdb.d
 #        - ./HRS:/var/lib/postgresql/data
 #      environment:
 #        - POSTGRES_USER=user2
 #        - POSTGRES_PASSWORD=password2
 #        - POSTGRES_DB=hrs
+#      healthcheck:
+#        test: ["CMD-SHELL", "pg_isready -U user2"]
+#        interval: 30s
+#        timeout: 10s
+#        retries: 3
+#        start_period: 30s

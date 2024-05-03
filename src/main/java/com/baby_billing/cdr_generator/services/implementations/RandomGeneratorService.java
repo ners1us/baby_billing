@@ -16,6 +16,7 @@ public class RandomGeneratorService implements IRandomGeneratorService {
 
     @NonNull
     private final IClientRepository clientRepository;
+
     private final Random random = new Random();
 
     public Client getRandomClient() {
