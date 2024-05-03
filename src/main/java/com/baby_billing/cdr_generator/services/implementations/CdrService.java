@@ -10,6 +10,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +22,9 @@ import java.util.concurrent.CompletableFuture;
 public class CdrService implements ICdrService {
 
     private IDatabaseService databaseService;
+
     private IRandomGeneratorService randomGeneratorService;
+
     private IFileManagerService fileManagerService;
 
     private static final int MAX_CALLS_PER_FILE = 10;
@@ -57,6 +61,14 @@ public class CdrService implements ICdrService {
         }
 
         return CompletableFuture.completedFuture(historyList);
+    }
+
+    public List<History> readHistory() throws IOException {
+        return fileManagerService.readHistoryFromFile();
+    }
+
+    public void checkAndCleanData() throws IOException {
+        fileManagerService.checkAndCleanDataFolder();
     }
 
     private List<History> generateCdrForMonth(long startTime, int numCalls) {
