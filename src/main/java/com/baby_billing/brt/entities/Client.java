@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 @Table(name = "clients")
 public class Client {
     @Id
-    @Column(name = "client_id")
+    @Column(name = "client_id", nullable = false, length = 14)
     private String clientId;
 
-    @Column(name = "tariff_id")
+    @Column(name = "tariff_id", nullable = false)
     private Integer tariffId;
 
     @Column(name = "balance")

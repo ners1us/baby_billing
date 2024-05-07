@@ -14,25 +14,25 @@ public class BrtHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = false, length = 2)
     private String type;
 
-    @Column(name = "client_id")
+    @Column(name = "client_id", nullable = false, length = 14)
     private String client;
 
-    @Column(name = "caller_id")
+    @Column(name = "caller_id", nullable = false, length = 14)
     private String callerId;
 
-    @Column(name = "start_time")
+    @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
 
-    @Column(name = "end_time")
+    @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
-    @Column(name = "tariff_id")
+    @Column(name = "tariff_id", nullable = false)
     private Integer tariffId;
 
-    @Column(name = "internal")
+    @Column(name = "internal", nullable = false)
     private Boolean internal;
 
     @Column(name = "cost")
