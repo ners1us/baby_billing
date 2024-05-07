@@ -14,10 +14,10 @@ public class Tariffs {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "tariff_id")
+    @Column(name = "tariff_id", nullable = false)
     private Integer tariffId;
 
-    @Column(name = "tariff_rules", columnDefinition = "jsonb")
+    @Column(name = "tariff_rules", columnDefinition = "jsonb", nullable = false)
     @Convert(converter = TariffRulesConverter.class)
     @ColumnTransformer(write = "?::jsonb")
     private TariffRules tariffRules;
