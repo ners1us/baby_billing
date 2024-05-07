@@ -5,6 +5,7 @@ import com.baby_billing.brt.entities.Client;
 import com.baby_billing.brt.entities.TariffPaymentHistory;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface IBrtDatabaseService {
 
@@ -17,6 +18,8 @@ public interface IBrtDatabaseService {
     void saveTariffPaymentHistoryToDatabase(TariffPaymentHistory tariffPaymentHistory);
 
     BrtHistory findBrtHistoryById(Long id);
+
+    List<BrtHistory> getAllBrtHistories();
 
     Client findClientById(String clientId);
 

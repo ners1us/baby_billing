@@ -54,6 +54,10 @@ public class BrtDatabaseService implements IBrtDatabaseService {
         return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime);
     }
 
+    public List<BrtHistory> getAllBrtHistories() {
+        return brtHistoryRepository.findAll();
+    }
+
     public void populateBrtClientsData() {
         List<Client> clients = new ArrayList<>();
 
