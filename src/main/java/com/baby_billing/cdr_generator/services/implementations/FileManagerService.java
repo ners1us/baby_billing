@@ -80,13 +80,6 @@ public class FileManagerService implements IFileManagerService {
     }
 
     public void saveCdrToFile(List<History> historyList, String fileName) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            e.printStackTrace();
-        }
-
         try (FileWriter writer = new FileWriter(fileName)) {
             for (History history : historyList) {
                 writer.write(history.toString() + "\n");
