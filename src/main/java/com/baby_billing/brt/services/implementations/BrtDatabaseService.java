@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,10 @@ public class BrtDatabaseService implements IBrtDatabaseService {
 
     public BrtHistory findBrtHistoryById(Long id) {
         return brtHistoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find brt history"));
+    }
+
+    public BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime) {
+        return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime);
     }
 
     public void populateBrtClientsData() {
