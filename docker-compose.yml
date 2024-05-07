@@ -1,26 +1,31 @@
 services:
-  #  app:
-  #    build:
-  #      context: .
-  #      dockerfile: Dockerfile
-  #    restart: unless-stopped
-  #    ports:
-  #      - "8070:8070"
-  #    depends_on:
-  #      cdr-db:
-  #        condition: service_healthy
-  #      broker:
-  #        condition: service_healthy
-  #      brt-db:
-  #        condition: service_healthy
-  #    environment:
-  #      test_db-url: jdbc:postgresql://cdr-db:5432/test_db
-  #      test_db-username: sa
-  #      test_db-password: password
-  #      brt-url: jdbc:postgresql://brt-db:5432/brt
-  #      brt-username: user1
-  #      brt-password: password1
-  #      rabbit_broker: broker
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8070:8070"
+    depends_on:
+      cdr-db:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+      brt-db:
+        condition: service_healthy
+      hrs-db:
+        condition: service_healthy
+    environment:
+      test_db-url: jdbc:postgresql://cdr-db:5432/test_db
+      test_db-username: sa
+      test_db-password: password
+      brt-url: jdbc:postgresql://brt-db:5432/brt
+      brt-username: user1
+      brt-password: password1
+      hrs-url: jdbc:postgresql://hrs-db:5432/hrs
+      hrs-username: user2
+      hrs-password: password2
+      rabbit_broker: broker
 
   broker:
     image: rabbitmq:3.13.1-management
