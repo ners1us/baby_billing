@@ -1,6 +1,6 @@
 package com.baby_billing.hrs.consumers;
 
-import com.baby_billing.hrs.services.implementations.HrsService;
+import com.baby_billing.hrs.services.IHrsService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ public class BrtToHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BrtToHrsRabbitMQConsumer.class);
 
-    private final HrsService hrsService;
+    private final IHrsService hrsService;
 
     @RabbitListener(queues = {"${rabbitmq.brt.to.hrs.queue.name}"})
     public void consumeMessage(String brtHistoryJson) {
