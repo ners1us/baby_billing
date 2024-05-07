@@ -1,6 +1,5 @@
-package com.baby_billing.brt.controllers.implementations;
+package com.baby_billing.brt.controllers;
 
-import com.baby_billing.brt.controllers.IBrtController;
 import com.baby_billing.brt.entities.BrtHistory;
 import com.baby_billing.brt.publishers.BrtToHrsRabbitMQPublisher;
 import com.baby_billing.brt.services.IBrtDatabaseService;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @AllArgsConstructor
-public class BrtController implements IBrtController {
+public class BrtController {
 
     private final BrtToHrsRabbitMQPublisher brtToHrsRabbitMQPublisher;
 
