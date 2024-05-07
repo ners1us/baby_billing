@@ -20,8 +20,8 @@ public class BalanceCalculatorService implements IBalanceCalculatorService {
         if (client == null) {
             throw new RuntimeException("Client not found");
         } else {
-            double newBalance = client.getBalance().doubleValue() - cost.doubleValue();
-            client.setBalance(new BigDecimal(newBalance));
+            BigDecimal newBalance = client.getBalance().subtract(cost);
+            client.setBalance(newBalance);
             clientRepository.save(client);
         }
     }
