@@ -37,8 +37,6 @@ public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerS
         }
     }
 
-
-
     public BrtHistory convertToNewHistory(History oldHistory) {
         BrtHistory newHistory = new BrtHistory();
         newHistory.setType(oldHistory.getType());
