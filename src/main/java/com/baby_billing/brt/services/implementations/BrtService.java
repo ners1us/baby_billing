@@ -37,7 +37,9 @@ public class BrtService implements IBrtService {
     public void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) {
         BrtHistory existingHistory = brtDatabaseService.findBrtHistoryByAttributes(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
 
-        existingHistory.setCost(brtHistory.getCost());
+        BigDecimal existingCost = existingHistory.getCost().add(cost);
+
+        existingHistory.setCost(existingCost);
         existingHistory.setStartTime(brtHistory.getStartTime());
         existingHistory.setEndTime(brtHistory.getEndTime());
         brtDatabaseService.saveBrtHistoryToDatabase(existingHistory);
