@@ -1,6 +1,5 @@
-package com.baby_billing.brt.controllers.implementations;
+package com.baby_billing.brt.controllers;
 
-import com.baby_billing.brt.controllers.IBrtController;
 import com.baby_billing.brt.entities.BrtHistory;
 import com.baby_billing.brt.publishers.BrtToHrsRabbitMQPublisher;
 import com.baby_billing.brt.services.IBrtDatabaseService;
@@ -11,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 @AllArgsConstructor
-public class BrtController implements IBrtController {
+public class BrtController {
 
     private final BrtToHrsRabbitMQPublisher brtToHrsRabbitMQPublisher;
 
@@ -28,5 +29,17 @@ public class BrtController implements IBrtController {
         brtToHrsRabbitMQPublisher.sendCallToHrs(brtHistory);
 
         return ResponseEntity.ok("History sent to Hrs successfully.");
+    }
+
+    @PostMapping("/sendAllHistoriesToHrs")
+    public ResponseEntity<String> sendAllHistoriesToHrs() {
+
+        List<BrtHistory> brtHistories = brtDatabaseService.getAllBrtHistories();
+
+        for (BrtHistory brtHistory : brtHistories) {
+            brtToHrsRabbitMQPublisher.sendCallToHrs(brtHistory);
+        }
+
+        return ResponseEntity.ok("All histories sent to Hrs successfully.");
     }
 }

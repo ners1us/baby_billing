@@ -35,9 +35,23 @@ public class BrtService implements IBrtService {
     }
 
     public void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) {
-        brtHistory.setCost(cost);
+        BrtHistory existingHistory = brtDatabaseService.findBrtHistoryByAttributes(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
 
-        brtDatabaseService.saveBrtHistoryToDatabase(brtHistory);
+        BigDecimal existingCost = existingHistory.getCost().add(cost);
+
+        existingHistory.setCost(existingCost);
+        existingHistory.setStartTime(brtHistory.getStartTime());
+        existingHistory.setEndTime(brtHistory.getEndTime());
+
+        brtDatabaseService.saveBrtHistoryToDatabase(existingHistory);
+
+        TariffPaymentHistory paymentHistory = new TariffPaymentHistory();
+        paymentHistory.setClientId(existingHistory.getClient());
+        paymentHistory.setTariffId(existingHistory.getTariffId());
+        paymentHistory.setCost(cost);
+        paymentHistory.setTime(existingHistory.getEndTime());
+
+        brtDatabaseService.saveTariffPaymentHistoryToDatabase(paymentHistory);
 
         balanceCalculator.calculateClientBalance(brtHistory.getClient(), cost);
     }
@@ -50,6 +64,7 @@ public class BrtService implements IBrtService {
             throw new RuntimeException("Client not found");
         } else {
             client.setTariffId(tariffPaymentHistory.getTariffId());
+
             brtDatabaseService.saveClientToDatabase(client);
         }
     }
