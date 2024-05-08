@@ -25,4 +25,5 @@ public class TariffPaymentHistory {
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
+
 }

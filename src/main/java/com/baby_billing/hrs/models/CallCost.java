@@ -21,5 +21,6 @@ public class CallCost {
     private LocalDateTime endTime;
 
     private BigDecimal cost;
+
 }
 

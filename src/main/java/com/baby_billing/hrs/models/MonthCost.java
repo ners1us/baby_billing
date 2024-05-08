@@ -19,4 +19,5 @@ public class MonthCost {
     private BigDecimal cost;
 
     private LocalDateTime endTime;
+
 }

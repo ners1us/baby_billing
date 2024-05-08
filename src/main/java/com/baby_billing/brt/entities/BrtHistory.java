@@ -37,4 +37,5 @@ public class BrtHistory {
 
     @Column(name = "cost", columnDefinition = "DECIMAL(38, 2) DEFAULT '0.00'")
     private BigDecimal cost = BigDecimal.ZERO;
+
 }

@@ -11,4 +11,5 @@ public class Prepaid implements Serializable {
     private BigDecimal tariffCost;
 
     private Limits limits;
+
 }
