@@ -6,6 +6,7 @@ target/
 data
 CDR
 BRT
+HRS
 
 ### STS ###
 .apt_generated

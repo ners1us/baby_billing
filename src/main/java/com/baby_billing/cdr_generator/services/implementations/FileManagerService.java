@@ -3,6 +3,8 @@ package com.baby_billing.cdr_generator.services.implementations;
 import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.services.IFileManagerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Service
 public class FileManagerService implements IFileManagerService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileManagerService.class);
 
     public void checkAndCleanDataFolder(){
         File dataFolder = new File("data");
@@ -80,19 +84,12 @@ public class FileManagerService implements IFileManagerService {
     }
 
     public void saveCdrToFile(List<History> historyList, String fileName) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            e.printStackTrace();
-        }
-
         try (FileWriter writer = new FileWriter(fileName)) {
             for (History history : historyList) {
                 writer.write(history.toString() + "\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 

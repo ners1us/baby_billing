@@ -50,7 +50,7 @@ public class CdrService implements ICdrService {
     @Async("asyncTaskExecutor")
     public CompletableFuture<List<History>> generateCdr() {
         List<History> historyList = new ArrayList<>();
-        long startTime = 1617235200L;
+        long startTime = 1680307200L;
         long endTime = startTime + 31536000L;
 
         while (startTime < endTime) {
