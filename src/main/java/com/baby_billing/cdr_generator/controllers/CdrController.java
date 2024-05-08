@@ -4,6 +4,8 @@ import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.baby_billing.cdr_generator.services.ICdrService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ public class CdrController {
     private final CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher;
 
     private final ICdrService cdrService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CdrController.class);
 
     @PostMapping("/generateCdr")
     public ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException, IOException {
@@ -42,7 +46,7 @@ public class CdrController {
                 cdrToBrtRabbitMQPublisher.sendMessage(history);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error reading files from data folder");
         }
 
