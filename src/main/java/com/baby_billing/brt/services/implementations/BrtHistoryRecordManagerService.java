@@ -33,6 +33,7 @@ public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerS
             brtHistory.setTariffId(client.getTariffId());
             boolean internalCall = clientRepository.existsById(brtHistory.getCallerId());
             brtHistory.setInternal(internalCall);
+
             brtDatabaseService.saveBrtHistoryToDatabase(brtHistory);
         }
     }

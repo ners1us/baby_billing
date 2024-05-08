@@ -22,6 +22,7 @@ public class BalanceCalculatorService implements IBalanceCalculatorService {
         } else {
             BigDecimal newBalance = client.getBalance().subtract(cost);
             client.setBalance(newBalance);
+
             clientRepository.save(client);
         }
     }
