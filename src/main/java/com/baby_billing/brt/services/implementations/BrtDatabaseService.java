@@ -65,16 +65,16 @@ public class BrtDatabaseService implements IBrtDatabaseService {
     public void populateBrtClientsData() {
         List<Client> clients = new ArrayList<>();
 
-        clients.add(new Client("7907443733", FIRST_TARIFF_TYPE, new BigDecimal(10000)));
-        clients.add(new Client("7902524952", SECOND_TARIFF_TYPE, new BigDecimal(5000)));
-        clients.add(new Client("7908534237", FIRST_TARIFF_TYPE, new BigDecimal(12000)));
-        clients.add(new Client("7901893628", SECOND_TARIFF_TYPE, new BigDecimal(3000)));
-        clients.add(new Client("7909211047", FIRST_TARIFF_TYPE, new BigDecimal(6000)));
-        clients.add(new Client("7902103800", SECOND_TARIFF_TYPE, new BigDecimal(8000)));
-        clients.add(new Client("7905453942", FIRST_TARIFF_TYPE, new BigDecimal(2000)));
-        clients.add(new Client("7901963484", SECOND_TARIFF_TYPE, new BigDecimal(4000)));
-        clients.add(new Client("7908999056", FIRST_TARIFF_TYPE, new BigDecimal(500)));
-        clients.add(new Client("7903377234", SECOND_TARIFF_TYPE, new BigDecimal(700)));
+        clients.add(new Client("79074437331", FIRST_TARIFF_TYPE, new BigDecimal(10000)));
+        clients.add(new Client("79025249522", SECOND_TARIFF_TYPE, new BigDecimal(5000)));
+        clients.add(new Client("79085342373", FIRST_TARIFF_TYPE, new BigDecimal(12000)));
+        clients.add(new Client("79018936284", SECOND_TARIFF_TYPE, new BigDecimal(3000)));
+        clients.add(new Client("79092110475", FIRST_TARIFF_TYPE, new BigDecimal(6000)));
+        clients.add(new Client("79021038006", SECOND_TARIFF_TYPE, new BigDecimal(8000)));
+        clients.add(new Client("79054539427", FIRST_TARIFF_TYPE, new BigDecimal(2000)));
+        clients.add(new Client("79019634848", SECOND_TARIFF_TYPE, new BigDecimal(4000)));
+        clients.add(new Client("79089990569", FIRST_TARIFF_TYPE, new BigDecimal(500)));
+        clients.add(new Client("79033772341", SECOND_TARIFF_TYPE, new BigDecimal(700)));
 
         brtClientRepository.saveAll(clients);
     }

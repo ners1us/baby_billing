@@ -29,26 +29,26 @@ public class DatabaseService implements IDatabaseService {
 
     public void populateClientsData() {
         List<Client> clients = new ArrayList<>();
-        clients.add(new Client("7907443733"));
-        clients.add(new Client("7902524952"));
-        clients.add(new Client("7908534237"));
-        clients.add(new Client("7901893628"));
-        clients.add(new Client("7909211047"));
-        clients.add(new Client("7902103800"));
-        clients.add(new Client("7905453942"));
-        clients.add(new Client("7901963484"));
-        clients.add(new Client("7908999056"));
-        clients.add(new Client("7903377234"));
-        clients.add(new Client("7902930449"));
-        clients.add(new Client("7901903445"));
-        clients.add(new Client("7905979874"));
-        clients.add(new Client("7902221970"));
-        clients.add(new Client("7903069667"));
-        clients.add(new Client("7902397136"));
-        clients.add(new Client("7904560130"));
-        clients.add(new Client("7903887909"));
-        clients.add(new Client("7900255175"));
-        clients.add(new Client("7900716900"));
+        clients.add(new Client("79074437331"));
+        clients.add(new Client("79025249522"));
+        clients.add(new Client("79085342373"));
+        clients.add(new Client("79018936284"));
+        clients.add(new Client("79092110475"));
+        clients.add(new Client("79021038006"));
+        clients.add(new Client("79054539427"));
+        clients.add(new Client("79019634848"));
+        clients.add(new Client("79089990569"));
+        clients.add(new Client("79033772341"));
+        clients.add(new Client("79029304492"));
+        clients.add(new Client("79019034453"));
+        clients.add(new Client("79059798744"));
+        clients.add(new Client("79022219705"));
+        clients.add(new Client("79030696676"));
+        clients.add(new Client("79023971367"));
+        clients.add(new Client("79045601308"));
+        clients.add(new Client("79038879099"));
+        clients.add(new Client("79002551751"));
+        clients.add(new Client("79007169002"));
 
         saveClientsToDatabase(clients);
     }
