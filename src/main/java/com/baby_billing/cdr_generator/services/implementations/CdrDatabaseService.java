@@ -4,7 +4,7 @@ import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.repositories.IClientRepository;
 import com.baby_billing.cdr_generator.repositories.IHistoryRepository;
-import com.baby_billing.cdr_generator.services.IDatabaseService;
+import com.baby_billing.cdr_generator.services.ICdrDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class DatabaseService implements IDatabaseService {
+public class CdrDatabaseService implements ICdrDatabaseService {
 
     private IHistoryRepository historyRepository;
 

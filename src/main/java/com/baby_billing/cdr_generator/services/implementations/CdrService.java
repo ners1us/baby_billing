@@ -3,7 +3,7 @@ package com.baby_billing.cdr_generator.services.implementations;
 import com.baby_billing.cdr_generator.entities.Client;
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.services.ICdrService;
-import com.baby_billing.cdr_generator.services.IDatabaseService;
+import com.baby_billing.cdr_generator.services.ICdrDatabaseService;
 import com.baby_billing.cdr_generator.services.IFileManagerService;
 import com.baby_billing.cdr_generator.services.IRandomGeneratorService;
 import jakarta.annotation.PostConstruct;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class CdrService implements ICdrService {
 
-    private IDatabaseService databaseService;
+    private ICdrDatabaseService databaseService;
 
     private IRandomGeneratorService randomGeneratorService;
 

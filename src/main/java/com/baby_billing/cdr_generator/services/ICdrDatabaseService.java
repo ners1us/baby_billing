@@ -5,7 +5,7 @@ import com.baby_billing.cdr_generator.entities.History;
 
 import java.util.List;
 
-public interface IDatabaseService {
+public interface ICdrDatabaseService {
 
     void saveCdrToDatabase(List<History> historyList);
 
