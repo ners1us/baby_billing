@@ -21,6 +21,8 @@ public interface IBrtDatabaseService {
 
     List<BrtHistory> getAllBrtHistories();
 
+    List<Client> getAllClients();
+
     Client findClientById(String clientId);
 
     BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime);

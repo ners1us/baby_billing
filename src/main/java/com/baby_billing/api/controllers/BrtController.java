@@ -1,4 +1,4 @@
-package com.baby_billing.brt.controllers;
+package com.baby_billing.api.controllers;
 
 import com.baby_billing.brt.entities.BrtHistory;
 import com.baby_billing.brt.publishers.BrtToHrsRabbitMQPublisher;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/baby_billing")
 @AllArgsConstructor
 public class BrtController {
 

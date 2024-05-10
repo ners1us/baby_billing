@@ -1,4 +1,4 @@
-package com.baby_billing.cdr_generator.controllers;
+package com.baby_billing.api.controllers;
 
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/baby_billing")
 @AllArgsConstructor
 public class CdrController {
 

@@ -2,12 +2,14 @@ package com.baby_billing.hrs.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "hrs_history")
+@NoArgsConstructor
 @Data
 public class HrsHistory {
     @Id
@@ -56,8 +58,5 @@ public class HrsHistory {
         this.endTime = endTime;
         this.tariffId = tariffId;
         this.internal = internal;
-    }
-
-    public HrsHistory() {
     }
 }
