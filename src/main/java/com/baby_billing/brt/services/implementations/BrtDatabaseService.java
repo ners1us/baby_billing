@@ -58,6 +58,10 @@ public class BrtDatabaseService implements IBrtDatabaseService {
         return brtHistoryRepository.findAll();
     }
 
+    public List<Client> getAllClients() {
+        return brtClientRepository.findAll();
+    }
+
     public void populateBrtClientsData() {
         List<Client> clients = new ArrayList<>();
 
