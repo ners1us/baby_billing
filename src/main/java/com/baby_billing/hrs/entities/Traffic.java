@@ -2,9 +2,11 @@ package com.baby_billing.hrs.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "traffic")
 public class Traffic {
     @Id
@@ -31,6 +33,4 @@ public class Traffic {
         this.tariffId = tariffId;
         this.month = month;
     }
-
-    public Traffic() {}
 }

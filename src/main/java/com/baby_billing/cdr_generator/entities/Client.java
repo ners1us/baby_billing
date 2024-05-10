@@ -2,9 +2,11 @@ package com.baby_billing.cdr_generator.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "clients")
 public class Client {
     @Id
@@ -17,7 +19,4 @@ public class Client {
     public Client(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public Client() {}
-
 }
