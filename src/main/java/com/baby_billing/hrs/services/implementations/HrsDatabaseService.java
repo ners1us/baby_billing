@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Сервис для взаимодействия с базой данных HRS.
+ */
 @Service
 @AllArgsConstructor
 public class HrsDatabaseService implements IHrsDatabaseService {
@@ -28,6 +31,9 @@ public class HrsDatabaseService implements IHrsDatabaseService {
 
     private final ITrafficRepository trafficRepository;
 
+    /**
+     * Заполняет базу данных информацией о тарифах HRS.
+     */
     public void populateHrsTariffsData() {
         Tariffs tariff11 = new Tariffs();
         tariff11.setTariffId(11);
@@ -65,10 +71,23 @@ public class HrsDatabaseService implements IHrsDatabaseService {
         tariffsRepository.save(tariff12);
     }
 
+    /**
+     * Возвращает количество тарифов в базе данных.
+     *
+     * @return Количество тарифов.
+     */
     public long countTariffs() {
         return tariffsRepository.count();
     }
 
+    /**
+     * Сохраняет данные о звонке в базу данных HRS.
+     *
+     * @param brtHistory    Данные о звонке от BRT.
+     * @param duration      Продолжительность звонка в минутах.
+     * @param cost          Стоимость звонка.
+     * @param currentMonth  Текущий месяц.
+     */
     public void saveCallData(BrtHistory brtHistory, long duration, BigDecimal cost, int currentMonth) {
         List<HrsHistory> existingHistories = historyRepository.findByClientIdAndCallerIdAndStartTimeAndEndTime(
                 brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
@@ -101,6 +120,12 @@ public class HrsDatabaseService implements IHrsDatabaseService {
         trafficRepository.save(traffic);
     }
 
+    /**
+     * Возвращает тариф по его идентификатору.
+     *
+     * @param tariffId Идентификатор тарифа.
+     * @return Тариф.
+     */
     public Tariffs getTariff(Integer tariffId) {
         return tariffsRepository.findByTariffId(tariffId);
     }

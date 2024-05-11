@@ -2,11 +2,13 @@ package com.baby_billing.hrs.models;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * Модель представления помесячной оплаты.
+ */
 @Data
-public class Prepaid implements Serializable {
+public class Prepaid {
 
     private BigDecimal tariffCost;
 

@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * Модель для представления превышения лимита.
+ */
 @Data
 public class OverLimit {
 
