@@ -22,7 +22,7 @@
 - [HRS Сервис](https://docs.google.com/document/d/1HjNd-IDC5nQDPpJ3f3gAjznPFq5SsIfD/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [Use-Case](https://docs.google.com/document/d/19Jym4V2EAc4hVurmnbo5_9UYn61sK6K0/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [Общая Схема Проекта](https://drive.google.com/file/d/1dnqJGq3WitTHMvmK762f00M85IKKpGZW/view?usp=sharing)
-- [ERD-Диаграммы](https://drive.google.com/file/d/1J2bDM4hUKx2S_W-lY_oEdO-1e16yMpF5/view?usp=sharing)
+- [ERD-Диаграммы](https://drive.google.com/file/d/1_7H9FaXFSMhkhGGplwR8poeg7LXgdSW8/view?usp=sharing)
 
 ### Запуск приложения
 
@@ -63,4 +63,4 @@ docker system prune -f
     - password: password2
 
 ### Примечание
-Спецификация Swagger находится в файле ```openapi.yaml```. Для проверки работоспособности GET-запросов рекомендуется вручную вводить пути в браузере или использовать инструмент командной строки ```cURL```.
+Спецификация Swagger приведена в файле ```openapi.yaml```. Для проверки работоспособности GET-запросов рекомендуется вручную вводить пути в браузере или использовать инструмент командной строки ```cURL```.
