@@ -53,13 +53,18 @@ public class CdrService implements ICdrService {
      * @param historyList Список объектов History, содержащих информацию о звонках
      */
     public void processCdr(List<History> historyList) {
-        databaseService.saveCdrToDatabase(historyList);
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        List<List<History>> files = fileManagerService.splitIntoFiles(historyList, MAX_CALLS_PER_FILE);
-        for (int i = 0; i < files.size(); i++) {
-            String fileName = "data/cdr_" + (i + 1) + ".txt";
-            fileManagerService.saveCdrToFile(files.get(i), fileName);
-        }
+        futures.add(CompletableFuture.runAsync(() -> databaseService.saveCdrToDatabase(historyList)));
+        futures.add(CompletableFuture.runAsync(() -> {
+            List<List<History>> files = fileManagerService.splitIntoFiles(historyList, MAX_CALLS_PER_FILE);
+            for (int i = 0; i < files.size(); i++) {
+                String fileName = "data/cdr_" + (i + 1) + ".txt";
+                fileManagerService.saveCdrToFile(files.get(i), fileName);
+            }
+        }));
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
     }
 
     /**
