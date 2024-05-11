@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервис, отвечающий за работу с базой данных CDR.
+ */
 @Service
 @AllArgsConstructor
 public class CdrDatabaseService implements ICdrDatabaseService {
@@ -19,14 +22,27 @@ public class CdrDatabaseService implements ICdrDatabaseService {
 
     private IClientRepository clientRepository;
 
+    /**
+     * Сохраняет записи CDR в базу данных.
+     *
+     * @param historyList Список записей CDR.
+     */
     public void saveCdrToDatabase(List<History> historyList) {
         historyRepository.saveAll(historyList);
     }
 
+    /**
+     * Сохраняет клиентов в базу данных.
+     *
+     * @param clients Список абонентов.
+     */
     public void saveClientsToDatabase(List<Client> clients) {
         clientRepository.saveAll(clients);
     }
 
+    /**
+     * Заполняет клиентов в базу данных.
+     */
     public void populateClientsData() {
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("79074437331"));
@@ -53,6 +69,11 @@ public class CdrDatabaseService implements ICdrDatabaseService {
         saveClientsToDatabase(clients);
     }
 
+    /**
+     * Считывает количество клиентов в базе данных.
+     *
+     * @return Количество клиентов.
+     */
     public long countClients() {
         return clientRepository.count();
     }

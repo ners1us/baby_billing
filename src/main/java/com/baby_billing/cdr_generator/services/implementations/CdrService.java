@@ -17,6 +17,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Сервис для генерации и обработки CDR (Call Detail Record).
+ * CDR содержит информацию о звонках, такую как клиент, время начала и окончания звонка и т. д.
+ */
 @Service
 @AllArgsConstructor
 public class CdrService implements ICdrService {
@@ -27,9 +31,15 @@ public class CdrService implements ICdrService {
 
     private IFileManagerService fileManagerService;
 
+    // Максимальное количество звонков в одном файле CDR
     private static final int MAX_CALLS_PER_FILE = 10;
+    // Максимальная продолжительность одного звонка в секундах
     private static final long MAX_DURATION_PER_CALL = 3600;
 
+    /**
+     * Инициализация таблицы клиентов.
+     * Проверяет наличие данных о клиентах в базе данных и, если они отсутствуют, заполняет базу данными из сервиса CdrDatabaseService.
+     */
     @PostConstruct
     public void initialize() {
         if (databaseService.countClients() == 0) {
@@ -37,6 +47,11 @@ public class CdrService implements ICdrService {
         }
     }
 
+    /**
+     * Обрабатывает CDR и сохраняет данные в базу данных и файлы.
+     *
+     * @param historyList Список объектов History, содержащих информацию о звонках
+     */
     public void processCdr(List<History> historyList) {
         databaseService.saveCdrToDatabase(historyList);
 
@@ -47,6 +62,11 @@ public class CdrService implements ICdrService {
         }
     }
 
+    /**
+     * Асинхронно генерирует CDR для всех клиентов в течение года.
+     *
+     * @return CompletableFuture, содержащий список объектов History, представляющих сгенерированные звонки
+     */
     @Async("asyncTaskExecutor")
     public CompletableFuture<List<History>> generateCdr() {
         List<History> historyList = new ArrayList<>();
@@ -64,13 +84,26 @@ public class CdrService implements ICdrService {
         return CompletableFuture.completedFuture(historyList);
     }
 
+    /**
+     * Читает и возвращает историю звонков из файла.
+     *
+     * @return Список объектов History, содержащих информацию о звонках
+     * @throws IOException если возникает ошибка ввода-вывода при чтении файла
+     */
     public List<History> readHistory() throws IOException {
         return fileManagerService.readHistoryFromFile();
     }
 
+    /**
+     * Проверяет наличие и очищает папку с данными.
+     *
+     * @throws IOException если возникает ошибка ввода-вывода при доступе к файлам или папкам
+     */
     public void checkAndCleanData() throws IOException {
         fileManagerService.checkAndCleanDataFolder();
     }
+
+    // Методы генерации звонков
 
     private List<History> generateCdrForMonth(long startTime, int numCalls) {
         List<History> monthHistory = new ArrayList<>();
