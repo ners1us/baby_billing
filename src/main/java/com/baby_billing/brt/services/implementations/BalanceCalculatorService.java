@@ -8,12 +8,21 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+/**
+ * Сервис для вычисления баланса клиента.
+ */
 @Service
 @AllArgsConstructor
 public class BalanceCalculatorService implements IBalanceCalculatorService {
 
     private IBrtClientRepository clientRepository;
 
+    /**
+     * Вычисляет баланс клиента на основе стоимости вызовов и обновляет его в репозитории клиентов.
+     *
+     * @param clientId Номер клиента.
+     * @param cost     Стоимость вызовов для вычета из баланса.
+     */
     public void calculateClientBalance(String clientId, BigDecimal cost) {
         Client client = clientRepository.findById(clientId).orElse(null);
 

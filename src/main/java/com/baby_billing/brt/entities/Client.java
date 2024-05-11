@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * Сущность, представляющая клиентов.
+ */
 @Entity
 @Data
 @NoArgsConstructor

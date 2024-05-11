@@ -6,6 +6,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Сущность, представляющая историю платежей за тарифы.
+ */
 @Entity
 @Data
 @Table(name = "tariff_payments_history")

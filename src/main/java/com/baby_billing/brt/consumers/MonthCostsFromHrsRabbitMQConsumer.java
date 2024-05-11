@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
+/**
+ * Потребитель для получения сообщений о стоимости месячных тарифов из RabbitMQ, отправленных из сервиса HRS.
+ */
 @Service
 @AllArgsConstructor
 public class MonthCostsFromHrsRabbitMQConsumer {
@@ -21,6 +24,11 @@ public class MonthCostsFromHrsRabbitMQConsumer {
 
     private final IBrtService brtService;
 
+    /**
+     * Обрабатывает полученное сообщение о стоимости месячных тарифов из HRS и передает его сервису BRT для обработки.
+     *
+     * @param message Сообщение о стоимости месячных тарифов из HRS в формате JSON.
+     */
     @RabbitListener(queues = {"${rabbitmq.month.hrs.to.brt.queue.name}"})
     public void consumeMessage(String message) {
         try {
