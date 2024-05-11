@@ -2,11 +2,16 @@ package com.baby_billing.brt.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * Сущность, представляющая клиентов.
+ */
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "clients")
 public class Client {
     @Id
@@ -30,7 +35,4 @@ public class Client {
     public Client(String clientId) {
         this.clientId = clientId;
     }
-
-    public Client() {}
-
 }

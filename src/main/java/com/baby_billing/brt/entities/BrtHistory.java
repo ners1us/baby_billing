@@ -6,6 +6,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Сущность, представляющая историю звонков.
+ */
 @Entity
 @Data
 @Table(name = "history")

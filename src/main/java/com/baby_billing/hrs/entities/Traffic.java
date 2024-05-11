@@ -2,9 +2,14 @@ package com.baby_billing.hrs.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+/**
+ * Сущность для хранения информации о трафике (звонках).
+ */
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "traffic")
 public class Traffic {
     @Id
@@ -26,11 +31,11 @@ public class Traffic {
     @Column(name = "minutes_ext_current_month")
     private Long minutesExtCurrentMonth;
 
-    public Traffic (String clientId, Integer tariffId, Integer month) {
+    public Traffic (String clientId,
+                    Integer tariffId,
+                    Integer month) {
         this.clientId = clientId;
         this.tariffId = tariffId;
         this.month = month;
     }
-
-    public Traffic() {}
 }

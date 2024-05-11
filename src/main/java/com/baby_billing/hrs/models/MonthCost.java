@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+
+/**
+ * Модель для представления стоимости за месяц.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

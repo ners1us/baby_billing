@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
+/**
+ * Потребитель для получения сообщений о стоимости вызовов из RabbitMQ, отправленных из сервиса HRS.
+ */
 @Service
 @AllArgsConstructor
 public class CallCostsFromHrsRabbitMQConsumer {
@@ -20,6 +23,11 @@ public class CallCostsFromHrsRabbitMQConsumer {
 
     private final IBrtService brtService;
 
+    /**
+     * Обрабатывает полученное сообщение о стоимости вызовов из HRS и передает его сервису BRT для обработки.
+     *
+     * @param message Сообщение о стоимости вызовов из HRS в формате JSON.
+     */
     @RabbitListener(queues = {"${rabbitmq.call.hrs.to.brt.queue.name}"})
     public void consumeMessage(String message) {
         try {

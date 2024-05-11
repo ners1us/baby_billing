@@ -11,13 +11,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервис для работы с файлами, связанными с CDR.
+ */
 @Service
 public class FileManagerService implements IFileManagerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileManagerService.class);
 
+    /**
+     * Проверяет существование и очищает папку данных.
+     */
     public void checkAndCleanDataFolder(){
         File dataFolder = new File("data");
+
         if (dataFolder.isDirectory()) {
             File[] files = dataFolder.listFiles();
             if (files != null) {
@@ -30,9 +37,16 @@ public class FileManagerService implements IFileManagerService {
         }
     }
 
+    /**
+     * Считывает историю из файлов.
+     *
+     * @return Список объектов History, считанных из файлов.
+     * @throws IOException В случае ошибки ввода-вывода при чтении файлов.
+     */
     public List<History> readHistoryFromFile() throws IOException {
         List<History> historyList = new ArrayList<>();
         File dataFolder = new File("data");
+
         if (dataFolder.isDirectory()) {
             File[] files = dataFolder.listFiles();
             if (files != null) {
@@ -40,8 +54,10 @@ public class FileManagerService implements IFileManagerService {
                     if (file.isFile() && file.getName().endsWith(".txt")) {
                         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                             String line;
+
                             while ((line = br.readLine()) != null) {
                                 String[] parts = line.split(",");
+
                                 if (parts.length == 5) {
                                     History history = new History();
                                     history.setType(parts[0]);
@@ -60,6 +76,13 @@ public class FileManagerService implements IFileManagerService {
         return historyList;
     }
 
+    /**
+     * Разбивает список истории на файлы с заданным количеством вызовов.
+     *
+     * @param historyList     Список истории, который необходимо разделить.
+     * @param maxCallsPerFile Максимальное количество вызовов в одном файле.
+     * @return Список списков истории, разбитой на файлы.
+     */
     public List<List<History>> splitIntoFiles(List<History> historyList, int maxCallsPerFile) {
         List<List<History>> files = new ArrayList<>();
         List<History> currentFile = new ArrayList<>();
@@ -83,6 +106,12 @@ public class FileManagerService implements IFileManagerService {
         return files;
     }
 
+    /**
+     * Сохраняет CDR в файл.
+     *
+     * @param historyList Список объектов History, которые необходимо сохранить.
+     * @param fileName    Имя файла, в который нужно сохранить CDR.
+     */
     public void saveCdrToFile(List<History> historyList, String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
             for (History history : historyList) {
@@ -93,9 +122,17 @@ public class FileManagerService implements IFileManagerService {
         }
     }
 
+    /**
+     * Преобразует строковое представление номера телефона в объект Client.
+     *
+     * @param phone Строковое представление номера телефона.
+     * @return Объект Client с указанным номером телефона.
+     */
     private Client parseClient(String phone) {
         Client client = new Client();
+
         client.setPhoneNumber(phone);
+
         return client;
     }
 }

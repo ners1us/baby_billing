@@ -1,4 +1,4 @@
-package com.baby_billing.cdr_generator.controllers;
+package com.baby_billing.api.controllers;
 
 import com.baby_billing.cdr_generator.entities.History;
 import com.baby_billing.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/baby_billing")
 @AllArgsConstructor
 public class CdrController {
 
@@ -28,11 +27,12 @@ public class CdrController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrController.class);
 
     @PostMapping("/generateCdr")
-    public ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException, IOException {
+    public ResponseEntity<String> generateAndSaveCdr() throws IOException {
         cdrService.checkAndCleanData();
-        Future<List<History>> futureHistoryList = cdrService.generateCdr();
-        List<History> historyList = futureHistoryList.get();
 
+        CompletableFuture<List<History>> cdrFuture = cdrService.generateCdr();
+
+        List<History> historyList = cdrFuture.join();
         cdrService.processCdr(historyList);
 
         return ResponseEntity.ok("Successfully generated files");

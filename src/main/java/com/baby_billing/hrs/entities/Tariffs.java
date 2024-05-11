@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.ColumnTransformer;
 
+/**
+ * Сущность для хранения информации о тарифах.
+ */
 @Entity
 @Table(name = "tariffs")
 @Data
