@@ -12,8 +12,7 @@
 
 - CDR – Call Data Record – формат файла, содержащего в себе информацию о действиях, совершенных абонентом за тарифицируемый период.
 - BRT – Billing Real Time.
-- HRS – High performance rating server.
-- msisdn - Mobile Subscriber Integrated Services Digital Number - номер мобильного абонента цифровой сети.
+- HRS – High performance Rating Server.
 
 ### Постановки
 
@@ -29,7 +28,6 @@
 ```bash
 docker compose up -d --build
 ```
-
 
 ### Остановка приложения
 
@@ -65,4 +63,4 @@ docker system prune -f
 ### Примечания
 Спецификация Swagger приведена в файле ```openapi.yaml```. Для проверки работоспособности GET-запросов рекомендуется вручную вводить пути в браузере или использовать инструмент командной строки ```cURL```.
 
-Если нет возможности открыть Swagger в IDE, можно использовать [онлайн-инструмент](https://editor.swagger.io/) и вставить туда код из ```openapi.yaml```
+Если нет возможности открыть Swagger в IDE, можно использовать [онлайн-инструмент](https://editor.swagger.io/) и вставить туда код из ```openapi.yaml```.
