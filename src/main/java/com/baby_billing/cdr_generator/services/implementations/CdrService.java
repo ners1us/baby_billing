@@ -50,6 +50,7 @@ public class CdrService implements ICdrService {
     @Async("asyncTaskExecutor")
     public CompletableFuture<List<History>> generateCdr() {
         List<History> historyList = new ArrayList<>();
+
         long startTime = 1680307200L;
         long endTime = startTime + 31536000L;
 
@@ -89,6 +90,7 @@ public class CdrService implements ICdrService {
     private History generateRandomCall(long startTime) {
         Client client = randomGeneratorService.getRandomClient();
         Client caller = randomGeneratorService.getRandomClient();
+
         long callStartTime = randomGeneratorService.generateRandomStartTime(startTime, startTime + 2592000L);
         long callEndTime = randomGeneratorService.generateRandomEndTime(callStartTime, MAX_DURATION_PER_CALL);
 
@@ -108,11 +110,13 @@ public class CdrService implements ICdrService {
 
     private History generateReverseCall(History outgoingCdr) {
         History incomingCdr = new History();
+
         incomingCdr.setType("02");
         incomingCdr.setClient(outgoingCdr.getCaller());
         incomingCdr.setCaller(outgoingCdr.getClient());
         incomingCdr.setStartTime(outgoingCdr.getStartTime());
         incomingCdr.setEndTime(outgoingCdr.getEndTime());
+
         return incomingCdr;
     }
 }

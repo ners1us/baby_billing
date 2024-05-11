@@ -26,6 +26,7 @@ public class CdrToBrtRabbitMQPublisher {
 
     public void sendMessage(History history) {
         LOGGER.info(String.format("Message sent -> %s", history.toString()));
+
         rabbitTemplate.convertAndSend(exchange, routingCdrKey, history);
     }
 }

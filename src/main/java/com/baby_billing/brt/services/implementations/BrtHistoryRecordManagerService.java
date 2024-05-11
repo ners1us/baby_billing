@@ -40,6 +40,7 @@ public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerS
 
     public BrtHistory convertToNewHistory(History oldHistory) {
         BrtHistory newHistory = new BrtHistory();
+
         newHistory.setType(oldHistory.getType());
         newHistory.setClient(oldHistory.getClient().getPhoneNumber());
         newHistory.setCallerId(oldHistory.getCaller().getPhoneNumber());

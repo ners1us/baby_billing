@@ -18,6 +18,7 @@ public class FileManagerService implements IFileManagerService {
 
     public void checkAndCleanDataFolder(){
         File dataFolder = new File("data");
+
         if (dataFolder.isDirectory()) {
             File[] files = dataFolder.listFiles();
             if (files != null) {
@@ -33,6 +34,7 @@ public class FileManagerService implements IFileManagerService {
     public List<History> readHistoryFromFile() throws IOException {
         List<History> historyList = new ArrayList<>();
         File dataFolder = new File("data");
+
         if (dataFolder.isDirectory()) {
             File[] files = dataFolder.listFiles();
             if (files != null) {
@@ -40,8 +42,10 @@ public class FileManagerService implements IFileManagerService {
                     if (file.isFile() && file.getName().endsWith(".txt")) {
                         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                             String line;
+
                             while ((line = br.readLine()) != null) {
                                 String[] parts = line.split(",");
+
                                 if (parts.length == 5) {
                                     History history = new History();
                                     history.setType(parts[0]);
@@ -95,7 +99,9 @@ public class FileManagerService implements IFileManagerService {
 
     private Client parseClient(String phone) {
         Client client = new Client();
+
         client.setPhoneNumber(phone);
+
         return client;
     }
 }

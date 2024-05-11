@@ -21,6 +21,7 @@ public class RandomGeneratorService implements IRandomGeneratorService {
 
     public Client getRandomClient() {
         List<Client> clients = clientRepository.findAll();
+
         return clients.get(random.nextInt(clients.size()));
     }
 
