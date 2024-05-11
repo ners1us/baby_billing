@@ -6,11 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
+/**
+ * Конвертер для преобразования объектов типа TariffRules в строку JSON и обратно.
+ */
 @Converter
 public class TariffRulesConverter implements AttributeConverter<TariffRules, String> {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * Преобразует объект TariffRules в строку JSON.
+     *
+     * @param tariffRules Объект TariffRules для преобразования.
+     * @return Строка JSON.
+     * @throws RuntimeException если возникает ошибка при преобразовании.
+     */
     @Override
     public String convertToDatabaseColumn(TariffRules tariffRules) {
         try {
@@ -20,6 +30,13 @@ public class TariffRulesConverter implements AttributeConverter<TariffRules, Str
         }
     }
 
+    /**
+     * Преобразует строку JSON в объект TariffRules.
+     *
+     * @param jsonString Строка JSON для преобразования.
+     * @return Объект TariffRules.
+     * @throws RuntimeException если возникает ошибка при преобразовании.
+     */
     @Override
     public TariffRules convertToEntityAttribute(String jsonString) {
         try {

@@ -17,7 +17,7 @@ public class HrsToBrtRabbitMQConfiguration {
     @Value("${rabbitmq.call.hrs.to.brt.queue.name}")
     private String callQueueName;
 
-    @Value("${rabbitmq.exchange.hrs-brt.name}")
+    @Value("${rabbitmq.exchange.brt-hrs.name}")
     private String exchangeName;
 
     @Value("${rabbitmq.month.hrs.to.brt.key}")

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+/**
+ * Сервис для управления записями истории в BRT.
+ */
 @Service
 @AllArgsConstructor
 public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerService {
@@ -24,6 +27,11 @@ public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerS
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BrtHistoryRecordManagerService.class);
 
+    /**
+     * Обогащает запись истории перед сохранением в базу данных BRT.
+     *
+     * @param brtHistory Запись истории для обогащения.
+     */
     public void enrichHistory(BrtHistory brtHistory) {
         Client client = clientRepository.findById(brtHistory.getClient()).orElse(null);
 
@@ -38,8 +46,15 @@ public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerS
         }
     }
 
+    /**
+     * Преобразует историю вызова из формата CDR в формат BRT.
+     *
+     * @param oldHistory История вызова в формате CDR.
+     * @return Новая запись истории в формате BRT.
+     */
     public BrtHistory convertToNewHistory(History oldHistory) {
         BrtHistory newHistory = new BrtHistory();
+
         newHistory.setType(oldHistory.getType());
         newHistory.setClient(oldHistory.getClient().getPhoneNumber());
         newHistory.setCallerId(oldHistory.getCaller().getPhoneNumber());

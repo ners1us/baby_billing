@@ -25,7 +25,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Сервис для обработки данных в HRS.
+ */
 @Service
 @RequiredArgsConstructor
 public class HrsService implements IHrsService {
@@ -50,6 +52,10 @@ public class HrsService implements IHrsService {
 
     private int currentMonth;
 
+    /**
+     * Инициализация таблицы тарифов.
+     * Проверяет наличие данных о тарифах в базе данных и, если они отсутствуют, заполняет базу данными из сервиса HrsDatabaseService.
+     */
     @PostConstruct
     public void init() {
         if (hrsDatabaseService.countTariffs() == 0) {
@@ -57,6 +63,12 @@ public class HrsService implements IHrsService {
         }
     }
 
+    /**
+     * Обрабатывает звонки от BRT.
+     *
+     * @param json JSON-представление данных о звонке от BRT.
+     * @throws JsonProcessingException если происходит ошибка при обработке JSON.
+     */
     public void processCallsFromBrt(String json) throws JsonProcessingException {
         BrtHistory brtHistory = objectMapper.readValue(json, BrtHistory.class);
 
@@ -80,6 +92,12 @@ public class HrsService implements IHrsService {
         hrsToBrtRabbitMQPublisher.sendCallCostToBrt(brtHistory, cost);
     }
 
+    /**
+     * Обрабатывает смену месяца.
+     *
+     * @param endTime Время окончания звонка, определяющее текущий месяц.
+     * @throws JsonProcessingException если происходит ошибка при обработке JSON.
+     */
     private void processMonthChange(LocalDateTime endTime) throws JsonProcessingException {
         List<Traffic> trafficList = trafficRepository.findAll();
         List<MonthCost> monthCosts = new ArrayList<>();

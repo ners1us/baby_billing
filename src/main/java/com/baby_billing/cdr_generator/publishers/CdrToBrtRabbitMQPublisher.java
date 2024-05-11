@@ -9,6 +9,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+/**
+ * Отправитель записей CDR в RabbitMQ для обработки BRT.
+ */
 @Service
 @RequiredArgsConstructor
 public class CdrToBrtRabbitMQPublisher {
@@ -24,8 +27,14 @@ public class CdrToBrtRabbitMQPublisher {
     @NonNull
     private final RabbitTemplate rabbitTemplate;
 
+    /**
+     * Отправляет сообщение с записью CDR в RabbitMQ.
+     *
+     * @param history Запись CDR, которую необходимо отправить.
+     */
     public void sendMessage(History history) {
         LOGGER.info(String.format("Message sent -> %s", history.toString()));
+
         rabbitTemplate.convertAndSend(exchange, routingCdrKey, history);
     }
 }

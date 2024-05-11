@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/baby_billing")
@@ -28,11 +27,12 @@ public class CdrController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrController.class);
 
     @PostMapping("/generateCdr")
-    public ResponseEntity<String> generateAndSaveCdr() throws ExecutionException, InterruptedException, IOException {
+    public ResponseEntity<String> generateAndSaveCdr() throws IOException {
         cdrService.checkAndCleanData();
-        Future<List<History>> futureHistoryList = cdrService.generateCdr();
-        List<History> historyList = futureHistoryList.get();
 
+        CompletableFuture<List<History>> cdrFuture = cdrService.generateCdr();
+
+        List<History> historyList = cdrFuture.join();
         cdrService.processCdr(historyList);
 
         return ResponseEntity.ok("Successfully generated files");

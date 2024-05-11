@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Сущность, представляющая клиента.
+ */
 @Entity
 @Data
 @NoArgsConstructor

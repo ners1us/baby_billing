@@ -9,14 +9,33 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Сервис для вычисления стоимости звонка.
+ */
 @Service
 public class CallCostCalculator implements ICallCostCalculator {
 
+    /**
+     * Вычисляет продолжительность звонка в минутах.
+     *
+     * @param startTime Время начала звонка.
+     * @param endTime   Время окончания звонка.
+     * @return Продолжительность звонка в минутах.
+     */
     public long calculateDuration(LocalDateTime startTime, LocalDateTime endTime) {
         long duration = ChronoUnit.MINUTES.between(startTime, endTime);
+
         return Math.max(duration, 1);
     }
 
+    /**
+     * Вычисляет стоимость звонка на основе истории звонка и правил тарификации.
+     *
+     * @param brtHistory   Объект BrtHistory, представляющий историю звонка.
+     * @param tariffRules  Правила тарификации для данного звонка.
+     * @param duration     Продолжительность звонка в минутах.
+     * @return Стоимость звонка.
+     */
     public BigDecimal calculateCallCost(BrtHistory brtHistory, TariffRules tariffRules, long duration) {
         if (brtHistory.getInternal()) {
             if (brtHistory.getType().equals("01")) {

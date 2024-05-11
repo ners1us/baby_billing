@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Baby Billing API
+  version: 1.0.0
+  description: API для использования триггеров по взаимодействию между сервисами CDR, BRT и HRS, а также для управления клиентской и платежной информацией
+
+servers:
+  - url: http://localhost:8070/api
+
+paths:
+  /baby_billing/generateCdr:
+    post:
+      summary: Создание и сохранение cdr файлов
+      description: Этот метод позволяет сгенерировать и сохранить cdr файлы
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Successfully generated files"
+  /baby_billing/publishCdr:
+    post:
+      summary: Отправка cdr файлов
+      description: Этот метод позволяет отправить сгенерированные cdr файлы в сервис BRT
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Messages sent to RabbitMQ..."
+        '400':
+          description: Error reading files from data folder
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Error reading files from data folder"
+  /baby_billing/sendHistoryToHrs:
+    post:
+      summary: Отправка данных с определенным id в сервис HRS
+      description: Этот метод позволяет отправить данные с определенным id из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT
+      parameters:
+        - in: query
+          name: historyId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "History sent to Hrs successfully."
+  /baby_billing/sendAllHistoriesToHrs:
+    post:
+      summary: Отправка всех данных в сервис HRS
+      description: Этот метод позволяет отправить все данные из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "All histories sent to Hrs successfully."
+  /subscriber/balance:
+    get:
+      summary: Получить информацию о балансе
+      description: Этот метод позволяет получить информацию о балансе клиента "Ромашки"
+      parameters:
+        - in: query
+          name: subscriber
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+  /subscriber/deposit:
+    post:
+      summary: Депозит
+      description: Этот метод позволяет сделать депозит на определенную сумму для существующего клиента "Ромашки"
+      parameters:
+        - in: query
+          name: subscriber
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: amount
+          required: true
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Successfully made a deposit."
+  /admin/clients:
+    get:
+      summary: Получение данных о всех клиентах
+      description: Этот метод позволяет получить данные о всех клиентах "Ромашки"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+  /admin/addClient:
+    post:
+      summary: Добавление нового клиента
+      description: Этот метод позволяет добавить нового клиента в БД сервиса BRT, в таблицу "clients".
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Client added successfully."
+  /admin/clients/{clientId}/tariff:
+    put:
+      summary: Смена тарифа клиента
+      description: Этот метод позволяет сменить тариф для существующего клиента "Ромашки"
+      parameters:
+        - in: path
+          name: clientId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: tariffId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Tariff changed to 11"
+
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        clientId:
+          type: string
+        tariffId:
+          type: integer
+        balance:
+          $ref: '#/components/schemas/Balance'
+    Balance:
+      type: number
+      format: double

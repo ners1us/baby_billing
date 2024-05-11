@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Сущность для хранения записей истории.
+ */
 @Entity
 @Table(name = "hrs_history")
 @NoArgsConstructor
@@ -40,7 +43,14 @@ public class HrsHistory {
     @Column(name = "duration")
     private Long duration;
 
-    public HrsHistory(String clientId, String callerId, LocalDateTime startTime, LocalDateTime endTime, Integer tariffId, Boolean internal, BigDecimal cost, Long duration) {
+    public HrsHistory(String clientId,
+                      String callerId,
+                      LocalDateTime startTime,
+                      LocalDateTime endTime,
+                      Integer tariffId,
+                      Boolean internal,
+                      BigDecimal cost,
+                      Long duration) {
         this.clientId = clientId;
         this.callerId = callerId;
         this.startTime = startTime;
@@ -51,7 +61,12 @@ public class HrsHistory {
         this.duration = duration;
     }
 
-    public HrsHistory(String clientId, String callerId, LocalDateTime startTime, LocalDateTime endTime, Integer tariffId, Boolean internal) {
+    public HrsHistory(String clientId,
+                      String callerId,
+                      LocalDateTime startTime,
+                      LocalDateTime endTime,
+                      Integer tariffId,
+                      Boolean internal) {
         this.clientId = clientId;
         this.callerId = callerId;
         this.startTime = startTime;
