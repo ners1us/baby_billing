@@ -45,6 +45,7 @@ public class HrsToBrtRabbitMQPublisher {
      */
     public void sendMonthCallToBrt(List<MonthCost> monthCosts) throws JsonProcessingException {
         String json = objectMapper.writeValueAsString(new MonthCostsMessage(monthCosts));
+
         rabbitTemplate.convertAndSend(exchange, monthRoutingKey, json);
     }
 
@@ -59,6 +60,7 @@ public class HrsToBrtRabbitMQPublisher {
         CallCost callCost = new CallCost(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(),
                 brtHistory.getEndTime(), cost);
         String json = objectMapper.writeValueAsString(callCost);
+
         rabbitTemplate.convertAndSend(exchange, callRoutingKey, json);
     }
 }
