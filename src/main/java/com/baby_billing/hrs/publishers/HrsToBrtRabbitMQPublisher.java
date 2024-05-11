@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HrsToBrtRabbitMQPublisher {
 
-    @Value("${rabbitmq.exchange.hrs-brt.name}")
+    @Value("${rabbitmq.exchange.brt-hrs.name}")
     private String exchange;
 
     @Value("${rabbitmq.call.hrs.to.brt.key}")
@@ -36,6 +36,7 @@ public class HrsToBrtRabbitMQPublisher {
 
     public void sendMonthCallToBrt(List<MonthCost> monthCosts) throws JsonProcessingException {
         String json = objectMapper.writeValueAsString(new MonthCostsMessage(monthCosts));
+
         rabbitTemplate.convertAndSend(exchange, monthRoutingKey, json);
     }
 
@@ -43,6 +44,7 @@ public class HrsToBrtRabbitMQPublisher {
         CallCost callCost = new CallCost(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(),
                 brtHistory.getEndTime(), cost);
         String json = objectMapper.writeValueAsString(callCost);
+
         rabbitTemplate.convertAndSend(exchange, callRoutingKey, json);
     }
 }
