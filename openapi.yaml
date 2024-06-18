@@ -5,10 +5,11 @@ info:
   description: API для использования триггеров по взаимодействию между сервисами CDR, BRT и HRS, а также для управления клиентской и платежной информацией
 
 servers:
-  - url: http://localhost:8070/api
+  - url: http://localhost:8081/api
+  - url: http://localhost:8082/api
 
 paths:
-  /baby_billing/generateCdr:
+  /cdr_generator/generateCdr:
     post:
       summary: Создание и сохранение cdr файлов
       description: Этот метод позволяет сгенерировать и сохранить cdr файлы
@@ -20,7 +21,7 @@ paths:
               schema:
                 type: string
                 example: "Successfully generated files"
-  /baby_billing/publishCdr:
+  /cdr_generator/publishCdr:
     post:
       summary: Отправка cdr файлов
       description: Этот метод позволяет отправить сгенерированные cdr файлы в сервис BRT
@@ -39,7 +40,7 @@ paths:
               schema:
                 type: string
                 example: "Error reading files from data folder"
-  /baby_billing/sendHistoryToHrs:
+  /brt/sendHistoryToHrs:
     post:
       summary: Отправка данных с определенным id в сервис HRS
       description: Этот метод позволяет отправить данные с определенным id из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT
@@ -57,7 +58,7 @@ paths:
               schema:
                 type: string
                 example: "History sent to Hrs successfully."
-  /baby_billing/sendAllHistoriesToHrs:
+  /brt/sendAllHistoriesToHrs:
     post:
       summary: Отправка всех данных в сервис HRS
       description: Этот метод позволяет отправить все данные из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT
@@ -141,7 +142,7 @@ paths:
               schema:
                 type: string
                 example: "Client added successfully."
-  /admin/clients/{clientId}/tariff:
+  /admin/clients/clientId/tariff:
     put:
       summary: Смена тарифа клиента
       description: Этот метод позволяет сменить тариф для существующего клиента "Ромашки"
