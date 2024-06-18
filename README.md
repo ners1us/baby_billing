@@ -23,7 +23,7 @@
 - [BRT-HRS](https://docs.google.com/document/d/1GosTWBp7OSpktRpfLRm14eGcjLiYv3jZ/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [HRS Сервис](https://docs.google.com/document/d/1HjNd-IDC5nQDPpJ3f3gAjznPFq5SsIfD/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [Use-Case](https://docs.google.com/document/d/19Jym4V2EAc4hVurmnbo5_9UYn61sK6K0/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
-- [Общая Схема Проекта](https://drive.google.com/file/d/1dnqJGq3WitTHMvmK762f00M85IKKpGZW/view?usp=sharing)
+- [Общая Схема Проекта](https://drive.google.com/file/d/1ExmksdZKu6yzh66FSAzxDrbiYg3Ag0XV/view?usp=sharing)
 - [ERD-Диаграммы](https://drive.google.com/file/d/1_7H9FaXFSMhkhGGplwR8poeg7LXgdSW8/view?usp=sharing)
 
 ## Запуск приложения
@@ -37,10 +37,22 @@ docker compose up -d --build
 ```bash
 docker compose down
 ```
-## Просмотр логов приложения
+## Просмотр логов микросервиса cdr_generator
 
 ```bash
-docker logs baby_billing-app-1
+docker logs baby_billing-cdr-app-1
+```
+
+## Просмотр логов микросервиса brt
+
+```bash
+docker logs baby_billing-brt-app-1
+```
+
+## Просмотр логов микросервиса hrs
+
+```bash
+docker logs baby_billing-hrs-app-1
 ```
 
 ## Очистка кэша
@@ -51,15 +63,15 @@ docker system prune -f
 
 ## Данные для авторизации в БД
 
-- ### Для базы данных сервиса Симулятора Коммутатора:
+- ### Для базы данных сервиса Симулятора Коммутатора (PostgreSQL):
     - username: sa
     - password: password
 
-- ### Для базы данных сервиса BRT:
+- ### Для базы данных сервиса BRT (PostgreSQL):
     - username: user1
     - password: password1
 
-- ### Для базы данных сервиса HRS:
+- ### Для базы данных сервиса HRS (PostgreSQL):
     - username: user2
     - password: password2
 
