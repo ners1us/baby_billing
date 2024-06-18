@@ -1,8 +1,8 @@
 package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
-import com.cdr_generator.repositories.IClientRepository;
-import com.cdr_generator.services.IRandomGeneratorService;
+import com.cdr_generator.repositories.ClientRepository;
+import com.cdr_generator.services.RandomGeneratorService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ import java.util.Random;
  */
 @Service
 @RequiredArgsConstructor
-public class RandomGeneratorService implements IRandomGeneratorService {
+public class RandomGeneratorServiceImpl implements RandomGeneratorService {
 
     @NonNull
-    private final IClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     private final Random random = new Random();
 

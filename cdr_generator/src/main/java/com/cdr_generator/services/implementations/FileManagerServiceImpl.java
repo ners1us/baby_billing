@@ -2,7 +2,7 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.History;
-import com.cdr_generator.services.IFileManagerService;
+import com.cdr_generator.services.FileManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,9 @@ import java.util.List;
  * Сервис для работы с файлами, связанными с CDR.
  */
 @Service
-public class FileManagerService implements IFileManagerService {
+public class FileManagerServiceImpl implements FileManagerService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileManagerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileManagerServiceImpl.class);
 
     /**
      * Проверяет существование и очищает папку данных.

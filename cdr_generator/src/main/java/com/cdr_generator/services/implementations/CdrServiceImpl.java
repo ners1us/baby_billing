@@ -2,10 +2,10 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.History;
-import com.cdr_generator.services.ICdrDatabaseService;
-import com.cdr_generator.services.ICdrService;
-import com.cdr_generator.services.IFileManagerService;
-import com.cdr_generator.services.IRandomGeneratorService;
+import com.cdr_generator.services.CdrDatabaseService;
+import com.cdr_generator.services.CdrService;
+import com.cdr_generator.services.FileManagerService;
+import com.cdr_generator.services.RandomGeneratorService;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -23,13 +23,13 @@ import java.util.concurrent.CompletableFuture;
  */
 @Service
 @AllArgsConstructor
-public class CdrService implements ICdrService {
+public class CdrServiceImpl implements CdrService {
 
-    private ICdrDatabaseService databaseService;
+    private CdrDatabaseService databaseService;
 
-    private IRandomGeneratorService randomGeneratorService;
+    private RandomGeneratorService randomGeneratorService;
 
-    private IFileManagerService fileManagerService;
+    private FileManagerService fileManagerService;
 
     // Максимальное количество звонков в одном файле CDR
     private static final int MAX_CALLS_PER_FILE = 10;

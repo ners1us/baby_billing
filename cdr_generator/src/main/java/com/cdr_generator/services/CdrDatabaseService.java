@@ -5,7 +5,7 @@ import com.cdr_generator.entities.History;
 
 import java.util.List;
 
-public interface ICdrDatabaseService {
+public interface CdrDatabaseService {
 
     void saveCdrToDatabase(List<History> historyList);
 

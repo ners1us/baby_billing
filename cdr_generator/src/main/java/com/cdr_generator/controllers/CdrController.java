@@ -2,7 +2,7 @@ package com.cdr_generator.controllers;
 
 import com.cdr_generator.entities.History;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
-import com.cdr_generator.services.ICdrService;
+import com.cdr_generator.services.CdrService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class CdrController {
 
     private final CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher;
 
-    private final ICdrService cdrService;
+    private final CdrService cdrService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrController.class);
 

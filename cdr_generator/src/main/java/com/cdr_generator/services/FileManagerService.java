@@ -5,7 +5,7 @@ import com.cdr_generator.entities.History;
 import java.io.IOException;
 import java.util.List;
 
-public interface IFileManagerService {
+public interface FileManagerService {
 
     void checkAndCleanDataFolder() throws IOException;
 

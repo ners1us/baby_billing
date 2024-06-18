@@ -2,9 +2,9 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.History;
-import com.cdr_generator.repositories.IClientRepository;
-import com.cdr_generator.repositories.IHistoryRepository;
-import com.cdr_generator.services.ICdrDatabaseService;
+import com.cdr_generator.repositories.ClientRepository;
+import com.cdr_generator.repositories.HistoryRepository;
+import com.cdr_generator.services.CdrDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class CdrDatabaseService implements ICdrDatabaseService {
+public class CdrDatabaseServiceImpl implements CdrDatabaseService {
 
-    private IHistoryRepository historyRepository;
+    private HistoryRepository historyRepository;
 
-    private IClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     /**
      * Сохраняет записи CDR в базу данных.

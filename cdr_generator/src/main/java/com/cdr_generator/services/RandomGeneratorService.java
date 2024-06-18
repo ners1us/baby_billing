@@ -2,7 +2,7 @@ package com.cdr_generator.services;
 
 import com.cdr_generator.entities.Client;
 
-public interface IRandomGeneratorService {
+public interface RandomGeneratorService {
 
     Client getRandomClient();
 

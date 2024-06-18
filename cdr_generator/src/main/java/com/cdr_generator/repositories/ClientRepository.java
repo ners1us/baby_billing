@@ -1,9 +1,9 @@
 package com.cdr_generator.repositories;
 
-import com.cdr_generator.entities.History;
+import com.cdr_generator.entities.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IHistoryRepository extends JpaRepository<History, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 }

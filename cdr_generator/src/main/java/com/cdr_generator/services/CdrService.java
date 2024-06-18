@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public interface ICdrService {
+public interface CdrService {
 
     void processCdr(List<History> historyList);
 
