@@ -5,7 +5,7 @@ import com.hrs.entities.Tariffs;
 
 import java.math.BigDecimal;
 
-public interface IHrsDatabaseService {
+public interface HrsDatabaseService {
 
     void populateHrsTariffsData();
 

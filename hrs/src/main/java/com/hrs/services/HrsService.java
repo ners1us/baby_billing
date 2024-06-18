@@ -2,7 +2,7 @@ package com.hrs.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-public interface IHrsService {
+public interface HrsService {
 
     void processCallsFromBrt(String json) throws JsonProcessingException;
 }

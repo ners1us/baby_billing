@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface IHrsHistoryRepository extends JpaRepository<HrsHistory, Long> {
+public interface HrsHistoryRepository extends JpaRepository<HrsHistory, Long> {
 
     List<HrsHistory> findByClientIdAndCallerIdAndStartTimeAndEndTime(String clientId, String callerId, LocalDateTime startTime, LocalDateTime endTime);
 }

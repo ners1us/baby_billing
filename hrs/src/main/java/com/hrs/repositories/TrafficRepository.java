@@ -1,11 +1,11 @@
 package com.hrs.repositories;
 
-import com.hrs.entities.Tariffs;
+import com.hrs.entities.Traffic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ITariffsRepository extends JpaRepository<Tariffs, Long> {
+public interface TrafficRepository extends JpaRepository<Traffic, Long> {
 
-    Tariffs findByTariffId(Integer tariffId);
+    Traffic findByClientId(String clientId);
 }

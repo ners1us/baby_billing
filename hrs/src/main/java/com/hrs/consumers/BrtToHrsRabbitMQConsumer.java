@@ -1,6 +1,6 @@
 package com.hrs.consumers;
 
-import com.hrs.services.IHrsService;
+import com.hrs.services.HrsService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class BrtToHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BrtToHrsRabbitMQConsumer.class);
 
-    private final IHrsService hrsService;
+    private final HrsService hrsService;
 
     /**
      * Обрабатывает сообщения из RabbitMQ от BRT и передает их в сервис HRS.

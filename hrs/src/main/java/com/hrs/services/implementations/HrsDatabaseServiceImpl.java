@@ -8,10 +8,10 @@ import com.hrs.models.Limits;
 import com.hrs.models.OverLimit;
 import com.hrs.models.Prepaid;
 import com.hrs.models.TariffRules;
-import com.hrs.repositories.IHrsHistoryRepository;
-import com.hrs.repositories.ITariffsRepository;
-import com.hrs.repositories.ITrafficRepository;
-import com.hrs.services.IHrsDatabaseService;
+import com.hrs.repositories.HrsHistoryRepository;
+import com.hrs.repositories.TariffsRepository;
+import com.hrs.repositories.TrafficRepository;
+import com.hrs.services.HrsDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +23,13 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class HrsDatabaseService implements IHrsDatabaseService {
+public class HrsDatabaseServiceImpl implements HrsDatabaseService {
 
-    private ITariffsRepository tariffsRepository;
+    private TariffsRepository tariffsRepository;
 
-    private final IHrsHistoryRepository historyRepository;
+    private final HrsHistoryRepository historyRepository;
 
-    private final ITrafficRepository trafficRepository;
+    private final TrafficRepository trafficRepository;
 
     /**
      * Заполняет базу данных информацией о тарифах HRS.

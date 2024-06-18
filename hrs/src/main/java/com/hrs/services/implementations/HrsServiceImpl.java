@@ -9,11 +9,11 @@ import com.hrs.entities.Traffic;
 import com.hrs.models.MonthCost;
 import com.hrs.models.TariffRules;
 import com.hrs.publishers.HrsToBrtRabbitMQPublisher;
-import com.hrs.repositories.IHrsHistoryRepository;
-import com.hrs.repositories.ITrafficRepository;
-import com.hrs.services.ICallCostCalculator;
-import com.hrs.services.IHrsDatabaseService;
-import com.hrs.services.IHrsService;
+import com.hrs.repositories.HrsHistoryRepository;
+import com.hrs.repositories.TrafficRepository;
+import com.hrs.services.CallCostCalculator;
+import com.hrs.services.HrsDatabaseService;
+import com.hrs.services.HrsService;
 import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -29,22 +29,22 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class HrsService implements IHrsService {
+public class HrsServiceImpl implements HrsService {
 
     @NonNull
-    private final ICallCostCalculator callCostCalculator;
+    private final CallCostCalculator callCostCalculator;
 
     @NonNull
-    private final IHrsHistoryRepository historyRepository;
+    private final HrsHistoryRepository historyRepository;
 
     @NonNull
-    private final ITrafficRepository trafficRepository;
+    private final TrafficRepository trafficRepository;
 
     @NonNull
     private final ObjectMapper objectMapper;
 
     @NonNull
-    private final IHrsDatabaseService hrsDatabaseService;
+    private final HrsDatabaseService hrsDatabaseService;
 
     @NonNull
     private final HrsToBrtRabbitMQPublisher hrsToBrtRabbitMQPublisher;
