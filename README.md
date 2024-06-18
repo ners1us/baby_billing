@@ -23,7 +23,7 @@
 - [BRT-HRS](https://docs.google.com/document/d/1GosTWBp7OSpktRpfLRm14eGcjLiYv3jZ/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [HRS Сервис](https://docs.google.com/document/d/1HjNd-IDC5nQDPpJ3f3gAjznPFq5SsIfD/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [Use-Case](https://docs.google.com/document/d/19Jym4V2EAc4hVurmnbo5_9UYn61sK6K0/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
-- [Общая Схема Проекта](https://drive.google.com/file/d/1ExmksdZKu6yzh66FSAzxDrbiYg3Ag0XV/view?usp=sharing)
+- [Общая Схема Проекта](https://drive.google.com/file/d/1YzHcSYZaLkd1YmqKzIlxhe2zc-HjVMI8/view?usp=sharing)
 - [ERD-Диаграммы](https://drive.google.com/file/d/1_7H9FaXFSMhkhGGplwR8poeg7LXgdSW8/view?usp=sharing)
 
 ## Запуск приложения
