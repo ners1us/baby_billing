@@ -3,7 +3,7 @@ package com.brt.consumers;
 import com.brt.dto.HrsMonthCost;
 import com.brt.dto.HrsMonthCostsMessage;
 import com.brt.entities.TariffPaymentHistory;
-import com.brt.services.IBrtService;
+import com.brt.services.BrtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -22,7 +22,7 @@ public class MonthCostsFromHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MonthCostsFromHrsRabbitMQConsumer.class);
 
-    private final IBrtService brtService;
+    private final BrtService brtService;
 
     /**
      * Обрабатывает полученное сообщение о стоимости месячных тарифов из HRS и передает его сервису BRT для обработки.

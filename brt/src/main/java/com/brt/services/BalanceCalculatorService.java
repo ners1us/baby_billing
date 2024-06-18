@@ -2,7 +2,7 @@ package com.brt.services;
 
 import java.math.BigDecimal;
 
-public interface IBalanceCalculatorService {
+public interface BalanceCalculatorService {
 
     void calculateClientBalance(String clientId, BigDecimal cost);
 }

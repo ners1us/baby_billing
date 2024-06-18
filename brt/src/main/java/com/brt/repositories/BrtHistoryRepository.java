@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 
 @Repository
-public interface IBrtHistoryRepository extends JpaRepository<BrtHistory, Long> {
+public interface BrtHistoryRepository extends JpaRepository<BrtHistory, Long> {
 
     BrtHistory findByClientAndCallerIdAndStartTimeAndEndTime(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime);
 }

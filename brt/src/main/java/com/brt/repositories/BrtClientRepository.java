@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IBrtClientRepository extends JpaRepository<Client, String> {
+public interface BrtClientRepository extends JpaRepository<Client, String> {
 }

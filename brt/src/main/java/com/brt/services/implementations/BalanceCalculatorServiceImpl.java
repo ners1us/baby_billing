@@ -1,8 +1,8 @@
 package com.brt.services.implementations;
 
 import com.brt.entities.Client;
-import com.brt.repositories.IBrtClientRepository;
-import com.brt.services.IBalanceCalculatorService;
+import com.brt.repositories.BrtClientRepository;
+import com.brt.services.BalanceCalculatorService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ import java.math.BigDecimal;
  */
 @Service
 @AllArgsConstructor
-public class BalanceCalculatorService implements IBalanceCalculatorService {
+public class BalanceCalculatorServiceImpl implements BalanceCalculatorService {
 
-    private IBrtClientRepository clientRepository;
+    private BrtClientRepository clientRepository;
 
     /**
      * Вычисляет баланс клиента на основе стоимости вызовов и обновляет его в репозитории клиентов.

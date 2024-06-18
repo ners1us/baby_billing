@@ -3,7 +3,7 @@ package com.brt.services;
 import com.brt.dto.CdrHistory;
 import com.brt.entities.BrtHistory;
 
-public interface IBrtHistoryRecordManagerService {
+public interface BrtHistoryRecordManagerService {
 
     void enrichHistory(BrtHistory brtHistory);
 

@@ -3,10 +3,10 @@ package com.brt.services.implementations;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
-import com.brt.services.IBalanceCalculatorService;
-import com.brt.services.IBrtDatabaseService;
-import com.brt.services.IBrtHistoryRecordManagerService;
-import com.brt.services.IBrtService;
+import com.brt.services.BalanceCalculatorService;
+import com.brt.services.BrtDatabaseService;
+import com.brt.services.BrtHistoryRecordManagerService;
+import com.brt.services.BrtService;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ import java.math.BigDecimal;
  */
 @Service
 @AllArgsConstructor
-public class BrtService implements IBrtService {
+public class BrtServiceImpl implements BrtService {
 
-    private IBalanceCalculatorService balanceCalculator;
+    private BalanceCalculatorService balanceCalculator;
 
-    private IBrtHistoryRecordManagerService historyWriter;
+    private BrtHistoryRecordManagerService historyWriter;
 
-    private IBrtDatabaseService brtDatabaseService;
+    private BrtDatabaseService brtDatabaseService;
 
     /**
      * Инициализация таблицы клиентов.

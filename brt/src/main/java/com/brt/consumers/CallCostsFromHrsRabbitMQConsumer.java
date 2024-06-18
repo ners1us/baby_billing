@@ -2,7 +2,7 @@ package com.brt.consumers;
 
 import com.brt.dto.HrsCallCost;
 import com.brt.entities.BrtHistory;
-import com.brt.services.IBrtService;
+import com.brt.services.BrtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -21,7 +21,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CallCostsFromHrsRabbitMQConsumer.class);
 
-    private final IBrtService brtService;
+    private final BrtService brtService;
 
     /**
      * Обрабатывает полученное сообщение о стоимости вызовов из HRS и передает его сервису BRT для обработки.

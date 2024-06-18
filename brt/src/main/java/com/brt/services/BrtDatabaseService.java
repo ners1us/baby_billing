@@ -7,7 +7,7 @@ import com.brt.entities.TariffPaymentHistory;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface IBrtDatabaseService {
+public interface BrtDatabaseService {
 
     void saveBrtHistoryToDatabase(BrtHistory brtHistoryList);
 

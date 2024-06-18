@@ -3,10 +3,10 @@ package com.brt.services.implementations;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
-import com.brt.repositories.IBrtClientRepository;
-import com.brt.repositories.IBrtHistoryRepository;
-import com.brt.repositories.ITariffPaymentHistoryRepository;
-import com.brt.services.IBrtDatabaseService;
+import com.brt.repositories.BrtClientRepository;
+import com.brt.repositories.BrtHistoryRepository;
+import com.brt.repositories.TariffPaymentHistoryRepository;
+import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +20,13 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class BrtDatabaseService implements IBrtDatabaseService {
+public class BrtDatabaseServiceImpl implements BrtDatabaseService {
 
-    private IBrtHistoryRepository brtHistoryRepository;
+    private BrtHistoryRepository brtHistoryRepository;
 
-    private IBrtClientRepository brtClientRepository;
+    private BrtClientRepository brtClientRepository;
 
-    private ITariffPaymentHistoryRepository tariffPaymentHistoryRepository;
+    private TariffPaymentHistoryRepository tariffPaymentHistoryRepository;
 
     // Первый тип тарифа
     private static final Integer FIRST_TARIFF_TYPE = 11;

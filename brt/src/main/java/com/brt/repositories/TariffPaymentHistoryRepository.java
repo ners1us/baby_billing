@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ITariffPaymentHistoryRepository extends JpaRepository<TariffPaymentHistory, Long> {
+public interface TariffPaymentHistoryRepository extends JpaRepository<TariffPaymentHistory, Long> {
 }

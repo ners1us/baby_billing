@@ -2,7 +2,7 @@ package com.brt.controllers;
 
 import com.brt.entities.BrtHistory;
 import com.brt.publishers.BrtToHrsRabbitMQPublisher;
-import com.brt.services.IBrtDatabaseService;
+import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,7 @@ public class BrtController {
 
     private final BrtToHrsRabbitMQPublisher brtToHrsRabbitMQPublisher;
 
-    private final IBrtDatabaseService brtDatabaseService;
+    private final BrtDatabaseService brtDatabaseService;
 
     @PostMapping("/sendHistoryToHrs")
     public ResponseEntity<String> sendHistoryToHrs(@RequestParam Long historyId) {

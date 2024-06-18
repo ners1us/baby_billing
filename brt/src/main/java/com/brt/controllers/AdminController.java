@@ -1,7 +1,7 @@
 package com.brt.controllers;
 
 import com.brt.entities.Client;
-import com.brt.services.IBrtDatabaseService;
+import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AdminController {
 
-    private final IBrtDatabaseService brtDatabaseService;
+    private final BrtDatabaseService brtDatabaseService;
 
     @GetMapping("/clients")
     public ResponseEntity<List<Client>> getAllClients() {

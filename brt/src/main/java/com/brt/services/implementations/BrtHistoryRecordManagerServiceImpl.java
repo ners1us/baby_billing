@@ -3,9 +3,9 @@ package com.brt.services.implementations;
 import com.brt.dto.CdrHistory;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
-import com.brt.repositories.IBrtClientRepository;
-import com.brt.services.IBrtDatabaseService;
-import com.brt.services.IBrtHistoryRecordManagerService;
+import com.brt.repositories.BrtClientRepository;
+import com.brt.services.BrtDatabaseService;
+import com.brt.services.BrtHistoryRecordManagerService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +19,13 @@ import java.time.ZoneOffset;
  */
 @Service
 @AllArgsConstructor
-public class BrtHistoryRecordManagerService implements IBrtHistoryRecordManagerService {
+public class BrtHistoryRecordManagerServiceImpl implements BrtHistoryRecordManagerService {
 
-    private IBrtClientRepository clientRepository;
+    private BrtClientRepository clientRepository;
 
-    private IBrtDatabaseService brtDatabaseService;
+    private BrtDatabaseService brtDatabaseService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BrtHistoryRecordManagerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BrtHistoryRecordManagerServiceImpl.class);
 
     /**
      * Обогащает запись истории перед сохранением в базу данных BRT.

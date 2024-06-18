@@ -3,14 +3,12 @@ package com.brt.consumers;
 import com.brt.converters.CdrHistoryMessageConverter;
 import com.brt.dto.CdrHistory;
 import com.brt.entities.BrtHistory;
-import com.brt.services.IBrtHistoryRecordManagerService;
-import com.brt.services.IBrtService;
-import lombok.AllArgsConstructor;
+import com.brt.services.BrtHistoryRecordManagerService;
+import com.brt.services.BrtService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,9 +18,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CdrToBrtRabbitMQConsumer {
 
-    private final IBrtService brtService;
+    private final BrtService brtService;
 
-    private final IBrtHistoryRecordManagerService brtHistoryRecordManagerService;
+    private final BrtHistoryRecordManagerService brtHistoryRecordManagerService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrToBrtRabbitMQConsumer.class);
 
