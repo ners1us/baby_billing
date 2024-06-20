@@ -70,16 +70,13 @@ public class BrtServiceImpl implements BrtService {
      *
      * @param tariffPaymentHistory Запись о платеже за тариф.
      */
-    public void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory) {
+    public void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory) throws NotFoundClientException {
         brtDatabaseService.saveTariffPaymentHistoryToDatabase(tariffPaymentHistory);
 
         Client client = brtDatabaseService.findClientById(tariffPaymentHistory.getClientId());
-        if (client == null) {
-            throw new RuntimeException("Client not found");
-        } else {
-            client.setTariffId(tariffPaymentHistory.getTariffId());
 
-            brtDatabaseService.saveClientToDatabase(client);
-        }
+        client.setTariffId(tariffPaymentHistory.getTariffId());
+
+        brtDatabaseService.saveClientToDatabase(client);
     }
 }

@@ -12,5 +12,5 @@ public interface BrtService {
 
     void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) throws NotFoundClientException;
 
-    void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory);
+    void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory) throws NotFoundClientException;
 }
