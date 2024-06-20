@@ -26,12 +26,6 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
 
     private TariffPaymentHistoryRepository tariffPaymentHistoryRepository;
 
-    // Первый тип тарифа
-    private static final Integer FIRST_TARIFF_TYPE = 11;
-
-    // Второй тип тарифа
-    private static final Integer SECOND_TARIFF_TYPE = 12;
-
     /**
      * Сохраняет запись BRT в базу данных.
      *
