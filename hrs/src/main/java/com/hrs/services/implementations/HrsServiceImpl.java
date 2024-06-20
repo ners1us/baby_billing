@@ -14,7 +14,6 @@ import com.hrs.repositories.TrafficRepository;
 import com.hrs.services.CallCostCalculator;
 import com.hrs.services.HrsDatabaseService;
 import com.hrs.services.HrsService;
-import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,17 +49,6 @@ public class HrsServiceImpl implements HrsService {
     private final HrsToBrtRabbitMQPublisher hrsToBrtRabbitMQPublisher;
 
     private int currentMonth;
-
-    /**
-     * Инициализация таблицы тарифов.
-     * Проверяет наличие данных о тарифах в базе данных и, если они отсутствуют, заполняет базу данными из сервиса HrsDatabaseService.
-     */
-    @PostConstruct
-    public void init() {
-        if (hrsDatabaseService.countTariffs() == 0) {
-            hrsDatabaseService.populateHrsTariffsData();
-        }
-    }
 
     /**
      * Обрабатывает звонки от BRT.
