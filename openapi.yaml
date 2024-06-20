@@ -12,7 +12,7 @@ paths:
   /cdr_generator/generateCdr:
     post:
       summary: Создание и сохранение cdr файлов
-      description: Этот метод позволяет сгенерировать и сохранить cdr файлы
+      description: Этот метод позволяет сгенерировать и сохранить cdr файлы. Использовать хост с портом "8081".
       responses:
         '200':
           description: Successful response
@@ -24,7 +24,7 @@ paths:
   /cdr_generator/publishCdr:
     post:
       summary: Отправка cdr файлов
-      description: Этот метод позволяет отправить сгенерированные cdr файлы в сервис BRT
+      description: Этот метод позволяет отправить сгенерированные cdr файлы в сервис BRT. Использовать хост с портом "8081".
       responses:
         '200':
           description: Successful response
@@ -43,7 +43,7 @@ paths:
   /brt/sendHistoryToHrs:
     post:
       summary: Отправка данных с определенным id в сервис HRS
-      description: Этот метод позволяет отправить данные с определенным id из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT
+      description: Этот метод позволяет отправить данные с определенным id из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT. Использовать хост с портом "8082".
       parameters:
         - in: query
           name: historyId
@@ -61,7 +61,7 @@ paths:
   /brt/sendAllHistoriesToHrs:
     post:
       summary: Отправка всех данных в сервис HRS
-      description: Этот метод позволяет отправить все данные из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT
+      description: Этот метод позволяет отправить все данные из таблицы history, из БД сервиса BRT, в сервис HRS, а также получить обратный ответ в сервис BRT. Использовать хост с портом "8082".
       responses:
         '200':
           description: Successful response
@@ -73,7 +73,7 @@ paths:
   /subscriber/balance:
     get:
       summary: Получить информацию о балансе
-      description: Этот метод позволяет получить информацию о балансе клиента "Ромашки"
+      description: Этот метод позволяет получить информацию о балансе клиента "Ромашки". Использовать хост с портом "8082".
       parameters:
         - in: query
           name: subscriber
@@ -90,7 +90,7 @@ paths:
   /subscriber/deposit:
     post:
       summary: Депозит
-      description: Этот метод позволяет сделать депозит на определенную сумму для существующего клиента "Ромашки"
+      description: Этот метод позволяет сделать депозит на определенную сумму для существующего клиента "Ромашки". Использовать хост с портом "8082".
       parameters:
         - in: query
           name: subscriber
@@ -114,7 +114,7 @@ paths:
   /admin/clients:
     get:
       summary: Получение данных о всех клиентах
-      description: Этот метод позволяет получить данные о всех клиентах "Ромашки"
+      description: Этот метод позволяет получить данные о всех клиентах "Ромашки". Использовать хост с портом "8082".
       responses:
         '200':
           description: Successful response
@@ -127,7 +127,7 @@ paths:
   /admin/addClient:
     post:
       summary: Добавление нового клиента
-      description: Этот метод позволяет добавить нового клиента в БД сервиса BRT, в таблицу "clients".
+      description: Этот метод позволяет добавить нового клиента в БД сервиса BRT, в таблицу "clients". Использовать хост с портом "8082".
       requestBody:
         content:
           application/json:
@@ -145,7 +145,7 @@ paths:
   /admin/clients/clientId/tariff:
     put:
       summary: Смена тарифа клиента
-      description: Этот метод позволяет сменить тариф для существующего клиента "Ромашки"
+      description: Этот метод позволяет сменить тариф для существующего клиента "Ромашки". Использовать хост с портом "8082".
       parameters:
         - in: path
           name: clientId
