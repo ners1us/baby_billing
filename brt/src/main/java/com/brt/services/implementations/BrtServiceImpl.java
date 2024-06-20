@@ -7,7 +7,6 @@ import com.brt.services.BalanceCalculatorService;
 import com.brt.services.BrtDatabaseService;
 import com.brt.services.BrtHistoryRecordManagerService;
 import com.brt.services.BrtService;
-import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +24,6 @@ public class BrtServiceImpl implements BrtService {
     private BrtHistoryRecordManagerService historyWriter;
 
     private BrtDatabaseService brtDatabaseService;
-
-    /**
-     * Инициализация таблицы клиентов.
-     * Проверяет наличие данных о клиентах в базе данных и, если они отсутствуют, заполняет базу данными из сервиса BrtDatabaseService.
-     */
-    @PostConstruct
-    public void initialize() {
-        if (brtDatabaseService.countClients() == 0) {
-            brtDatabaseService.populateBrtClientsData();
-        }
-    }
 
     /**
      * Обрабатывает запись истории вызова CDR.

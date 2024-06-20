@@ -13,8 +13,6 @@ public interface BrtDatabaseService {
 
     void saveClientToDatabase(Client client);
 
-    void populateBrtClientsData();
-
     void saveTariffPaymentHistoryToDatabase(TariffPaymentHistory tariffPaymentHistory);
 
     BrtHistory findBrtHistoryById(Long id);
