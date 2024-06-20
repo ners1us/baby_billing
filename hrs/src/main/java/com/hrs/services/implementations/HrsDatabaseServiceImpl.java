@@ -4,10 +4,6 @@ import com.hrs.dto.BrtHistory;
 import com.hrs.entities.HrsHistory;
 import com.hrs.entities.Tariffs;
 import com.hrs.entities.Traffic;
-import com.hrs.models.Limits;
-import com.hrs.models.OverLimit;
-import com.hrs.models.Prepaid;
-import com.hrs.models.TariffRules;
 import com.hrs.repositories.HrsHistoryRepository;
 import com.hrs.repositories.TariffsRepository;
 import com.hrs.repositories.TrafficRepository;
@@ -30,46 +26,6 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
     private final HrsHistoryRepository historyRepository;
 
     private final TrafficRepository trafficRepository;
-
-    /**
-     * Заполняет базу данных информацией о тарифах HRS.
-     */
-    public void populateHrsTariffsData() {
-        Tariffs tariff11 = new Tariffs();
-        tariff11.setTariffId(11);
-        TariffRules rules11 = new TariffRules();
-        rules11.setName("Классика");
-        rules11.setDescription("Входящие - бесплатно. Исходящие внутри ромашки - 1,5 у.е/мин, для остальных - 2,5 у.е./мин");
-        rules11.setCurrency("RUB");
-        OverLimit overLimit11 = new OverLimit();
-        overLimit11.setInternalIncoming(BigDecimal.valueOf(0.00));
-        overLimit11.setInternalOutcoming(BigDecimal.valueOf(1.50));
-        overLimit11.setExternalIncoming(BigDecimal.valueOf(0.00));
-        overLimit11.setExternalOutcoming(BigDecimal.valueOf(2.50));
-        rules11.setOverlimit(overLimit11);
-        tariff11.setTariffRules(rules11);
-
-        tariffsRepository.save(tariff11);
-
-        Tariffs tariff12 = new Tariffs();
-        tariff12.setTariffId(12);
-        TariffRules rules12 = new TariffRules();
-        rules12.setName("Помесячный");
-        rules12.setDescription("Лимит 50 минут на все звонки, сверх лимита - по тарифу Классика");
-        rules12.setCurrency("RUB");
-        Prepaid prepaid12 = new Prepaid();
-        prepaid12.setTariffCost(BigDecimal.valueOf(100));
-        Limits limits12 = new Limits();
-        limits12.setTotalMinutes(50L);
-        prepaid12.setLimits(limits12);
-        rules12.setPrepaid(prepaid12);
-        OverLimit overLimit12 = new OverLimit();
-        overLimit12.setReferenceTariffId(11);
-        rules12.setOverlimit(overLimit12);
-        tariff12.setTariffRules(rules12);
-
-        tariffsRepository.save(tariff12);
-    }
 
     /**
      * Возвращает количество тарифов в базе данных.
