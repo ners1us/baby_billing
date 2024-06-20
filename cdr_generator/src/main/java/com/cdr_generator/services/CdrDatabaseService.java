@@ -11,7 +11,5 @@ public interface CdrDatabaseService {
 
     void saveClientsToDatabase(List<Client> clients);
 
-    void populateClientsData();
-
     long countClients();
 }

@@ -6,7 +6,6 @@ import com.cdr_generator.services.CdrDatabaseService;
 import com.cdr_generator.services.CdrService;
 import com.cdr_generator.services.FileManagerService;
 import com.cdr_generator.services.RandomGeneratorService;
-import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -35,17 +34,6 @@ public class CdrServiceImpl implements CdrService {
     private static final int MAX_CALLS_PER_FILE = 10;
     // Максимальная продолжительность одного звонка в секундах
     private static final long MAX_DURATION_PER_CALL = 3600;
-
-    /**
-     * Инициализация таблицы клиентов.
-     * Проверяет наличие данных о клиентах в базе данных и, если они отсутствуют, заполняет базу данными из сервиса CdrDatabaseService.
-     */
-    @PostConstruct
-    public void initialize() {
-        if (databaseService.countClients() == 0) {
-            databaseService.populateClientsData();
-        }
-    }
 
     /**
      * Обрабатывает CDR и сохраняет данные в базу данных и файлы.
