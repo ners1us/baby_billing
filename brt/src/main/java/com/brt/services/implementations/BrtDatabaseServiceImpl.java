@@ -3,6 +3,8 @@ package com.brt.services.implementations;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
+import com.brt.exceptions.NotFoundBrtHistoryException;
+import com.brt.exceptions.NotFoundClientException;
 import com.brt.repositories.BrtClientRepository;
 import com.brt.repositories.BrtHistoryRepository;
 import com.brt.repositories.TariffPaymentHistoryRepository;
@@ -60,8 +62,8 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Клиент, найденный в базе данных.
      * @throws RuntimeException если клиент не найден.
      */
-    public Client findClientById(String clientId) {
-        return brtClientRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found"));
+    public Client findClientById(String clientId) throws NotFoundClientException {
+        return brtClientRepository.findById(clientId).orElseThrow(() -> new NotFoundClientException("Client not found"));
     }
 
     /**
@@ -71,8 +73,8 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Запись BRT, найденная в базе данных.
      * @throws RuntimeException если запись не найдена.
      */
-    public BrtHistory findBrtHistoryById(Long id) {
-        return brtHistoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find brt history"));
+    public BrtHistory findBrtHistoryById(Long id) throws NotFoundBrtHistoryException {
+        return brtHistoryRepository.findById(id).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
     }
 
     /**
