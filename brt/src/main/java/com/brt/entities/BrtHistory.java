@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Data
-@Table(name = "history")
+@Table(name = "brt_history")
 public class BrtHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
