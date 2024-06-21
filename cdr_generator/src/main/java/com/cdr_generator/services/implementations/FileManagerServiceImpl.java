@@ -1,7 +1,7 @@
 package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
-import com.cdr_generator.entities.History;
+import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.services.FileManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +43,8 @@ public class FileManagerServiceImpl implements FileManagerService {
      * @return Список объектов History, считанных из файлов.
      * @throws IOException В случае ошибки ввода-вывода при чтении файлов.
      */
-    public List<History> readHistoryFromFile() throws IOException {
-        List<History> historyList = new ArrayList<>();
+    public List<CdrHistory> readHistoryFromFile() throws IOException {
+        List<CdrHistory> cdrHistoryList = new ArrayList<>();
         File dataFolder = new File("data");
 
         if (dataFolder.isDirectory()) {
@@ -59,13 +59,13 @@ public class FileManagerServiceImpl implements FileManagerService {
                                 String[] parts = line.split(",");
 
                                 if (parts.length == 5) {
-                                    History history = new History();
-                                    history.setType(parts[0]);
-                                    history.setClient(parseClient(parts[1]));
-                                    history.setCaller(parseClient(parts[2]));
-                                    history.setStartTime(Long.parseLong(parts[3]));
-                                    history.setEndTime(Long.parseLong(parts[4]));
-                                    historyList.add(history);
+                                    CdrHistory cdrHistory = new CdrHistory();
+                                    cdrHistory.setType(parts[0]);
+                                    cdrHistory.setClient(parseClient(parts[1]));
+                                    cdrHistory.setCaller(parseClient(parts[2]));
+                                    cdrHistory.setStartTime(Long.parseLong(parts[3]));
+                                    cdrHistory.setEndTime(Long.parseLong(parts[4]));
+                                    cdrHistoryList.add(cdrHistory);
                                 }
                             }
                         }
@@ -73,23 +73,23 @@ public class FileManagerServiceImpl implements FileManagerService {
                 }
             }
         }
-        return historyList;
+        return cdrHistoryList;
     }
 
     /**
      * Разбивает список истории на файлы с заданным количеством вызовов.
      *
-     * @param historyList     Список истории, который необходимо разделить.
+     * @param cdrHistoryList     Список истории, который необходимо разделить.
      * @param maxCallsPerFile Максимальное количество вызовов в одном файле.
      * @return Список списков истории, разбитой на файлы.
      */
-    public List<List<History>> splitIntoFiles(List<History> historyList, int maxCallsPerFile) {
-        List<List<History>> files = new ArrayList<>();
-        List<History> currentFile = new ArrayList<>();
+    public List<List<CdrHistory>> splitIntoFiles(List<CdrHistory> cdrHistoryList, int maxCallsPerFile) {
+        List<List<CdrHistory>> files = new ArrayList<>();
+        List<CdrHistory> currentFile = new ArrayList<>();
         int count = 0;
 
-        for (History history : historyList) {
-            currentFile.add(history);
+        for (CdrHistory cdrHistory : cdrHistoryList) {
+            currentFile.add(cdrHistory);
             count++;
 
             if (count == maxCallsPerFile) {
@@ -109,13 +109,13 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Сохраняет CDR в файл.
      *
-     * @param historyList Список объектов History, которые необходимо сохранить.
+     * @param cdrHistoryList Список объектов History, которые необходимо сохранить.
      * @param fileName    Имя файла, в который нужно сохранить CDR.
      */
-    public void saveCdrToFile(List<History> historyList, String fileName) {
+    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
-            for (History history : historyList) {
-                writer.write(history.toString() + "\n");
+            for (CdrHistory cdrHistory : cdrHistoryList) {
+                writer.write(cdrHistory.toString() + "\n");
             }
         } catch (IOException e) {
             LOGGER.error(e.getMessage());

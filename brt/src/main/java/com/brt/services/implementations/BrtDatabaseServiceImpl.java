@@ -3,6 +3,8 @@ package com.brt.services.implementations;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
+import com.brt.exceptions.NotFoundBrtHistoryException;
+import com.brt.exceptions.NotFoundClientException;
 import com.brt.repositories.BrtClientRepository;
 import com.brt.repositories.BrtHistoryRepository;
 import com.brt.repositories.TariffPaymentHistoryRepository;
@@ -10,9 +12,7 @@ import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,12 +27,6 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     private BrtClientRepository brtClientRepository;
 
     private TariffPaymentHistoryRepository tariffPaymentHistoryRepository;
-
-    // Первый тип тарифа
-    private static final Integer FIRST_TARIFF_TYPE = 11;
-
-    // Второй тип тарифа
-    private static final Integer SECOND_TARIFF_TYPE = 12;
 
     /**
      * Сохраняет запись BRT в базу данных.
@@ -68,8 +62,8 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Клиент, найденный в базе данных.
      * @throws RuntimeException если клиент не найден.
      */
-    public Client findClientById(String clientId) {
-        return brtClientRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found"));
+    public Client findClientById(String clientId) throws NotFoundClientException {
+        return brtClientRepository.findById(clientId).orElseThrow(() -> new NotFoundClientException("Client not found"));
     }
 
     /**
@@ -79,8 +73,8 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Запись BRT, найденная в базе данных.
      * @throws RuntimeException если запись не найдена.
      */
-    public BrtHistory findBrtHistoryById(Long id) {
-        return brtHistoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find brt history"));
+    public BrtHistory findBrtHistoryById(Long id) throws NotFoundBrtHistoryException {
+        return brtHistoryRepository.findById(id).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
     }
 
     /**
@@ -112,26 +106,6 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      */
     public List<Client> getAllClients() {
         return brtClientRepository.findAll();
-    }
-
-    /**
-     * Заполняет базу данных клиентами с определенными номерами, тарифами и балансами.
-     */
-    public void populateBrtClientsData() {
-        List<Client> clients = new ArrayList<>();
-
-        clients.add(new Client("79074437331", FIRST_TARIFF_TYPE, new BigDecimal(10000)));
-        clients.add(new Client("79025249522", SECOND_TARIFF_TYPE, new BigDecimal(5000)));
-        clients.add(new Client("79085342373", FIRST_TARIFF_TYPE, new BigDecimal(12000)));
-        clients.add(new Client("79018936284", SECOND_TARIFF_TYPE, new BigDecimal(3000)));
-        clients.add(new Client("79092110475", FIRST_TARIFF_TYPE, new BigDecimal(6000)));
-        clients.add(new Client("79021038006", SECOND_TARIFF_TYPE, new BigDecimal(8000)));
-        clients.add(new Client("79054539427", FIRST_TARIFF_TYPE, new BigDecimal(2000)));
-        clients.add(new Client("79019634848", SECOND_TARIFF_TYPE, new BigDecimal(4000)));
-        clients.add(new Client("79089990569", FIRST_TARIFF_TYPE, new BigDecimal(500)));
-        clients.add(new Client("79033772341", SECOND_TARIFF_TYPE, new BigDecimal(700)));
-
-        brtClientRepository.saveAll(clients);
     }
 
     /**

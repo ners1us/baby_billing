@@ -26,16 +26,4 @@ public class Client {
 
     @Column(name = "balance")
     private BigDecimal balance;
-
-    public Client(String clientId,
-                  Integer tariffId,
-                  BigDecimal balance) {
-        this.clientId = clientId;
-        this.tariffId = tariffId;
-        this.balance = balance;
-    }
-
-    public Client(String clientId) {
-        this.clientId = clientId;
-    }
 }

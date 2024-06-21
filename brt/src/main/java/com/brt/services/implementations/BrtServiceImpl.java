@@ -3,11 +3,11 @@ package com.brt.services.implementations;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
+import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BalanceCalculatorService;
 import com.brt.services.BrtDatabaseService;
 import com.brt.services.BrtHistoryRecordManagerService;
 import com.brt.services.BrtService;
-import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +27,6 @@ public class BrtServiceImpl implements BrtService {
     private BrtDatabaseService brtDatabaseService;
 
     /**
-     * Инициализация таблицы клиентов.
-     * Проверяет наличие данных о клиентах в базе данных и, если они отсутствуют, заполняет базу данными из сервиса BrtDatabaseService.
-     */
-    @PostConstruct
-    public void initialize() {
-        if (brtDatabaseService.countClients() == 0) {
-            brtDatabaseService.populateBrtClientsData();
-        }
-    }
-
-    /**
      * Обрабатывает запись истории вызова CDR.
      *
      * @param brtHistory Запись истории вызова в формате BRT.
@@ -53,7 +42,7 @@ public class BrtServiceImpl implements BrtService {
      * @param brtHistory Запись истории вызова в формате BRT.
      * @param cost       Стоимость вызова.
      */
-    public void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) {
+    public void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) throws NotFoundClientException {
         BrtHistory existingHistory = brtDatabaseService.findBrtHistoryByAttributes(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
 
         BigDecimal existingCost = existingHistory.getCost().add(cost);
@@ -81,16 +70,13 @@ public class BrtServiceImpl implements BrtService {
      *
      * @param tariffPaymentHistory Запись о платеже за тариф.
      */
-    public void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory) {
+    public void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory) throws NotFoundClientException {
         brtDatabaseService.saveTariffPaymentHistoryToDatabase(tariffPaymentHistory);
 
         Client client = brtDatabaseService.findClientById(tariffPaymentHistory.getClientId());
-        if (client == null) {
-            throw new RuntimeException("Client not found");
-        } else {
-            client.setTariffId(tariffPaymentHistory.getTariffId());
 
-            brtDatabaseService.saveClientToDatabase(client);
-        }
+        client.setTariffId(tariffPaymentHistory.getTariffId());
+
+        brtDatabaseService.saveClientToDatabase(client);
     }
 }

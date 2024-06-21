@@ -8,8 +8,8 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "history")
-public class History {
+@Table(name = "cdr_history")
+public class CdrHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

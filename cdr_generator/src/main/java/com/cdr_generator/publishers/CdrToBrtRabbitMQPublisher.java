@@ -1,6 +1,6 @@
 package com.cdr_generator.publishers;
 
-import com.cdr_generator.entities.History;
+import com.cdr_generator.entities.CdrHistory;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,11 +29,11 @@ public class CdrToBrtRabbitMQPublisher {
     /**
      * Отправляет сообщение с записью CDR в RabbitMQ.
      *
-     * @param history Запись CDR, которую необходимо отправить.
+     * @param cdrHistory Запись CDR, которую необходимо отправить.
      */
-    public void sendMessage(History history) {
-        LOGGER.info(String.format("Message sent -> %s", history.toString()));
+    public void sendMessage(CdrHistory cdrHistory) {
+        LOGGER.info(String.format("Message sent -> %s", cdrHistory.toString()));
 
-        rabbitTemplate.convertAndSend(exchange, routingCdrKey, history);
+        rabbitTemplate.convertAndSend(exchange, routingCdrKey, cdrHistory);
     }
 }

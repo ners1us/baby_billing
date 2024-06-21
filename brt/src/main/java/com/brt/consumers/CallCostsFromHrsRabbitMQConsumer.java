@@ -2,6 +2,7 @@ package com.brt.consumers;
 
 import com.brt.dto.HrsCallCost;
 import com.brt.entities.BrtHistory;
+import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BrtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +30,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
      * @param message Сообщение о стоимости вызовов из HRS в формате JSON.
      */
     @RabbitListener(queues = {"${rabbitmq.call.hrs.to.brt.queue.name}"})
-    public void consumeMessage(String message) {
+    public void consumeMessage(String message) throws NotFoundClientException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
