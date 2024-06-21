@@ -3,6 +3,7 @@ package com.brt.consumers;
 import com.brt.dto.HrsMonthCost;
 import com.brt.dto.HrsMonthCostsMessage;
 import com.brt.entities.TariffPaymentHistory;
+import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BrtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,7 +49,7 @@ public class MonthCostsFromHrsRabbitMQConsumer {
             } else {
                 LOGGER.error("Received MonthCostsMessage with null monthCosts field");
             }
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | NotFoundClientException e) {
             LOGGER.error("Error processing MonthCostsMessage to JSON: {}", e.getMessage());
         }
 

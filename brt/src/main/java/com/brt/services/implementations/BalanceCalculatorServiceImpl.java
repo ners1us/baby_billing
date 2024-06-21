@@ -1,6 +1,7 @@
 package com.brt.services.implementations;
 
 import com.brt.entities.Client;
+import com.brt.exceptions.NotFoundClientException;
 import com.brt.repositories.BrtClientRepository;
 import com.brt.services.BalanceCalculatorService;
 import lombok.AllArgsConstructor;
@@ -23,16 +24,12 @@ public class BalanceCalculatorServiceImpl implements BalanceCalculatorService {
      * @param clientId Номер клиента.
      * @param cost     Стоимость вызовов для вычета из баланса.
      */
-    public void calculateClientBalance(String clientId, BigDecimal cost) {
-        Client client = clientRepository.findById(clientId).orElse(null);
+    public void calculateClientBalance(String clientId, BigDecimal cost) throws NotFoundClientException {
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NotFoundClientException("Client not found"));
 
-        if (client == null) {
-            throw new RuntimeException("Client not found");
-        } else {
-            BigDecimal newBalance = client.getBalance().subtract(cost);
-            client.setBalance(newBalance);
+        BigDecimal newBalance = client.getBalance().subtract(cost);
+        client.setBalance(newBalance);
 
-            clientRepository.save(client);
-        }
+        clientRepository.save(client);
     }
 }

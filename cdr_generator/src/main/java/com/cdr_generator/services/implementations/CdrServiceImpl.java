@@ -1,7 +1,7 @@
 package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
-import com.cdr_generator.entities.History;
+import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.services.CdrDatabaseService;
 import com.cdr_generator.services.CdrService;
 import com.cdr_generator.services.FileManagerService;
@@ -38,14 +38,14 @@ public class CdrServiceImpl implements CdrService {
     /**
      * Обрабатывает CDR и сохраняет данные в базу данных и файлы.
      *
-     * @param historyList Список объектов History, содержащих информацию о звонках
+     * @param cdrHistoryList Список объектов History, содержащих информацию о звонках
      */
-    public void processCdr(List<History> historyList) {
+    public void processCdr(List<CdrHistory> cdrHistoryList) {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        futures.add(CompletableFuture.runAsync(() -> databaseService.saveCdrToDatabase(historyList)));
+        futures.add(CompletableFuture.runAsync(() -> databaseService.saveCdrToDatabase(cdrHistoryList)));
         futures.add(CompletableFuture.runAsync(() -> {
-            List<List<History>> files = fileManagerService.splitIntoFiles(historyList, MAX_CALLS_PER_FILE);
+            List<List<CdrHistory>> files = fileManagerService.splitIntoFiles(cdrHistoryList, MAX_CALLS_PER_FILE);
             for (int i = 0; i < files.size(); i++) {
                 String fileName = "data/cdr_" + (i + 1) + ".txt";
                 fileManagerService.saveCdrToFile(files.get(i), fileName);
@@ -61,20 +61,20 @@ public class CdrServiceImpl implements CdrService {
      * @return CompletableFuture, содержащий список объектов History, представляющих сгенерированные звонки
      */
     @Async("asyncTaskExecutor")
-    public CompletableFuture<List<History>> generateCdr() {
-        List<History> historyList = new ArrayList<>();
+    public CompletableFuture<List<CdrHistory>> generateCdr() {
+        List<CdrHistory> cdrHistoryList = new ArrayList<>();
 
         long startTime = 1680307200L;
         long endTime = startTime + 31536000L;
 
         while (startTime < endTime) {
             int numCalls = randomGeneratorService.generateRandomNumberOfCalls();
-            List<History> monthHistory = generateCdrForMonth(startTime, numCalls);
-            historyList.addAll(monthHistory);
+            List<CdrHistory> monthCdrHistory = generateCdrForMonth(startTime, numCalls);
+            cdrHistoryList.addAll(monthCdrHistory);
             startTime += 2592000L;
         }
 
-        return CompletableFuture.completedFuture(historyList);
+        return CompletableFuture.completedFuture(cdrHistoryList);
     }
 
     /**
@@ -83,7 +83,7 @@ public class CdrServiceImpl implements CdrService {
      * @return Список объектов History, содержащих информацию о звонках
      * @throws IOException если возникает ошибка ввода-вывода при чтении файла
      */
-    public List<History> readHistory() throws IOException {
+    public List<CdrHistory> readHistory() throws IOException {
         return fileManagerService.readHistoryFromFile();
     }
 
@@ -98,22 +98,22 @@ public class CdrServiceImpl implements CdrService {
 
     // Методы генерации звонков
 
-    private List<History> generateCdrForMonth(long startTime, int numCalls) {
-        List<History> monthHistory = new ArrayList<>();
+    private List<CdrHistory> generateCdrForMonth(long startTime, int numCalls) {
+        List<CdrHistory> monthCdrHistory = new ArrayList<>();
 
         for (int i = 0; i < numCalls; i++) {
-            History outgoingCdr = generateRandomCall(startTime);
-            History incomingCdr = generateReverseCall(outgoingCdr);
+            CdrHistory outgoingCdr = generateRandomCall(startTime);
+            CdrHistory incomingCdr = generateReverseCall(outgoingCdr);
 
-            monthHistory.add(outgoingCdr);
-            monthHistory.add(incomingCdr);
+            monthCdrHistory.add(outgoingCdr);
+            monthCdrHistory.add(incomingCdr);
         }
 
-        monthHistory.sort(Comparator.comparingLong(History::getEndTime));
-        return monthHistory;
+        monthCdrHistory.sort(Comparator.comparingLong(CdrHistory::getEndTime));
+        return monthCdrHistory;
     }
 
-    private History generateRandomCall(long startTime) {
+    private CdrHistory generateRandomCall(long startTime) {
         Client client = randomGeneratorService.getRandomClient();
         Client caller = randomGeneratorService.getRandomClient();
 
@@ -124,7 +124,7 @@ public class CdrServiceImpl implements CdrService {
             client = randomGeneratorService.getRandomClient();
         }
 
-        History outgoingCdr = new History();
+        CdrHistory outgoingCdr = new CdrHistory();
         outgoingCdr.setType("01");
         outgoingCdr.setClient(client);
         outgoingCdr.setCaller(caller);
@@ -134,8 +134,8 @@ public class CdrServiceImpl implements CdrService {
         return outgoingCdr;
     }
 
-    private History generateReverseCall(History outgoingCdr) {
-        History incomingCdr = new History();
+    private CdrHistory generateReverseCall(CdrHistory outgoingCdr) {
+        CdrHistory incomingCdr = new CdrHistory();
 
         incomingCdr.setType("02");
         incomingCdr.setClient(outgoingCdr.getCaller());
