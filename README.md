@@ -24,7 +24,6 @@
 - [HRS Сервис](https://docs.google.com/document/d/1HjNd-IDC5nQDPpJ3f3gAjznPFq5SsIfD/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [Use-Case](https://docs.google.com/document/d/19Jym4V2EAc4hVurmnbo5_9UYn61sK6K0/edit?usp=sharing&ouid=113918469695711497887&rtpof=true&sd=true)
 - [Общая Схема Проекта](https://drive.google.com/file/d/1YzHcSYZaLkd1YmqKzIlxhe2zc-HjVMI8/view?usp=sharing)
-- [ERD-Диаграммы](https://drive.google.com/file/d/1_7H9FaXFSMhkhGGplwR8poeg7LXgdSW8/view?usp=sharing)
 
 ## Запуск приложения
 
@@ -63,15 +62,15 @@ docker system prune -f
 
 ## Данные для авторизации в БД
 
-- ### Для базы данных сервиса Симулятора Коммутатора (PostgreSQL):
+- ### Для базы данных сервиса Симулятора Коммутатора (PostgreSQL, порт - 5432):
     - username: sa
     - password: password
 
-- ### Для базы данных сервиса BRT (PostgreSQL):
+- ### Для базы данных сервиса BRT (PostgreSQL, порт - 5434):
     - username: user1
     - password: password1
 
-- ### Для базы данных сервиса HRS (PostgreSQL):
+- ### Для базы данных сервиса HRS (PostgreSQL, порт - 5435):
     - username: user2
     - password: password2
 
