@@ -1,7 +1,7 @@
 package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
-import com.cdr_generator.entities.History;
+import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.repositories.ClientRepository;
 import com.cdr_generator.repositories.HistoryRepository;
 import com.cdr_generator.services.CdrDatabaseService;
@@ -24,10 +24,10 @@ public class CdrDatabaseServiceImpl implements CdrDatabaseService {
     /**
      * Сохраняет записи CDR в базу данных.
      *
-     * @param historyList Список записей CDR.
+     * @param cdrHistoryList Список записей CDR.
      */
-    public void saveCdrToDatabase(List<History> historyList) {
-        historyRepository.saveAll(historyList);
+    public void saveCdrToDatabase(List<CdrHistory> cdrHistoryList) {
+        historyRepository.saveAll(cdrHistoryList);
     }
 
     /**

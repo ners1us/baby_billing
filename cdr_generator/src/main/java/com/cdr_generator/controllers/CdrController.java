@@ -1,6 +1,6 @@
 package com.cdr_generator.controllers;
 
-import com.cdr_generator.entities.History;
+import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.cdr_generator.services.CdrService;
 import lombok.AllArgsConstructor;
@@ -30,10 +30,10 @@ public class CdrController {
     public ResponseEntity<String> generateAndSaveCdr() throws IOException {
         cdrService.checkAndCleanData();
 
-        CompletableFuture<List<History>> cdrFuture = cdrService.generateCdr();
+        CompletableFuture<List<CdrHistory>> cdrFuture = cdrService.generateCdr();
 
-        List<History> historyList = cdrFuture.join();
-        cdrService.processCdr(historyList);
+        List<CdrHistory> cdrHistoryList = cdrFuture.join();
+        cdrService.processCdr(cdrHistoryList);
 
         return ResponseEntity.ok("Successfully generated files");
     }
@@ -41,9 +41,9 @@ public class CdrController {
     @PostMapping("/publishCdr")
     public ResponseEntity<String> publishCdr() {
         try {
-            List<History> historyList = cdrService.readHistory();
-            for (History history : historyList) {
-                cdrToBrtRabbitMQPublisher.sendMessage(history);
+            List<CdrHistory> cdrHistoryList = cdrService.readHistory();
+            for (CdrHistory cdrHistory : cdrHistoryList) {
+                cdrToBrtRabbitMQPublisher.sendMessage(cdrHistory);
             }
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
