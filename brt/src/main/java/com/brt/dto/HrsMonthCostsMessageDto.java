@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HrsMonthCostsMessage {
+public class HrsMonthCostsMessageDto {
 
-    private List<HrsMonthCost> hrsMonthCosts;
+    private List<HrsMonthCostDto> hrsMonthCostDtos;
 
 }

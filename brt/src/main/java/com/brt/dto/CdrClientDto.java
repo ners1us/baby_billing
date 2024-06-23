@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CdrClient {
+public class CdrClientDto {
 
     private Long id;
 

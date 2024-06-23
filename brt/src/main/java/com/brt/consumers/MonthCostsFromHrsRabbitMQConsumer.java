@@ -1,7 +1,7 @@
 package com.brt.consumers;
 
-import com.brt.dto.HrsMonthCost;
-import com.brt.dto.HrsMonthCostsMessage;
+import com.brt.dto.HrsMonthCostDto;
+import com.brt.dto.HrsMonthCostsMessageDto;
 import com.brt.entities.TariffPaymentHistory;
 import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BrtService;
@@ -35,10 +35,10 @@ public class MonthCostsFromHrsRabbitMQConsumer {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            HrsMonthCostsMessage monthCostsMessage = objectMapper.readValue(message, HrsMonthCostsMessage.class);
+            HrsMonthCostsMessageDto monthCostsMessage = objectMapper.readValue(message, HrsMonthCostsMessageDto.class);
 
-            if (monthCostsMessage.getHrsMonthCosts() != null) {
-                for (HrsMonthCost monthCost : monthCostsMessage.getHrsMonthCosts()) {
+            if (monthCostsMessage.getHrsMonthCostDtos() != null) {
+                for (HrsMonthCostDto monthCost : monthCostsMessage.getHrsMonthCostDtos()) {
                     TariffPaymentHistory tariffPaymentHistory = new TariffPaymentHistory();
                     tariffPaymentHistory.setClientId(monthCost.getClientId());
                     tariffPaymentHistory.setTariffId(monthCost.getTariffId());
