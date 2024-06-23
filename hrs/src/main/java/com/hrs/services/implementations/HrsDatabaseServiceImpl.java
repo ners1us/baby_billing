@@ -1,6 +1,6 @@
 package com.hrs.services.implementations;
 
-import com.hrs.dto.BrtHistory;
+import com.hrs.dto.BrtHistoryDto;
 import com.hrs.entities.HrsHistory;
 import com.hrs.entities.Tariffs;
 import com.hrs.entities.Traffic;
@@ -39,14 +39,14 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
     /**
      * Сохраняет данные о звонке в базу данных HRS.
      *
-     * @param brtHistory    Данные о звонке от BRT.
+     * @param brtHistoryDto    Данные о звонке от BRT.
      * @param duration      Продолжительность звонка в минутах.
      * @param cost          Стоимость звонка.
      * @param currentMonth  Текущий месяц.
      */
-    public void saveCallData(BrtHistory brtHistory, long duration, BigDecimal cost, int currentMonth) {
+    public void saveCallData(BrtHistoryDto brtHistoryDto, long duration, BigDecimal cost, int currentMonth) {
         List<HrsHistory> existingHistories = historyRepository.findByClientIdAndCallerIdAndStartTimeAndEndTime(
-                brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
+                brtHistoryDto.getClient(), brtHistoryDto.getCallerId(), brtHistoryDto.getStartTime(), brtHistoryDto.getEndTime());
 
         if (!existingHistories.isEmpty()) {
             for (HrsHistory existingHistory : existingHistories) {
@@ -55,20 +55,20 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
                 historyRepository.save(existingHistory);
             }
         } else {
-            HrsHistory history = new HrsHistory(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(),
-                    brtHistory.getEndTime(), brtHistory.getTariffId(), brtHistory.getInternal(), cost, duration);
+            HrsHistory history = new HrsHistory(brtHistoryDto.getClient(), brtHistoryDto.getCallerId(), brtHistoryDto.getStartTime(),
+                    brtHistoryDto.getEndTime(), brtHistoryDto.getTariffId(), brtHistoryDto.getInternal(), cost, duration);
             historyRepository.save(history);
         }
 
-        Traffic traffic = trafficRepository.findByClientId(brtHistory.getClient());
+        Traffic traffic = trafficRepository.findByClientId(brtHistoryDto.getClient());
         if (traffic == null) {
-            traffic = new Traffic(brtHistory.getClient(), brtHistory.getTariffId(), currentMonth);
+            traffic = new Traffic(brtHistoryDto.getClient(), brtHistoryDto.getTariffId(), currentMonth);
         }
 
         long minutesExtCurrentMonth = traffic.getMinutesExtCurrentMonth() != null ? traffic.getMinutesExtCurrentMonth() : 0L;
         long minutesIntCurrentMonth = traffic.getMinutesIntCurrentMonth() != null ? traffic.getMinutesIntCurrentMonth() : 0L;
 
-        if (brtHistory.getInternal()) {
+        if (brtHistoryDto.getInternal()) {
             traffic.setMinutesIntCurrentMonth(minutesIntCurrentMonth + duration);
         } else {
             traffic.setMinutesExtCurrentMonth(minutesExtCurrentMonth + duration);

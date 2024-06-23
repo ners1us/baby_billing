@@ -2,7 +2,7 @@ package com.hrs.publishers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hrs.dto.BrtHistory;
+import com.hrs.dto.BrtHistoryDto;
 import com.hrs.models.CallCost;
 import com.hrs.models.MonthCost;
 import com.hrs.models.MonthCostsMessage;
@@ -52,13 +52,13 @@ public class HrsToBrtRabbitMQPublisher {
     /**
      * Отправляет данные о стоимости звонка из HRS в BRT.
      *
-     * @param brtHistory Объект BrtHistory, представляющий историю звонка.
+     * @param brtHistoryDto Объект BrtHistoryDto, представляющий историю звонка.
      * @param cost       Стоимость звонка.
      * @throws JsonProcessingException если произошла ошибка при преобразовании в JSON.
      */
-    public void sendCallCostToBrt(BrtHistory brtHistory, BigDecimal cost) throws JsonProcessingException {
-        CallCost callCost = new CallCost(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(),
-                brtHistory.getEndTime(), cost);
+    public void sendCallCostToBrt(BrtHistoryDto brtHistoryDto, BigDecimal cost) throws JsonProcessingException {
+        CallCost callCost = new CallCost(brtHistoryDto.getClient(), brtHistoryDto.getCallerId(), brtHistoryDto.getStartTime(),
+                brtHistoryDto.getEndTime(), cost);
         String json = objectMapper.writeValueAsString(callCost);
 
         rabbitTemplate.convertAndSend(exchange, callRoutingKey, json);
