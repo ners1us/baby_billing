@@ -12,9 +12,9 @@ services:
       broker:
         condition: service_healthy
     environment:
-      test_db-url: jdbc:postgresql://cdr-db:5432/test_db
-      test_db-username: sa
-      test_db-password: password
+      cdr-url: jdbc:postgresql://cdr-db:5432/cdr
+      cdr-username: sa
+      cdr-password: password
       rabbit_broker: bb-rabbitmq
 
   brt-app:
@@ -64,7 +64,7 @@ services:
     environment:
       - POSTGRES_USER=sa
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=test_db
+      - POSTGRES_DB=cdr
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U sa" ]
       interval: 15s
