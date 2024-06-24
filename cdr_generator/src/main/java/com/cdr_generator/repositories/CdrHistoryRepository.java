@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HistoryRepository extends JpaRepository<CdrHistory, Long> {
+public interface CdrHistoryRepository extends JpaRepository<CdrHistory, Long> {
 }
