@@ -1,6 +1,6 @@
 package com.cdr_generator.repositories;
 
-import com.cdr_generator.environment.CdrEnvironmentTest;
+import com.cdr_generator.environments.CdrEnvironmentTest;
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.entities.Client;
 import org.junit.jupiter.api.BeforeEach;

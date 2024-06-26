@@ -1,4 +1,4 @@
-package com.cdr_generator.environment;
+package com.cdr_generator.environments;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.test.context.DynamicPropertyRegistry;

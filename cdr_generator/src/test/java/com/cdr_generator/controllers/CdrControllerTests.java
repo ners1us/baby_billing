@@ -2,7 +2,7 @@ package com.cdr_generator.controllers;
 
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.entities.Client;
-import com.cdr_generator.environment.CdrEnvironmentTest;
+import com.cdr_generator.environments.CdrEnvironmentTest;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.cdr_generator.services.CdrService;
 import org.junit.jupiter.api.Test;
