@@ -11,6 +11,8 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      cdr-tests:
+        condition: service_completed_successfully
     environment:
       cdr-url: jdbc:postgresql://cdr-db:5432/cdr
       cdr-username: sa
@@ -123,3 +125,14 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
+
+  cdr-tests:
+    image: maven:3.8.4-openjdk-17
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: $PWD/cdr_generator
+    volumes:
+      - $PWD/cdr_generator:$PWD/cdr_generator
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "mvn test && exit 0 || exit 1"
