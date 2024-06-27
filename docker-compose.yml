@@ -31,6 +31,8 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      brt-tests:
+        condition: service_completed_successfully
     environment:
       brt-url: jdbc:postgresql://brt-db:5432/brt
       brt-username: user1
@@ -134,5 +136,16 @@ services:
     working_dir: $PWD/cdr_generator
     volumes:
       - $PWD/cdr_generator:$PWD/cdr_generator
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "mvn test && exit 0 || exit 1"
+
+  brt-tests:
+    image: maven:3.8.4-openjdk-17
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: $PWD/brt
+    volumes:
+      - $PWD/brt:$PWD/brt
       - /var/run/docker.sock:/var/run/docker.sock
     command: sh -c "mvn test && exit 0 || exit 1"
