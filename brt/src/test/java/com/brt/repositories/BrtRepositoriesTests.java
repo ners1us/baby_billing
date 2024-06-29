@@ -17,7 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @SpringBootTest
-public class BrtRepositoriesTests extends BrtEnvironmentTest {
+class BrtRepositoriesTests extends BrtEnvironmentTest {
 
     @Autowired
     private BrtClientRepository brtClientRepository;

@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BrtControllerTests extends BrtEnvironmentTest {
+class BrtControllerTests extends BrtEnvironmentTest {
 
     @Autowired
     private MockMvc mockMvc;

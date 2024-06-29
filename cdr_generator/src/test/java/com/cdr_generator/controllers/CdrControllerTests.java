@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CdrControllerTests extends CdrEnvironmentTest {
+class CdrControllerTests extends CdrEnvironmentTest {
 
     @Autowired
     private MockMvc mockMvc;

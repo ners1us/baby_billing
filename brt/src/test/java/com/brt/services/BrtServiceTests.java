@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @Testcontainers
-public class BrtServiceTests extends BrtEnvironmentTest {
+class BrtServiceTests extends BrtEnvironmentTest {
 
     @Mock
     private BrtDatabaseService brtDatabaseService;
