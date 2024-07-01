@@ -71,7 +71,7 @@ docker logs baby_billing-cdr-tests-1
 docker logs baby_billing-brt-tests-1
 ```
 
-## Просмотр логов тестов микросервиса brt
+## Просмотр логов тестов микросервиса hrs
 
 ```bash
 docker logs baby_billing-hrs-tests-1
