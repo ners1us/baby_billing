@@ -1,6 +1,6 @@
 package com.hrs.services.implementations;
 
-import com.hrs.dto.BrtHistory;
+import com.hrs.dto.BrtHistoryDto;
 import com.hrs.models.TariffRules;
 import com.hrs.services.CallCostCalculator;
 import org.springframework.stereotype.Service;
@@ -31,14 +31,14 @@ public class CallCostCalculatorImpl implements CallCostCalculator {
     /**
      * Вычисляет стоимость звонка на основе истории звонка и правил тарификации.
      *
-     * @param brtHistory   Объект BrtHistory, представляющий историю звонка.
+     * @param brtHistoryDto   Объект BrtHistoryDto, представляющий историю звонка.
      * @param tariffRules  Правила тарификации для данного звонка.
      * @param duration     Продолжительность звонка в минутах.
      * @return Стоимость звонка.
      */
-    public BigDecimal calculateCallCost(BrtHistory brtHistory, TariffRules tariffRules, long duration) {
-        if (brtHistory.getInternal()) {
-            if (brtHistory.getType().equals("01")) {
+    public BigDecimal calculateCallCost(BrtHistoryDto brtHistoryDto, TariffRules tariffRules, long duration) {
+        if (brtHistoryDto.getInternal()) {
+            if (brtHistoryDto.getType().equals("01")) {
                 if (tariffRules.getOverlimit() != null && tariffRules.getOverlimit().getInternalOutcoming() != null) {
                     return BigDecimal.valueOf(duration).multiply(tariffRules.getOverlimit().getInternalOutcoming());
                 } else {
@@ -52,7 +52,7 @@ public class CallCostCalculatorImpl implements CallCostCalculator {
                 }
             }
         } else {
-            if (brtHistory.getType().equals("01")) {
+            if (brtHistoryDto.getType().equals("01")) {
                 if (tariffRules.getOverlimit() != null && tariffRules.getOverlimit().getExternalOutcoming() != null) {
                     return BigDecimal.valueOf(duration).multiply(tariffRules.getOverlimit().getExternalOutcoming());
                 } else {

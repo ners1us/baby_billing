@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HrsCallCost {
+public class HrsCallCostDto {
 
     private String client;
 

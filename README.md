@@ -30,6 +30,11 @@
 ```bash
 docker compose up -d --build
 ```
+## Запуск приложения co свежими базами данных
+
+```bash
+docker volume rm baby_billing_cdr_data baby_billing_brt_data baby_billing_hrs_data && docker compose up -d --build
+```
 
 ## Остановка приложения
 
@@ -52,6 +57,24 @@ docker logs baby_billing-brt-app-1
 
 ```bash
 docker logs baby_billing-hrs-app-1
+```
+
+## Просмотр логов тестов микросервиса cdr_generator
+
+```bash
+docker logs baby_billing-cdr-tests-1
+```
+
+## Просмотр логов тестов микросервиса brt
+
+```bash
+docker logs baby_billing-brt-tests-1
+```
+
+## Просмотр логов тестов микросервиса brt
+
+```bash
+docker logs baby_billing-hrs-tests-1
 ```
 
 ## Очистка кэша

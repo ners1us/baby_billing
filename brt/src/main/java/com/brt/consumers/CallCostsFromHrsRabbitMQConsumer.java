@@ -1,6 +1,6 @@
 package com.brt.consumers;
 
-import com.brt.dto.HrsCallCost;
+import com.brt.dto.HrsCallCostDto;
 import com.brt.entities.BrtHistory;
 import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BrtService;
@@ -34,7 +34,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            HrsCallCost callCost = objectMapper.readValue(message, HrsCallCost.class);
+            HrsCallCostDto callCost = objectMapper.readValue(message, HrsCallCostDto.class);
 
             BrtHistory brtHistory = new BrtHistory();
             brtHistory.setClient(callCost.getClient());

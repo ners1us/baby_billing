@@ -1,6 +1,6 @@
 package com.brt.services.implementations;
 
-import com.brt.dto.CdrHistory;
+import com.brt.dto.CdrHistoryDto;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.repositories.BrtClientRepository;
@@ -52,7 +52,7 @@ public class BrtHistoryRecordManagerServiceImpl implements BrtHistoryRecordManag
      * @param oldHistory История вызова в формате CDR.
      * @return Новая запись истории в формате BRT.
      */
-    public BrtHistory convertToNewHistory(CdrHistory oldHistory) {
+    public BrtHistory convertToNewHistory(CdrHistoryDto oldHistory) {
         BrtHistory newHistory = new BrtHistory();
 
         newHistory.setType(oldHistory.getType());

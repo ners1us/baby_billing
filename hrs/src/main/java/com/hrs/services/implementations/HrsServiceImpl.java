@@ -2,7 +2,7 @@ package com.hrs.services.implementations;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hrs.dto.BrtHistory;
+import com.hrs.dto.BrtHistoryDto;
 import com.hrs.entities.HrsHistory;
 import com.hrs.entities.Tariffs;
 import com.hrs.entities.Traffic;
@@ -57,26 +57,26 @@ public class HrsServiceImpl implements HrsService {
      * @throws JsonProcessingException если происходит ошибка при обработке JSON.
      */
     public void processCallsFromBrt(String json) throws JsonProcessingException {
-        BrtHistory brtHistory = objectMapper.readValue(json, BrtHistory.class);
+        BrtHistoryDto brtHistoryDto = objectMapper.readValue(json, BrtHistoryDto.class);
 
-        HrsHistory history = new HrsHistory(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime(), brtHistory.getTariffId(), brtHistory.getInternal());
+        HrsHistory history = new HrsHistory(brtHistoryDto.getClient(), brtHistoryDto.getCallerId(), brtHistoryDto.getStartTime(), brtHistoryDto.getEndTime(), brtHistoryDto.getTariffId(), brtHistoryDto.getInternal());
         historyRepository.save(history);
 
-        int month = brtHistory.getEndTime().getMonthValue();
+        int month = brtHistoryDto.getEndTime().getMonthValue();
 
         if (month != currentMonth) {
-            processMonthChange(brtHistory.getEndTime());
+            processMonthChange(brtHistoryDto.getEndTime());
             currentMonth = month;
         }
 
-        long duration = callCostCalculator.calculateDuration(brtHistory.getStartTime(), brtHistory.getEndTime());
-        Tariffs tariff = hrsDatabaseService.getTariff(brtHistory.getTariffId());
+        long duration = callCostCalculator.calculateDuration(brtHistoryDto.getStartTime(), brtHistoryDto.getEndTime());
+        Tariffs tariff = hrsDatabaseService.getTariff(brtHistoryDto.getTariffId());
 
         TariffRules tariffRules = tariff.getTariffRules();
-        BigDecimal cost = callCostCalculator.calculateCallCost(brtHistory, tariffRules, duration);
-        hrsDatabaseService.saveCallData(brtHistory, duration, cost, currentMonth);
+        BigDecimal cost = callCostCalculator.calculateCallCost(brtHistoryDto, tariffRules, duration);
+        hrsDatabaseService.saveCallData(brtHistoryDto, duration, cost, currentMonth);
 
-        hrsToBrtRabbitMQPublisher.sendCallCostToBrt(brtHistory, cost);
+        hrsToBrtRabbitMQPublisher.sendCallCostToBrt(brtHistoryDto, cost);
     }
 
     /**
