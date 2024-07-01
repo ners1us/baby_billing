@@ -3,15 +3,15 @@ package com.brt.dto;
 import lombok.Data;
 
 @Data
-public class CdrHistory {
+public class CdrHistoryDto {
 
     private Long id;
 
     private String type;
 
-    private CdrClient client;
+    private CdrClientDto client;
 
-    private CdrClient caller;
+    private CdrClientDto caller;
 
     private long startTime;
 

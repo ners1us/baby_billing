@@ -1,7 +1,7 @@
 package com.brt.consumers;
 
 import com.brt.converters.CdrHistoryMessageConverter;
-import com.brt.dto.CdrHistory;
+import com.brt.dto.CdrHistoryDto;
 import com.brt.entities.BrtHistory;
 import com.brt.services.BrtHistoryRecordManagerService;
 import com.brt.services.BrtService;
@@ -32,7 +32,7 @@ public class CdrToBrtRabbitMQConsumer {
      * @param history Запись CDR, полученная из RabbitMQ.
      */
     @RabbitListener(queues = {"${rabbitmq.cdr.to.brt.queue.name}"}, messageConverter = "cdrHistoryMessageConverter")
-    public void consumeMessage(CdrHistory history) {
+    public void consumeMessage(CdrHistoryDto history) {
         LOGGER.info(String.format("Consumed message -> %s", history.toString()));
 
         BrtHistory brtHistory = brtHistoryRecordManagerService.convertToNewHistory(history);

@@ -28,7 +28,7 @@ public class BrtToHrsRabbitMQConsumer {
         try {
             hrsService.processCallsFromBrt(brtHistoryJson);
         } catch (Exception e) {
-            LOGGER.error("Error processing BrtHistory: {}", e.getMessage());
+            LOGGER.error("Error processing BrtHistoryDto: {}", e.getMessage());
         }
 
         LOGGER.info(String.format("Consumed message -> %s", brtHistoryJson));

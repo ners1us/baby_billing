@@ -11,10 +11,12 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      cdr-tests:
+        condition: service_completed_successfully
     environment:
-      test_db-url: jdbc:postgresql://cdr-db:5432/test_db
-      test_db-username: sa
-      test_db-password: password
+      cdr-url: jdbc:postgresql://cdr-db:5432/cdr
+      cdr-username: sa
+      cdr-password: password
       rabbit_broker: bb-rabbitmq
 
   brt-app:
@@ -29,6 +31,8 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      brt-tests:
+        condition: service_completed_successfully
     environment:
       brt-url: jdbc:postgresql://brt-db:5432/brt
       brt-username: user1
@@ -47,6 +51,8 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      hrs-tests:
+        condition: service_completed_successfully
     environment:
       hrs-url: jdbc:postgresql://hrs-db:5432/hrs
       hrs-username: user2
@@ -54,61 +60,61 @@ services:
       rabbit_broker: bb-rabbitmq
 
   cdr-db:
-    image: postgres:14.7
+    image: postgres:latest
     container_name: postgres_cdr
     restart: unless-stopped
     ports:
       - "5432:5432"
     volumes:
-      - ./cdr_generator/CDR:/var/lib/postgresql/data
+      - cdr_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=sa
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=test_db
+      - POSTGRES_DB=cdr
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U sa" ]
-      interval: 30s
-      timeout: 10s
+      interval: 15s
+      timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 15s
 
   brt-db:
-    image: postgres:14.7
+    image: postgres:latest
     container_name: postgres_brt
     restart: unless-stopped
     ports:
       - "5434:5432"
     volumes:
-      - ./brt/BRT:/var/lib/postgresql/data
+      - brt_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user1
       - POSTGRES_PASSWORD=password1
       - POSTGRES_DB=brt
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user1"]
-      interval: 30s
-      timeout: 10s
+      interval: 15s
+      timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 15s
 
   hrs-db:
-    image: postgres:14.7
+    image: postgres:latest
     container_name: postgres_hrs
     restart: unless-stopped
     ports:
       - "5435:5432"
     volumes:
-      - ./hrs/HRS:/var/lib/postgresql/data
+      - hrs_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user2
       - POSTGRES_PASSWORD=password2
       - POSTGRES_DB=hrs
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U user2" ]
-      interval: 30s
-      timeout: 10s
+      interval: 15s
+      timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 15s
 
   broker:
     image: rabbitmq:3.13.1-management
@@ -119,6 +125,45 @@ services:
       - "5672:5672"
     healthcheck:
       test: rabbitmq-diagnostics -q ping
-      interval: 30s
-      timeout: 30s
+      interval: 15s
+      timeout: 5s
       retries: 3
+      start_period: 15s
+
+  cdr-tests:
+    image: maven:3.8.4-openjdk-17
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: $PWD/cdr_generator
+    volumes:
+      - $PWD/cdr_generator:$PWD/cdr_generator
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "mvn test && exit 0 || exit 1"
+
+  brt-tests:
+    image: maven:3.8.4-openjdk-17
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: $PWD/brt
+    volumes:
+      - $PWD/brt:$PWD/brt
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "mvn test && exit 0 || exit 1"
+
+  hrs-tests:
+    image: maven:3.8.4-openjdk-17
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: $PWD/hrs
+    volumes:
+      - $PWD/hrs:$PWD/hrs
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "mvn test && exit 0 || exit 1"
+
+volumes:
+  cdr_data:
+  brt_data:
+  hrs_data:

@@ -1,6 +1,6 @@
 package com.brt.converters;
 
-import com.brt.dto.CdrHistory;
+import com.brt.dto.CdrHistoryDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -20,7 +20,7 @@ public class CdrHistoryMessageConverter implements MessageConverter {
     @Override
     public Object fromMessage(Message message) {
         try {
-            return objectMapper.readValue(message.getBody(), CdrHistory.class);
+            return objectMapper.readValue(message.getBody(), CdrHistoryDto.class);
         } catch (Exception e) {
             throw new MessageConversionException("Failed to convert message to CdrHistory", e);
         }
