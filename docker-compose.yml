@@ -51,6 +51,8 @@ services:
         condition: service_healthy
       broker:
         condition: service_healthy
+      hrs-tests:
+        condition: service_completed_successfully
     environment:
       hrs-url: jdbc:postgresql://hrs-db:5432/hrs
       hrs-username: user2
@@ -147,6 +149,17 @@ services:
     working_dir: $PWD/brt
     volumes:
       - $PWD/brt:$PWD/brt
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "mvn test && exit 0 || exit 1"
+
+  hrs-tests:
+    image: maven:3.8.4-openjdk-17
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: $PWD/hrs
+    volumes:
+      - $PWD/hrs:$PWD/hrs
       - /var/run/docker.sock:/var/run/docker.sock
     command: sh -c "mvn test && exit 0 || exit 1"
 
