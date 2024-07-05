@@ -28,15 +28,6 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
     private final TrafficRepository trafficRepository;
 
     /**
-     * Возвращает количество тарифов в базе данных.
-     *
-     * @return Количество тарифов.
-     */
-    public long countTariffs() {
-        return tariffsRepository.count();
-    }
-
-    /**
      * Сохраняет данные о звонке в базу данных HRS.
      *
      * @param brtHistoryDto    Данные о звонке от BRT.

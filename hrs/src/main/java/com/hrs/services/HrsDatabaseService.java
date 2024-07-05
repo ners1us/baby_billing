@@ -7,8 +7,6 @@ import java.math.BigDecimal;
 
 public interface HrsDatabaseService {
 
-    long countTariffs();
-
     void saveCallData(BrtHistoryDto brtHistoryDto, long duration, BigDecimal cost, int currentMonth);
 
     Tariffs getTariff(Integer tariffId);

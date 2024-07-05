@@ -42,8 +42,8 @@ public class BrtToHrsRabbitMQPublisher {
             String json = objectMapper.writeValueAsString(brtHistory);
 
             rabbitTemplate.convertAndSend(exchange, routingKey, json);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(e.getMessage());
+        } catch (JsonProcessingException ex) {
+            LOGGER.error(ex.getMessage());
         }
     }
 }

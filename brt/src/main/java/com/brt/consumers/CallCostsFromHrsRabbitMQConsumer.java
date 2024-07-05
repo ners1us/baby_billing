@@ -43,8 +43,8 @@ public class CallCostsFromHrsRabbitMQConsumer {
             brtHistory.setEndTime(callCost.getEndTime());
             brtService.processCostFromHrs(brtHistory, callCost.getCost());
 
-        } catch (JsonProcessingException e) {
-            LOGGER.error("Error processing CallCost to JSON: {}", e.getMessage());
+        } catch (JsonProcessingException ex) {
+            LOGGER.error("Error processing CallCost to JSON: {}", ex.getMessage());
         }
 
         LOGGER.info(String.format("Consumed message -> %s", message));
