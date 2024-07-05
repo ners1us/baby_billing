@@ -2,6 +2,8 @@ package com.hrs.converters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hrs.exceptions.FailedConvertingFromJsonToTariffRulesException;
+import com.hrs.exceptions.FailedConvertingFromTariffRulesToJsonException;
 import com.hrs.models.TariffRules;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
@@ -26,7 +28,7 @@ public class TariffRulesConverter implements AttributeConverter<TariffRules, Str
         try {
             return objectMapper.writeValueAsString(tariffRules);
         } catch (JsonProcessingException ex) {
-            throw new RuntimeException("Error converting TariffRules to JSON string", ex);
+            throw new FailedConvertingFromTariffRulesToJsonException("Error converting TariffRules to JSON string", ex);
         }
     }
 
@@ -42,7 +44,7 @@ public class TariffRulesConverter implements AttributeConverter<TariffRules, Str
         try {
             return objectMapper.readValue(jsonString, TariffRules.class);
         } catch (JsonProcessingException ex) {
-            throw new RuntimeException("Error converting JSON string to TariffRules", ex);
+            throw new FailedConvertingFromJsonToTariffRulesException("Error converting JSON string to TariffRules", ex);
         }
     }
 }
