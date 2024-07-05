@@ -2,6 +2,8 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.CdrHistory;
+import com.cdr_generator.exceptions.FailedSavingCdrToFileException;
+import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
 import com.cdr_generator.services.CdrDatabaseService;
 import com.cdr_generator.services.CdrService;
 import com.cdr_generator.services.FileManagerService;
@@ -48,7 +50,11 @@ public class CdrServiceImpl implements CdrService {
             List<List<CdrHistory>> files = fileManagerService.splitIntoFiles(cdrHistoryList, MAX_CALLS_PER_FILE);
             for (int i = 0; i < files.size(); i++) {
                 String fileName = "data/cdr_" + (i + 1) + ".txt";
-                fileManagerService.saveCdrToFile(files.get(i), fileName);
+                try {
+                    fileManagerService.saveCdrToFile(files.get(i), fileName);
+                } catch (FailedWritingCdrHistoryToFileException ex) {
+                    throw new FailedSavingCdrToFileException("Failed saving CDR file", ex);
+                }
             }
         }));
 

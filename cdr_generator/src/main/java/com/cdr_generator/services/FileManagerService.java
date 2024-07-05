@@ -1,6 +1,7 @@
 package com.cdr_generator.services;
 
 import com.cdr_generator.entities.CdrHistory;
+import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,5 +14,5 @@ public interface FileManagerService {
 
     List<List<CdrHistory>> splitIntoFiles(List<CdrHistory> cdrHistoryList, int maxCallsPerFile);
 
-    void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName);
+    void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) throws FailedWritingCdrHistoryToFileException;
 }

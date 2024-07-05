@@ -49,8 +49,8 @@ public class MonthCostsFromHrsRabbitMQConsumer {
             } else {
                 LOGGER.error("Received MonthCostsMessage with null monthCosts field");
             }
-        } catch (JsonProcessingException | NotFoundClientException e) {
-            LOGGER.error("Error processing MonthCostsMessage to JSON: {}", e.getMessage());
+        } catch (JsonProcessingException | NotFoundClientException ex) {
+            LOGGER.error("Error processing MonthCostsMessage to JSON: {}", ex.getMessage());
         }
 
         LOGGER.info(String.format("Consumed message -> %s", message));

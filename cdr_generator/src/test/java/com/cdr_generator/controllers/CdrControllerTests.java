@@ -38,7 +38,7 @@ class CdrControllerTests extends CdrEnvironmentTest {
 
     @Test
     void generateAndSaveCdrTest() throws Exception {
-        //Arrange
+        // Arrange
         List<CdrHistory> cdrHistoryList = new ArrayList<>();
 
         Client client1 = new Client();
@@ -57,7 +57,7 @@ class CdrControllerTests extends CdrEnvironmentTest {
         cdrHistory.setEndTime(1680307300L);
         cdrHistoryList.add(cdrHistory);
 
-        //Act
+        // Act
         when(cdrService.generateCdr()).thenReturn(CompletableFuture.completedFuture(cdrHistoryList));
         doNothing().when(cdrService).checkAndCleanData();
         doNothing().when(cdrService).processCdr(any());
@@ -66,7 +66,7 @@ class CdrControllerTests extends CdrEnvironmentTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        //Assert
+        // Assert
         verify(cdrService, times(1)).checkAndCleanData();
         verify(cdrService, times(1)).generateCdr();
         verify(cdrService, times(1)).processCdr(any());

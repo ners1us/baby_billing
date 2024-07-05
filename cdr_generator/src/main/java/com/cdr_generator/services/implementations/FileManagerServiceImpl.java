@@ -2,9 +2,8 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.CdrHistory;
+import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
 import com.cdr_generator.services.FileManagerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -16,8 +15,6 @@ import java.util.List;
  */
 @Service
 public class FileManagerServiceImpl implements FileManagerService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileManagerServiceImpl.class);
 
     /**
      * Проверяет существование и очищает папку данных.
@@ -112,13 +109,13 @@ public class FileManagerServiceImpl implements FileManagerService {
      * @param cdrHistoryList Список объектов History, которые необходимо сохранить.
      * @param fileName    Имя файла, в который нужно сохранить CDR.
      */
-    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {
+    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) throws FailedWritingCdrHistoryToFileException {
         try (FileWriter writer = new FileWriter(fileName)) {
             for (CdrHistory cdrHistory : cdrHistoryList) {
                 writer.write(cdrHistory.toString() + "\n");
             }
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+        } catch (IOException ex) {
+            throw new FailedWritingCdrHistoryToFileException("Failed writing cdr history to file", ex);
         }
     }
 
