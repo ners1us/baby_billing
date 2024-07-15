@@ -2,6 +2,7 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.CdrHistory;
+import com.cdr_generator.exceptions.FailedOpeningCdrFileException;
 import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
 import com.cdr_generator.services.FileManagerService;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,10 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Сервис для работы с файлами, связанными с CDR.
@@ -23,12 +28,10 @@ public class FileManagerServiceImpl implements FileManagerService {
         File dataFolder = new File("data");
 
         if (dataFolder.isDirectory()) {
-            File[] files = dataFolder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    file.delete();
-                }
-            }
+            File[] files = Objects.requireNonNull(dataFolder.listFiles());
+
+            Stream.of(files)
+                    .forEach(File::delete);
         } else {
             dataFolder.mkdir();
         }
@@ -81,26 +84,11 @@ public class FileManagerServiceImpl implements FileManagerService {
      * @return Список списков истории, разбитой на файлы.
      */
     public List<List<CdrHistory>> splitIntoFiles(List<CdrHistory> cdrHistoryList, int maxCallsPerFile) {
-        List<List<CdrHistory>> files = new ArrayList<>();
-        List<CdrHistory> currentFile = new ArrayList<>();
-        int count = 0;
+        AtomicInteger count = new AtomicInteger(0);
 
-        for (CdrHistory cdrHistory : cdrHistoryList) {
-            currentFile.add(cdrHistory);
-            count++;
-
-            if (count == maxCallsPerFile) {
-                files.add(new ArrayList<>(currentFile));
-                currentFile.clear();
-                count = 0;
-            }
-        }
-
-        if (!currentFile.isEmpty()) {
-            files.add(new ArrayList<>(currentFile));
-        }
-
-        return files;
+        return new ArrayList<>(cdrHistoryList.stream()
+                .collect(Collectors.groupingBy(it -> count.getAndIncrement() / maxCallsPerFile))
+                .values());
     }
 
     /**
@@ -109,13 +97,19 @@ public class FileManagerServiceImpl implements FileManagerService {
      * @param cdrHistoryList Список объектов History, которые необходимо сохранить.
      * @param fileName    Имя файла, в который нужно сохранить CDR.
      */
-    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) throws FailedWritingCdrHistoryToFileException {
+    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
-            for (CdrHistory cdrHistory : cdrHistoryList) {
-                writer.write(cdrHistory.toString() + "\n");
-            }
+            cdrHistoryList.stream()
+                    .map(CdrHistory::toString)
+                    .forEach(cdrString -> {
+                        try {
+                            writer.write(cdrString + "\n");
+                        } catch (IOException ex) {
+                            throw new FailedWritingCdrHistoryToFileException("Failed writing cdr history to file", ex);
+                        }
+                    });
         } catch (IOException ex) {
-            throw new FailedWritingCdrHistoryToFileException("Failed writing cdr history to file", ex);
+            throw new FailedOpeningCdrFileException("Failed writing cdr history to file", ex);
         }
     }
 
