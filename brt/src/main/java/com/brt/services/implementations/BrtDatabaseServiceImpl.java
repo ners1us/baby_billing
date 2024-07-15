@@ -107,13 +107,4 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     public List<Client> getAllClients() {
         return brtClientRepository.findAll();
     }
-
-    /**
-     * Возвращает количество клиентов в базе данных.
-     *
-     * @return Количество клиентов.
-     */
-    public long countClients() {
-        return brtClientRepository.count();
-    }
 }

@@ -24,6 +24,4 @@ public interface BrtDatabaseService {
     Client findClientById(String clientId);
 
     BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime);
-
-    long countClients();
 }
