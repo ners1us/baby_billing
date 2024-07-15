@@ -87,7 +87,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Запись BRT, найденная в базе данных.
      */
     public BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime) {
-        return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime);
+        return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
     }
 
     /**

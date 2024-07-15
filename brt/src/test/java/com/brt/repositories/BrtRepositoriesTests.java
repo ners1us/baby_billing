@@ -4,6 +4,7 @@ import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
 import com.brt.environments.BrtEnvironmentTest;
+import com.brt.exceptions.NotFoundBrtHistoryException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -142,7 +143,7 @@ class BrtRepositoriesTests extends BrtEnvironmentTest {
 
         // Act
         BrtHistory foundHistory = brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(
-                brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
+                brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime()).orElseThrow(() -> new NotFoundBrtHistoryException("Could not found brt history"));
 
         // Assert
         Assertions.assertNotNull(foundHistory);
