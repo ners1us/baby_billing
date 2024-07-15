@@ -3,7 +3,6 @@ package com.brt.services.implementations;
 import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
-import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BalanceCalculatorService;
 import com.brt.services.BrtDatabaseService;
 import com.brt.services.BrtHistoryRecordManagerService;
