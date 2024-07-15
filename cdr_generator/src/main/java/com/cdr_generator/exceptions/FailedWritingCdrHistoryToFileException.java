@@ -1,8 +1,6 @@
 package com.cdr_generator.exceptions;
 
-import java.io.IOException;
-
-public class FailedWritingCdrHistoryToFileException extends IOException {
+public class FailedWritingCdrHistoryToFileException extends RuntimeException {
     public FailedWritingCdrHistoryToFileException() {}
 
     public FailedWritingCdrHistoryToFileException(String message) {
