@@ -1,6 +1,6 @@
 package com.brt.exceptions;
 
-public class NotFoundClientException extends Exception {
+public class NotFoundClientException extends RuntimeException {
 
     public NotFoundClientException() {}
 
