@@ -2,6 +2,7 @@ package com.brt.converters;
 
 import com.brt.dto.CdrHistoryDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.MessageConversionException;
@@ -9,13 +10,10 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CdrHistoryMessageConverter implements MessageConverter {
 
     private final ObjectMapper objectMapper;
-
-    public CdrHistoryMessageConverter(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
 
     @Override
     public Object fromMessage(Message message) {

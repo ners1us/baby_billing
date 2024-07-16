@@ -62,7 +62,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Клиент, найденный в базе данных.
      * @throws RuntimeException если клиент не найден.
      */
-    public Client findClientById(String clientId) throws NotFoundClientException {
+    public Client findClientById(String clientId) {
         return brtClientRepository.findById(clientId).orElseThrow(() -> new NotFoundClientException("Client not found"));
     }
 
@@ -73,7 +73,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Запись BRT, найденная в базе данных.
      * @throws RuntimeException если запись не найдена.
      */
-    public BrtHistory findBrtHistoryById(Long id) throws NotFoundBrtHistoryException {
+    public BrtHistory findBrtHistoryById(Long id) {
         return brtHistoryRepository.findById(id).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
     }
 
@@ -87,7 +87,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      * @return Запись BRT, найденная в базе данных.
      */
     public BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime) {
-        return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime);
+        return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
     }
 
     /**
@@ -106,14 +106,5 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
      */
     public List<Client> getAllClients() {
         return brtClientRepository.findAll();
-    }
-
-    /**
-     * Возвращает количество клиентов в базе данных.
-     *
-     * @return Количество клиентов.
-     */
-    public long countClients() {
-        return brtClientRepository.count();
     }
 }

@@ -1,7 +1,6 @@
 package com.brt.controllers;
 
 import com.brt.entities.Client;
-import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class AdminController {
     }
 
     @PutMapping("/clients/{clientId}/tariff")
-    public ResponseEntity<String> changeTariff(@PathVariable String clientId, @RequestParam Integer tariffId) throws NotFoundClientException {
+    public ResponseEntity<String> changeTariff(@PathVariable String clientId, @RequestParam Integer tariffId) {
         Client client = brtDatabaseService.findClientById(clientId);
 
         client.setTariffId(tariffId);

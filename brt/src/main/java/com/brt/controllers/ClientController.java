@@ -1,7 +1,6 @@
 package com.brt.controllers;
 
 import com.brt.entities.Client;
-import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,12 @@ public class ClientController {
     private final BrtDatabaseService brtDatabaseService;
 
     @GetMapping("/balance")
-    public ResponseEntity<BigDecimal> getBalance(@RequestParam String subscriber) throws NotFoundClientException {
+    public ResponseEntity<BigDecimal> getBalance(@RequestParam String subscriber) {
         return ResponseEntity.ok(brtDatabaseService.findClientById(subscriber).getBalance());
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<String> depositBalance(@RequestParam String subscriber, @RequestParam BigDecimal amount) throws NotFoundClientException {
+    public ResponseEntity<String> depositBalance(@RequestParam String subscriber, @RequestParam BigDecimal amount) {
         Client client = brtDatabaseService.findClientById(subscriber);
 
         client.setBalance(client.getBalance().add(amount));

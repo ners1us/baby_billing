@@ -42,9 +42,8 @@ public class CdrController {
     public ResponseEntity<String> publishCdr() {
         try {
             List<CdrHistory> cdrHistoryList = cdrService.readHistory();
-            for (CdrHistory cdrHistory : cdrHistoryList) {
-                cdrToBrtRabbitMQPublisher.sendMessage(cdrHistory);
-            }
+
+            cdrHistoryList.forEach(cdrToBrtRabbitMQPublisher::sendMessage);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error reading files from data folder");

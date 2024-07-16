@@ -1,7 +1,6 @@
 package com.brt.controllers;
 
 import com.brt.entities.BrtHistory;
-import com.brt.exceptions.NotFoundBrtHistoryException;
 import com.brt.publishers.BrtToHrsRabbitMQPublisher;
 import com.brt.services.BrtDatabaseService;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,7 @@ public class BrtController {
     private final BrtDatabaseService brtDatabaseService;
 
     @PostMapping("/sendHistoryToHrs")
-    public ResponseEntity<String> sendHistoryToHrs(@RequestParam Long historyId) throws NotFoundBrtHistoryException {
+    public ResponseEntity<String> sendHistoryToHrs(@RequestParam Long historyId) {
 
         BrtHistory brtHistory = brtDatabaseService.findBrtHistoryById(historyId);
 
@@ -37,9 +36,7 @@ public class BrtController {
 
         List<BrtHistory> brtHistories = brtDatabaseService.getAllBrtHistories();
 
-        for (BrtHistory brtHistory : brtHistories) {
-            brtToHrsRabbitMQPublisher.sendCallToHrs(brtHistory);
-        }
+        brtHistories.forEach(brtToHrsRabbitMQPublisher::sendCallToHrs);
 
         return ResponseEntity.ok("All histories sent to Hrs successfully.");
     }
