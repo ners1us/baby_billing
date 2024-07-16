@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Сервис для генерации и обработки CDR (Call Detail Record).
- * CDR содержит информацию о звонках, такую как клиент, время начала и окончания звонка и т. д.
+ * Сервис для генерации и обработки CDR.
  */
 @Service
 @AllArgsConstructor
@@ -41,6 +40,7 @@ public class CdrServiceImpl implements CdrService {
      * Обрабатывает CDR и сохраняет данные в базу данных и файлы.
      *
      * @param cdrHistoryList Список объектов History, содержащих информацию о звонках
+     * @throws FailedSavingCdrToFileException если произошла ошибка во время записи истории CDR
      */
     public void processCdr(List<CdrHistory> cdrHistoryList) {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
@@ -102,8 +102,13 @@ public class CdrServiceImpl implements CdrService {
         fileManagerService.checkAndCleanDataFolder();
     }
 
-    // Методы генерации звонков
-
+    /**
+     * Генерирует историю звонков CDR за месяц.
+     *
+     * @param startTime начальное время для генерации звонков
+     * @param numCalls количество звонков, которые нужно сгенерировать (каждый звонок и обратный ему звонок)
+     * @return список CdrHistory, представляющий историю звонков за месяц, отсортированный по времени завершения звонков
+     */
     private List<CdrHistory> generateCdrForMonth(long startTime, int numCalls) {
         List<CdrHistory> monthCdrHistory = new ArrayList<>();
 
@@ -119,6 +124,12 @@ public class CdrServiceImpl implements CdrService {
         return monthCdrHistory;
     }
 
+    /**
+     * Генерирует случайный исходящий звонок для указанного времени начала звонка.
+     *
+     * @param startTime время начала генерации звонка
+     * @return CdrHistory, представляющий исходящий звонок
+     */
     private CdrHistory generateRandomCall(long startTime) {
         Client client = randomGeneratorService.getRandomClient();
         Client caller = randomGeneratorService.getRandomClient();
@@ -140,6 +151,12 @@ public class CdrServiceImpl implements CdrService {
         return outgoingCdr;
     }
 
+    /**
+     * Генерирует входящий звонок на основе исходящего звонка.
+     *
+     * @param outgoingCdr объект CdrHistory, представляющий исходящий звонок
+     * @return CdrHistory, представляющий входящий звонок
+     */
     private CdrHistory generateReverseCall(CdrHistory outgoingCdr) {
         CdrHistory incomingCdr = new CdrHistory();
 
