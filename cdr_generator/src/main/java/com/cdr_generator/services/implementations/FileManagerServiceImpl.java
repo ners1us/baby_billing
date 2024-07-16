@@ -79,7 +79,7 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Разбивает список истории на файлы с заданным количеством вызовов.
      *
-     * @param cdrHistoryList     Список истории, который необходимо разделить.
+     * @param cdrHistoryList Список истории, который необходимо разделить.
      * @param maxCallsPerFile Максимальное количество вызовов в одном файле.
      * @return Список списков истории, разбитой на файлы.
      */
@@ -95,7 +95,9 @@ public class FileManagerServiceImpl implements FileManagerService {
      * Сохраняет CDR в файл.
      *
      * @param cdrHistoryList Список объектов History, которые необходимо сохранить.
-     * @param fileName    Имя файла, в который нужно сохранить CDR.
+     * @param fileName Имя файла, в который нужно сохранить CDR.
+     * @throws FailedOpeningCdrFileException если не удается открыть файл для записи
+     * @throws FailedWritingCdrHistoryToFileException если происходит ошибка при записи истории CDR в файл
      */
     public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
