@@ -32,8 +32,8 @@ public class CdrController {
     /**
      * Генерирует и сохраняет CDR.
      *
-     * @return ResponseEntity с сообщением об успешной генерации файлов
-     * @throws IOException если произошла ошибка ввода-вывода
+     * @return ResponseEntity с сообщением об успешной генерации файлов.
+     * @throws IOException если произошла ошибка ввода-вывода.
      */
     @PostMapping("/generateCdr")
     public ResponseEntity<String> generateAndSaveCdr() throws IOException {
@@ -50,7 +50,7 @@ public class CdrController {
     /**
      * Публикует CDR в RabbitMQ.
      *
-     * @return ResponseEntity с информацией о статусе отправки сообщений в RabbitMQ
+     * @return ResponseEntity с информацией о статусе отправки сообщений в RabbitMQ.
      */
     @PostMapping("/publishCdr")
     public ResponseEntity<String> publishCdr() {
