@@ -10,6 +10,9 @@
 - Docker
 - Swagger
 - PostgreSQL
+- JUnit 5
+- Mockito
+- Testcontainers
 
 ## Глоссарий
 
