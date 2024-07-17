@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Сущность для хранения записей истории.
+ * Сущность для хранения записей истории HRS.
  */
 @Entity
 @Table(name = "hrs_history")

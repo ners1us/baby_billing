@@ -30,10 +30,10 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
     /**
      * Сохраняет данные о звонке в базу данных HRS.
      *
-     * @param brtHistoryDto    Данные о звонке от BRT.
-     * @param duration      Продолжительность звонка в минутах.
-     * @param cost          Стоимость звонка.
-     * @param currentMonth  Текущий месяц.
+     * @param brtHistoryDto данные о звонке от BRT.
+     * @param duration продолжительность звонка в минутах.
+     * @param cost стоимость звонка.
+     * @param currentMonth текущий месяц.
      */
     public void saveCallData(BrtHistoryDto brtHistoryDto, long duration, BigDecimal cost, int currentMonth) {
         List<HrsHistory> existingHistories = historyRepository.findByClientIdAndCallerIdAndStartTimeAndEndTime(
@@ -70,8 +70,8 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
     /**
      * Возвращает тариф по его идентификатору.
      *
-     * @param tariffId Идентификатор тарифа.
-     * @return Тариф.
+     * @param tariffId идентификатор тарифа.
+     * @return тариф.
      */
     public Tariffs getTariff(Integer tariffId) {
         return tariffsRepository.findByTariffId(tariffId);

@@ -19,9 +19,9 @@ public class TariffRulesConverter implements AttributeConverter<TariffRules, Str
     /**
      * Преобразует объект TariffRules в строку JSON.
      *
-     * @param tariffRules Объект TariffRules для преобразования.
-     * @return Строка JSON.
-     * @throws RuntimeException если возникает ошибка при преобразовании.
+     * @param tariffRules объект TariffRules для преобразования.
+     * @return строка JSON.
+     * @throws FailedConvertingFromTariffRulesToJsonException если возникает ошибка при преобразовании.
      */
     @Override
     public String convertToDatabaseColumn(TariffRules tariffRules) {
@@ -35,9 +35,9 @@ public class TariffRulesConverter implements AttributeConverter<TariffRules, Str
     /**
      * Преобразует строку JSON в объект TariffRules.
      *
-     * @param jsonString Строка JSON для преобразования.
-     * @return Объект TariffRules.
-     * @throws RuntimeException если возникает ошибка при преобразовании.
+     * @param jsonString строка JSON для преобразования.
+     * @return объект TariffRules.
+     * @throws FailedConvertingFromJsonToTariffRulesException если возникает ошибка при преобразовании.
      */
     @Override
     public TariffRules convertToEntityAttribute(String jsonString) {

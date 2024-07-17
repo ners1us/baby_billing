@@ -30,7 +30,7 @@ public class BrtHistoryRecordManagerServiceImpl implements BrtHistoryRecordManag
     /**
      * Обогащает запись истории перед сохранением в базу данных BRT.
      *
-     * @param brtHistory Запись истории для обогащения.
+     * @param brtHistory запись истории для обогащения.
      */
     public void enrichHistory(BrtHistory brtHistory) {
         Client client = clientRepository.findById(brtHistory.getClient()).orElse(null);
@@ -49,8 +49,8 @@ public class BrtHistoryRecordManagerServiceImpl implements BrtHistoryRecordManag
     /**
      * Преобразует историю вызова из формата CDR в формат BRT.
      *
-     * @param oldHistory История вызова в формате CDR.
-     * @return Новая запись истории в формате BRT.
+     * @param oldHistory история вызова в формате CDR.
+     * @return новая запись истории в формате BRT.
      */
     public BrtHistory convertToNewHistory(CdrHistoryDto oldHistory) {
         BrtHistory newHistory = new BrtHistory();

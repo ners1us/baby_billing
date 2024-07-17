@@ -21,8 +21,8 @@ public class BalanceCalculatorServiceImpl implements BalanceCalculatorService {
     /**
      * Вычисляет баланс клиента на основе стоимости вызовов и обновляет его в репозитории клиентов.
      *
-     * @param clientId Номер клиента.
-     * @param cost     Стоимость вызовов для вычета из баланса.
+     * @param clientId номер клиента.
+     * @param cost стоимость вызовов для вычета из баланса.
      */
     public void calculateClientBalance(String clientId, BigDecimal cost) {
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new NotFoundClientException("Client not found"));

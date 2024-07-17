@@ -29,7 +29,7 @@ public class CdrToBrtRabbitMQPublisher {
     /**
      * Отправляет сообщение с записью CDR в RabbitMQ.
      *
-     * @param cdrHistory Запись CDR, которую необходимо отправить.
+     * @param cdrHistory запись CDR, которую необходимо отправить.
      */
     public void sendMessage(CdrHistory cdrHistory) {
         LOGGER.info(String.format("Message sent -> %s", cdrHistory.toString()));

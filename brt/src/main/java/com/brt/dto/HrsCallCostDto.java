@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * Модель для представления информации о стоимости звонка.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

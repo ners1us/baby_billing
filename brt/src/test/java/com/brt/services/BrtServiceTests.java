@@ -4,7 +4,6 @@ import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
 import com.brt.environments.BrtEnvironmentTest;
-import com.brt.exceptions.NotFoundClientException;
 import com.brt.services.implementations.BrtServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class BrtServiceTests extends BrtEnvironmentTest {
     }
 
     @Test
-    void processCostFromHrsTest() throws NotFoundClientException {
+    void processCostFromHrsTest() {
         // Arrange
         BrtHistory brtHistory = new BrtHistory();
         brtHistory.setClient("79074437331");
@@ -72,7 +71,7 @@ class BrtServiceTests extends BrtEnvironmentTest {
     }
 
     @Test
-    void processTariffChangeFromHrsTest() throws NotFoundClientException {
+    void processTariffChangeFromHrsTest() {
         // Arrange
         TariffPaymentHistory tariffPaymentHistory = new TariffPaymentHistory();
         tariffPaymentHistory.setClientId("79074437331");

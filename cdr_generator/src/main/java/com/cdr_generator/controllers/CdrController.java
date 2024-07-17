@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Контроллер для работы с CDR.
+ */
 @RestController
 @RequestMapping("/api/cdr_generator")
 @AllArgsConstructor
@@ -26,6 +29,12 @@ public class CdrController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrController.class);
 
+    /**
+     * Генерирует и сохраняет CDR.
+     *
+     * @return ResponseEntity с сообщением об успешной генерации файлов.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     @PostMapping("/generateCdr")
     public ResponseEntity<String> generateAndSaveCdr() throws IOException {
         cdrService.checkAndCleanData();
@@ -38,6 +47,11 @@ public class CdrController {
         return ResponseEntity.ok("Successfully generated files");
     }
 
+    /**
+     * Публикует CDR в RabbitMQ.
+     *
+     * @return ResponseEntity с информацией о статусе отправки сообщений в RabbitMQ.
+     */
     @PostMapping("/publishCdr")
     public ResponseEntity<String> publishCdr() {
         try {

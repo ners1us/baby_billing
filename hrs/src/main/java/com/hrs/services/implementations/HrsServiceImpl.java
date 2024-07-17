@@ -82,7 +82,7 @@ public class HrsServiceImpl implements HrsService {
     /**
      * Обрабатывает смену месяца.
      *
-     * @param endTime Время окончания звонка, определяющее текущий месяц.
+     * @param endTime время окончания звонка, определяющее текущий месяц.
      * @throws JsonProcessingException если происходит ошибка при обработке JSON.
      */
     private void processMonthChange(LocalDateTime endTime) throws JsonProcessingException {

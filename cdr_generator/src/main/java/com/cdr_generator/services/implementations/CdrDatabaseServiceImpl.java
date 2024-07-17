@@ -20,7 +20,7 @@ public class CdrDatabaseServiceImpl implements CdrDatabaseService {
     /**
      * Сохраняет записи CDR в базу данных.
      *
-     * @param cdrHistoryList Список записей CDR.
+     * @param cdrHistoryList список записей CDR.
      */
     public void saveCdrToDatabase(List<CdrHistory> cdrHistoryList) {
         cdrHistoryRepository.saveAll(cdrHistoryList);

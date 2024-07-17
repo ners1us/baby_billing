@@ -31,7 +31,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Сохраняет запись BRT в базу данных.
      *
-     * @param brtHistoryList Запись BRT.
+     * @param brtHistoryList запись BRT.
      */
     public void saveBrtHistoryToDatabase(BrtHistory brtHistoryList) {
         brtHistoryRepository.save(brtHistoryList);
@@ -40,7 +40,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Сохраняет клиента в базу данных.
      *
-     * @param client Клиент.
+     * @param client клиент.
      */
     public void saveClientToDatabase(Client client) {
         brtClientRepository.save(client);
@@ -49,7 +49,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Сохраняет историю платежей за тарифы в базу данных.
      *
-     * @param tariffPaymentHistory История платежей за тарифы.
+     * @param tariffPaymentHistory история платежей за тарифы.
      */
     public void saveTariffPaymentHistoryToDatabase(TariffPaymentHistory tariffPaymentHistory) {
         tariffPaymentHistoryRepository.save(tariffPaymentHistory);
@@ -58,9 +58,9 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Находит клиента по его номеру.
      *
-     * @param clientId Номер клиента.
-     * @return Клиент, найденный в базе данных.
-     * @throws RuntimeException если клиент не найден.
+     * @param clientId номер клиента.
+     * @return клиент, найденный в базе данных.
+     * @throws NotFoundBrtHistoryException если клиент не найден.
      */
     public Client findClientById(String clientId) {
         return brtClientRepository.findById(clientId).orElseThrow(() -> new NotFoundClientException("Client not found"));
@@ -69,9 +69,9 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Находит запись BRT по ее идентификатору.
      *
-     * @param id Идентификатор записи BRT.
-     * @return Запись BRT, найденная в базе данных.
-     * @throws RuntimeException если запись не найдена.
+     * @param id идентификатор записи BRT.
+     * @return запись BRT, найденная в базе данных.
+     * @throws NotFoundBrtHistoryException если запись не найдена.
      */
     public BrtHistory findBrtHistoryById(Long id) {
         return brtHistoryRepository.findById(id).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
@@ -80,11 +80,12 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Находит запись BRT по заданным атрибутам.
      *
-     * @param client    Номер телефона клиента.
-     * @param callerId  Номер телефона звонящего.
-     * @param startTime Время начала звонка.
-     * @param endTime   Время окончания звонка.
-     * @return Запись BRT, найденная в базе данных.
+     * @param client номер телефона клиента.
+     * @param callerId номер телефона звонящего.
+     * @param startTime время начала звонка.
+     * @param endTime время окончания звонка.
+     * @throws NotFoundBrtHistoryException если запись не найдена.
+     * @return запись BRT, найденная в базе данных.
      */
     public BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime) {
         return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));
@@ -93,7 +94,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Возвращает список всех записей BRT из базы данных.
      *
-     * @return Список всех записей BRT.
+     * @return список всех записей BRT.
      */
     public List<BrtHistory> getAllBrtHistories() {
         return brtHistoryRepository.findAll();
@@ -102,7 +103,7 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Возвращает список всех клиентов из базы данных.
      *
-     * @return Список всех клиентов.
+     * @return список всех клиентов.
      */
     public List<Client> getAllClients() {
         return brtClientRepository.findAll();

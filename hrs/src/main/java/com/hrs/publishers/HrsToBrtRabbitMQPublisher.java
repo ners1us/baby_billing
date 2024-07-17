@@ -40,7 +40,7 @@ public class HrsToBrtRabbitMQPublisher {
     /**
      * Отправляет данные о месячных затратах на звонки из HRS в BRT.
      *
-     * @param monthCosts Список объектов MonthCost, представляющих месячные затраты на звонки.
+     * @param monthCosts список объектов MonthCost, представляющих месячные затраты на звонки.
      * @throws JsonProcessingException если произошла ошибка при преобразовании в JSON.
      */
     public void sendMonthCallToBrt(List<MonthCost> monthCosts) throws JsonProcessingException {
@@ -52,8 +52,8 @@ public class HrsToBrtRabbitMQPublisher {
     /**
      * Отправляет данные о стоимости звонка из HRS в BRT.
      *
-     * @param brtHistoryDto Объект BrtHistoryDto, представляющий историю звонка.
-     * @param cost       Стоимость звонка.
+     * @param brtHistoryDto объект BrtHistoryDto, представляющий историю звонка.
+     * @param cost стоимость звонка.
      * @throws JsonProcessingException если произошла ошибка при преобразовании в JSON.
      */
     public void sendCallCostToBrt(BrtHistoryDto brtHistoryDto, BigDecimal cost) throws JsonProcessingException {

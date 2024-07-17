@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Baby Billing API
   version: 1.0.0
-  description: API для использования триггеров по взаимодействию между сервисами CDR, BRT и HRS, а также для управления клиентской и платежной информацией
+  description: API для использования триггеров по взаимодействию между микросервисами Cdr generator, Brt и Hrs, а также для управления клиентской и платежной информацией
 
 servers:
   - url: http://localhost:8081/api

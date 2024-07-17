@@ -40,7 +40,7 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Считывает историю из файлов.
      *
-     * @return Список объектов History, считанных из файлов.
+     * @return список объектов History, считанных из файлов.
      * @throws IOException В случае ошибки ввода-вывода при чтении файлов.
      */
     public List<CdrHistory> readHistoryFromFile() throws IOException {
@@ -79,9 +79,9 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Разбивает список истории на файлы с заданным количеством вызовов.
      *
-     * @param cdrHistoryList     Список истории, который необходимо разделить.
-     * @param maxCallsPerFile Максимальное количество вызовов в одном файле.
-     * @return Список списков истории, разбитой на файлы.
+     * @param cdrHistoryList список истории, который необходимо разделить.
+     * @param maxCallsPerFile максимальное количество вызовов в одном файле.
+     * @return список списков истории, разбитой на файлы.
      */
     public List<List<CdrHistory>> splitIntoFiles(List<CdrHistory> cdrHistoryList, int maxCallsPerFile) {
         AtomicInteger count = new AtomicInteger(0);
@@ -94,8 +94,10 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Сохраняет CDR в файл.
      *
-     * @param cdrHistoryList Список объектов History, которые необходимо сохранить.
-     * @param fileName    Имя файла, в который нужно сохранить CDR.
+     * @param cdrHistoryList список объектов History, которые необходимо сохранить.
+     * @param fileName имя файла, в который нужно сохранить CDR.
+     * @throws FailedOpeningCdrFileException если не удается открыть файл для записи.
+     * @throws FailedWritingCdrHistoryToFileException если происходит ошибка при записи истории CDR в файл.
      */
     public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
@@ -116,8 +118,8 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Преобразует строковое представление номера телефона в объект Client.
      *
-     * @param phone Строковое представление номера телефона.
-     * @return Объект Client с указанным номером телефона.
+     * @param phone строковое представление номера телефона.
+     * @return объект Client с указанным номером телефона.
      */
     private Client parseClient(String phone) {
         Client client = new Client();

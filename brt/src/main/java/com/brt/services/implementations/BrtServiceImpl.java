@@ -28,7 +28,7 @@ public class BrtServiceImpl implements BrtService {
     /**
      * Обрабатывает запись истории вызова CDR.
      *
-     * @param brtHistory Запись истории вызова в формате BRT.
+     * @param brtHistory запись истории вызова в формате BRT.
      */
     public void processCdr(BrtHistory brtHistory) {
         historyWriter.enrichHistory(brtHistory);
@@ -38,8 +38,8 @@ public class BrtServiceImpl implements BrtService {
      * Обрабатывает стоимость вызова из сообщения HRS.
      * Обновляет запись истории в базе данных BRT, вычисляет и обновляет баланс клиента.
      *
-     * @param brtHistory Запись истории вызова в формате BRT.
-     * @param cost       Стоимость вызова.
+     * @param brtHistory запись истории вызова в формате BRT.
+     * @param cost стоимость вызова.
      */
     public void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) {
         BrtHistory existingHistory = brtDatabaseService.findBrtHistoryByAttributes(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
@@ -67,7 +67,7 @@ public class BrtServiceImpl implements BrtService {
      * Обрабатывает изменение тарифа из сообщения HRS.
      * Обновляет запись о платеже за тариф в базе данных BRT.
      *
-     * @param tariffPaymentHistory Запись о платеже за тариф.
+     * @param tariffPaymentHistory запись о платеже за тариф.
      */
     public void processTariffChangeFromHrs(TariffPaymentHistory tariffPaymentHistory) {
         brtDatabaseService.saveTariffPaymentHistoryToDatabase(tariffPaymentHistory);

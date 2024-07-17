@@ -25,7 +25,7 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
     /**
      * Генерирует случайного клиента из репозитория клиентов.
      *
-     * @return Случайный объект Client.
+     * @return случайный объект Client.
      */
     public Client getRandomClient() {
         List<Client> clients = clientRepository.findAll();
@@ -36,9 +36,9 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
     /**
      * Генерирует случайное время начала вызова в заданном диапазоне времени.
      *
-     * @param startTime Начальное время диапазона.
-     * @param endTime   Конечное время диапазона.
-     * @return Случайное время начала вызова.
+     * @param startTime начальное время диапазона.
+     * @param endTime конечное время диапазона.
+     * @return случайное время начала вызова.
      */
     public long generateRandomStartTime(long startTime, long endTime) {
         return startTime + (long) (random.nextDouble() * (endTime - startTime));
@@ -47,9 +47,9 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
     /**
      * Генерирует случайное время окончания вызова в заданном диапазоне продолжительности.
      *
-     * @param startTime   Время начала вызова.
-     * @param maxDuration Максимальная продолжительность вызова.
-     * @return Случайное время окончания вызова.
+     * @param startTime время начала вызова.
+     * @param maxDuration максимальная продолжительность вызова.
+     * @return случайное время окончания вызова.
      */
     public long generateRandomEndTime(long startTime, long maxDuration) {
         return startTime + (long) (random.nextDouble() * maxDuration);
@@ -58,7 +58,7 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
     /**
      * Генерирует случайное количество вызовов в диапазоне от 1 до 10.
      *
-     * @return Случайное количество вызовов.
+     * @return случайное количество вызовов.
      */
     public int generateRandomNumberOfCalls() {
         return random.nextInt(10) + 1;
