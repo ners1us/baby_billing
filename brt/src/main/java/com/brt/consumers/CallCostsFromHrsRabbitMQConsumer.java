@@ -26,7 +26,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
     /**
      * Обрабатывает полученное сообщение о стоимости вызовов из HRS и передает его сервису BRT для обработки.
      *
-     * @param message Сообщение о стоимости вызовов из HRS в формате JSON.
+     * @param message сообщение о стоимости вызовов из HRS в формате JSON.
      */
     @RabbitListener(queues = {"${rabbitmq.call.hrs.to.brt.queue.name}"})
     public void consumeMessage(String message) {
