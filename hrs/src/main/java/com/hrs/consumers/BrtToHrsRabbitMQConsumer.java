@@ -8,7 +8,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 /**
- * Потребитель RabbitMQ для обработки сообщений от BRT и передачи их в сервис HRS.
+ * Потребитель RabbitMQ для обработки сообщений от BRT и передачи их в микросервис HRS.
  */
 @Service
 @AllArgsConstructor
@@ -19,9 +19,9 @@ public class BrtToHrsRabbitMQConsumer {
     private final HrsService hrsService;
 
     /**
-     * Обрабатывает сообщения из RabbitMQ от BRT и передает их в сервис HRS.
+     * Обрабатывает сообщения из RabbitMQ от BRT и передает их в микросервис HRS.
      *
-     * @param brtHistoryJson Сообщение в формате JSON, содержащее историю BRT.
+     * @param brtHistoryJson сообщение в формате JSON, содержащее историю BRT.
      */
     @RabbitListener(queues = {"${rabbitmq.brt.to.hrs.queue.name}"})
     public void consumeMessage(String brtHistoryJson) {

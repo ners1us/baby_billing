@@ -37,7 +37,7 @@ class BrtControllerTests extends BrtEnvironmentTest {
     private BrtToHrsRabbitMQPublisher brtToHrsRabbitMQPublisher;
 
     @Test
-    void sendHistoryToHrs_shouldSendHistoryToHrsTest() throws Exception {
+    void sendHistoryToHrsShouldSendHistoryToHrsTest() throws Exception {
         // Arrange
         BrtHistory brtHistory = new BrtHistory();
         brtHistory.setId(1L);
@@ -64,7 +64,7 @@ class BrtControllerTests extends BrtEnvironmentTest {
     }
 
     @Test
-    void sendAllHistoriesToHrs_shouldSendAllHistoriesToHrsTest() throws Exception {
+    void sendAllHistoriesToHrsShouldSendAllHistoriesToHrsTest() throws Exception {
         // Arrange
         List<BrtHistory> brtHistories = new ArrayList<>();
         BrtHistory brtHistory1 = new BrtHistory();

@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/**
- * Модель для представления сообщения о стоимости за месяц.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

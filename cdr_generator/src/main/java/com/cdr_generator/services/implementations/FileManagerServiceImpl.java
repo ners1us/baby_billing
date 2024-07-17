@@ -2,6 +2,7 @@ package com.cdr_generator.services.implementations;
 
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.CdrHistory;
+import com.cdr_generator.exceptions.FailedOpeningCdrFileException;
 import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
 import com.cdr_generator.services.FileManagerService;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,10 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Сервис для работы с файлами, связанными с CDR.
@@ -23,12 +28,10 @@ public class FileManagerServiceImpl implements FileManagerService {
         File dataFolder = new File("data");
 
         if (dataFolder.isDirectory()) {
-            File[] files = dataFolder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    file.delete();
-                }
-            }
+            File[] files = Objects.requireNonNull(dataFolder.listFiles());
+
+            Stream.of(files)
+                    .forEach(File::delete);
         } else {
             dataFolder.mkdir();
         }
@@ -37,7 +40,7 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Считывает историю из файлов.
      *
-     * @return Список объектов History, считанных из файлов.
+     * @return список объектов History, считанных из файлов.
      * @throws IOException В случае ошибки ввода-вывода при чтении файлов.
      */
     public List<CdrHistory> readHistoryFromFile() throws IOException {
@@ -76,54 +79,47 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Разбивает список истории на файлы с заданным количеством вызовов.
      *
-     * @param cdrHistoryList     Список истории, который необходимо разделить.
-     * @param maxCallsPerFile Максимальное количество вызовов в одном файле.
-     * @return Список списков истории, разбитой на файлы.
+     * @param cdrHistoryList список истории, который необходимо разделить.
+     * @param maxCallsPerFile максимальное количество вызовов в одном файле.
+     * @return список списков истории, разбитой на файлы.
      */
     public List<List<CdrHistory>> splitIntoFiles(List<CdrHistory> cdrHistoryList, int maxCallsPerFile) {
-        List<List<CdrHistory>> files = new ArrayList<>();
-        List<CdrHistory> currentFile = new ArrayList<>();
-        int count = 0;
+        AtomicInteger count = new AtomicInteger(0);
 
-        for (CdrHistory cdrHistory : cdrHistoryList) {
-            currentFile.add(cdrHistory);
-            count++;
-
-            if (count == maxCallsPerFile) {
-                files.add(new ArrayList<>(currentFile));
-                currentFile.clear();
-                count = 0;
-            }
-        }
-
-        if (!currentFile.isEmpty()) {
-            files.add(new ArrayList<>(currentFile));
-        }
-
-        return files;
+        return new ArrayList<>(cdrHistoryList.stream()
+                .collect(Collectors.groupingBy(it -> count.getAndIncrement() / maxCallsPerFile))
+                .values());
     }
 
     /**
      * Сохраняет CDR в файл.
      *
-     * @param cdrHistoryList Список объектов History, которые необходимо сохранить.
-     * @param fileName    Имя файла, в который нужно сохранить CDR.
+     * @param cdrHistoryList список объектов History, которые необходимо сохранить.
+     * @param fileName имя файла, в который нужно сохранить CDR.
+     * @throws FailedOpeningCdrFileException если не удается открыть файл для записи.
+     * @throws FailedWritingCdrHistoryToFileException если происходит ошибка при записи истории CDR в файл.
      */
-    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) throws FailedWritingCdrHistoryToFileException {
+    public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
-            for (CdrHistory cdrHistory : cdrHistoryList) {
-                writer.write(cdrHistory.toString() + "\n");
-            }
+            cdrHistoryList.stream()
+                    .map(CdrHistory::toString)
+                    .forEach(cdrString -> {
+                        try {
+                            writer.write(cdrString + "\n");
+                        } catch (IOException ex) {
+                            throw new FailedWritingCdrHistoryToFileException("Failed writing cdr history to file", ex);
+                        }
+                    });
         } catch (IOException ex) {
-            throw new FailedWritingCdrHistoryToFileException("Failed writing cdr history to file", ex);
+            throw new FailedOpeningCdrFileException("Failed writing cdr history to file", ex);
         }
     }
 
     /**
      * Преобразует строковое представление номера телефона в объект Client.
      *
-     * @param phone Строковое представление номера телефона.
-     * @return Объект Client с указанным номером телефона.
+     * @param phone строковое представление номера телефона.
+     * @return объект Client с указанным номером телефона.
      */
     private Client parseClient(String phone) {
         Client client = new Client();

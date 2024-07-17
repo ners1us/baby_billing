@@ -35,7 +35,7 @@ public class BrtToHrsRabbitMQPublisher {
     /**
      * Отправляет запись BRT в RabbitMQ для сервиса HRS.
      *
-     * @param brtHistory Запись BRT для отправки.
+     * @param brtHistory запись BRT для отправки.
      */
     public void sendCallToHrs(BrtHistory brtHistory) {
         try {
