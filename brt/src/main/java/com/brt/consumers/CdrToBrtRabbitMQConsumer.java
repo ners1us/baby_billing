@@ -29,7 +29,7 @@ public class CdrToBrtRabbitMQConsumer {
     /**
      * Обрабатывает полученную запись CDR из RabbitMQ, преобразует ее в объект BrtHistory и передает сервису BRT для обработки.
      *
-     * @param history Запись CDR, полученная из RabbitMQ.
+     * @param history запись CDR, полученная из RabbitMQ.
      */
     @RabbitListener(queues = {"${rabbitmq.cdr.to.brt.queue.name}"}, messageConverter = "cdrHistoryMessageConverter")
     public void consumeMessage(CdrHistoryDto history) {
