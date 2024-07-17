@@ -18,9 +18,9 @@ public class CallCostCalculatorImpl implements CallCostCalculator {
     /**
      * Вычисляет продолжительность звонка в минутах.
      *
-     * @param startTime Время начала звонка.
-     * @param endTime   Время окончания звонка.
-     * @return Продолжительность звонка в минутах.
+     * @param startTime время начала звонка.
+     * @param endTime время окончания звонка.
+     * @return продолжительность звонка в минутах.
      */
     public long calculateDuration(LocalDateTime startTime, LocalDateTime endTime) {
         long duration = ChronoUnit.MINUTES.between(startTime, endTime);
@@ -31,10 +31,10 @@ public class CallCostCalculatorImpl implements CallCostCalculator {
     /**
      * Вычисляет стоимость звонка на основе истории звонка и правил тарификации.
      *
-     * @param brtHistoryDto   Объект BrtHistoryDto, представляющий историю звонка.
-     * @param tariffRules  Правила тарификации для данного звонка.
-     * @param duration     Продолжительность звонка в минутах.
-     * @return Стоимость звонка.
+     * @param brtHistoryDto объект BrtHistoryDto, представляющий историю звонка.
+     * @param tariffRules правила тарификации для данного звонка.
+     * @param duration продолжительность звонка в минутах.
+     * @return стоимость звонка.
      */
     public BigDecimal calculateCallCost(BrtHistoryDto brtHistoryDto, TariffRules tariffRules, long duration) {
         if (brtHistoryDto.getInternal()) {
