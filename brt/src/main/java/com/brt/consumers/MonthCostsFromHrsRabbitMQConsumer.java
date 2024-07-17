@@ -28,7 +28,7 @@ public class MonthCostsFromHrsRabbitMQConsumer {
     /**
      * Обрабатывает полученное сообщение о стоимости месячных тарифов из HRS и передает его сервису BRT для обработки.
      *
-     * @param message Сообщение о стоимости месячных тарифов из HRS в формате JSON.
+     * @param message сообщение о стоимости месячных тарифов из HRS в формате JSON.
      */
     @RabbitListener(queues = {"${rabbitmq.month.hrs.to.brt.queue.name}"})
     public void consumeMessage(String message) {
