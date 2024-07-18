@@ -1,5 +1,6 @@
 package com.cdr_generator.services.implementations;
 
+import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.repositories.ClientRepository;
 import com.cdr_generator.services.RandomGeneratorService;
@@ -23,11 +24,47 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
     private final Random random = new Random();
 
     /**
+     * Генерирует случайный исходящий звонок для указанного времени начала звонка.
+     *
+     * @param startTime время начала генерации звонка.
+     * @return CdrHistory, представляющий исходящий звонок.
+     */
+    public CdrHistory generateRandomCall(long startTime, long duration) {
+        Client client = getRandomClient();
+        Client caller = getRandomClient();
+
+        long callStartTime = generateRandomStartTime(startTime, startTime + 2592000L);
+        long callEndTime = generateRandomEndTime(callStartTime, duration);
+
+        while (client.equals(caller)) {
+            client = getRandomClient();
+        }
+
+        CdrHistory outgoingCdr = new CdrHistory();
+        outgoingCdr.setType("01");
+        outgoingCdr.setClient(client);
+        outgoingCdr.setCaller(caller);
+        outgoingCdr.setStartTime(callStartTime);
+        outgoingCdr.setEndTime(callEndTime);
+
+        return outgoingCdr;
+    }
+
+    /**
+     * Генерирует случайное количество вызовов в диапазоне от 1 до 10.
+     *
+     * @return случайное количество вызовов.
+     */
+    public int generateRandomNumberOfCalls() {
+        return random.nextInt(10) + 1;
+    }
+
+    /**
      * Генерирует случайного клиента из репозитория клиентов.
      *
      * @return случайный объект Client.
      */
-    public Client getRandomClient() {
+    private Client getRandomClient() {
         List<Client> clients = clientRepository.findAll();
 
         return clients.get(random.nextInt(clients.size()));
@@ -40,7 +77,7 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
      * @param endTime конечное время диапазона.
      * @return случайное время начала вызова.
      */
-    public long generateRandomStartTime(long startTime, long endTime) {
+    private long generateRandomStartTime(long startTime, long endTime) {
         return startTime + (long) (random.nextDouble() * (endTime - startTime));
     }
 
@@ -51,16 +88,7 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
      * @param maxDuration максимальная продолжительность вызова.
      * @return случайное время окончания вызова.
      */
-    public long generateRandomEndTime(long startTime, long maxDuration) {
+    private long generateRandomEndTime(long startTime, long maxDuration) {
         return startTime + (long) (random.nextDouble() * maxDuration);
-    }
-
-    /**
-     * Генерирует случайное количество вызовов в диапазоне от 1 до 10.
-     *
-     * @return случайное количество вызовов.
-     */
-    public int generateRandomNumberOfCalls() {
-        return random.nextInt(10) + 1;
     }
 }
