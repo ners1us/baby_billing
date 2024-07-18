@@ -1,14 +1,10 @@
 package com.cdr_generator.services;
 
-import com.cdr_generator.entities.Client;
+import com.cdr_generator.entities.CdrHistory;
 
 public interface RandomGeneratorService {
 
-    Client getRandomClient();
-
-    long generateRandomStartTime(long startTime, long endTime);
-
-    long generateRandomEndTime(long startTime, long maxDuration);
+    CdrHistory generateRandomCall(long startTime, long duration);
 
     int generateRandomNumberOfCalls();
 }
