@@ -2,12 +2,9 @@ package com.cdr_generator.services;
 
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.environments.CdrEnvironmentTest;
-import com.cdr_generator.services.implementations.CdrServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,18 +15,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class CdrServiceTests extends CdrEnvironmentTest {
+@SpringBootTest
+class FileManagerServiceTests extends CdrEnvironmentTest {
 
     @Mock
     private FileManagerService fileManagerService;
-
-    @InjectMocks
-    private CdrServiceImpl cdrService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void readHistoryTest() throws IOException {
@@ -38,7 +28,7 @@ class CdrServiceTests extends CdrEnvironmentTest {
         when(fileManagerService.readHistoryFromFile()).thenReturn(expectedHistory);
 
         // Act
-        List<CdrHistory> result = cdrService.readHistory();
+        List<CdrHistory> result = fileManagerService.readHistoryFromFile();
 
         // Assert
         assertEquals(expectedHistory, result);
@@ -48,7 +38,7 @@ class CdrServiceTests extends CdrEnvironmentTest {
     @Test
     void checkAndCleanDataTest() throws IOException {
         // Act
-        cdrService.checkAndCleanData();
+        fileManagerService.checkAndCleanDataFolder();
 
         // Assert
         verify(fileManagerService, times(1)).checkAndCleanDataFolder();
