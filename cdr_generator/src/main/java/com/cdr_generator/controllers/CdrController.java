@@ -3,6 +3,7 @@ package com.cdr_generator.controllers;
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.cdr_generator.services.CdrService;
+import com.cdr_generator.services.FileManagerService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class CdrController {
 
     private final CdrService cdrService;
 
+    private final FileManagerService fileManagerService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrController.class);
 
     /**
@@ -37,7 +40,7 @@ public class CdrController {
      */
     @PostMapping("/generateCdr")
     public ResponseEntity<String> generateAndSaveCdr() throws IOException {
-        cdrService.checkAndCleanData();
+        fileManagerService.checkAndCleanDataFolder();
 
         CompletableFuture<List<CdrHistory>> cdrFuture = cdrService.generateCdr();
 
@@ -55,7 +58,7 @@ public class CdrController {
     @PostMapping("/publishCdr")
     public ResponseEntity<String> publishCdr() {
         try {
-            List<CdrHistory> cdrHistoryList = cdrService.readHistory();
+            List<CdrHistory> cdrHistoryList = fileManagerService.readHistoryFromFile();
 
             cdrHistoryList.forEach(cdrToBrtRabbitMQPublisher::sendMessage);
         } catch (IOException e) {
