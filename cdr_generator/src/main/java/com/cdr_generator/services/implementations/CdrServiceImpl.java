@@ -1,6 +1,5 @@
 package com.cdr_generator.services.implementations;
 
-import com.cdr_generator.entities.Client;
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.exceptions.FailedSavingCdrToFileException;
 import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
@@ -12,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -84,25 +82,6 @@ public class CdrServiceImpl implements CdrService {
     }
 
     /**
-     * Читает и возвращает историю звонков из файла.
-     *
-     * @return список объектов History, содержащих информацию о звонках.
-     * @throws IOException если возникает ошибка ввода-вывода при чтении файла.
-     */
-    public List<CdrHistory> readHistory() throws IOException {
-        return fileManagerService.readHistoryFromFile();
-    }
-
-    /**
-     * Проверяет наличие и очищает папку с данными.
-     *
-     * @throws IOException если возникает ошибка ввода-вывода при доступе к файлам или папкам.
-     */
-    public void checkAndCleanData() throws IOException {
-        fileManagerService.checkAndCleanDataFolder();
-    }
-
-    /**
      * Генерирует историю звонков CDR за месяц.
      *
      * @param startTime начальное время для генерации звонков.
@@ -113,7 +92,7 @@ public class CdrServiceImpl implements CdrService {
         List<CdrHistory> monthCdrHistory = new ArrayList<>();
 
         for (int i = 0; i < numCalls; i++) {
-            CdrHistory outgoingCdr = generateRandomCall(startTime);
+            CdrHistory outgoingCdr = randomGeneratorService.generateRandomCall(startTime, MAX_DURATION_PER_CALL);
             CdrHistory incomingCdr = generateReverseCall(outgoingCdr);
 
             monthCdrHistory.add(outgoingCdr);
@@ -122,33 +101,6 @@ public class CdrServiceImpl implements CdrService {
 
         monthCdrHistory.sort(Comparator.comparingLong(CdrHistory::getEndTime));
         return monthCdrHistory;
-    }
-
-    /**
-     * Генерирует случайный исходящий звонок для указанного времени начала звонка.
-     *
-     * @param startTime время начала генерации звонка.
-     * @return CdrHistory, представляющий исходящий звонок.
-     */
-    private CdrHistory generateRandomCall(long startTime) {
-        Client client = randomGeneratorService.getRandomClient();
-        Client caller = randomGeneratorService.getRandomClient();
-
-        long callStartTime = randomGeneratorService.generateRandomStartTime(startTime, startTime + 2592000L);
-        long callEndTime = randomGeneratorService.generateRandomEndTime(callStartTime, MAX_DURATION_PER_CALL);
-
-        while (client.equals(caller)) {
-            client = randomGeneratorService.getRandomClient();
-        }
-
-        CdrHistory outgoingCdr = new CdrHistory();
-        outgoingCdr.setType("01");
-        outgoingCdr.setClient(client);
-        outgoingCdr.setCaller(caller);
-        outgoingCdr.setStartTime(callStartTime);
-        outgoingCdr.setEndTime(callEndTime);
-
-        return outgoingCdr;
     }
 
     /**
