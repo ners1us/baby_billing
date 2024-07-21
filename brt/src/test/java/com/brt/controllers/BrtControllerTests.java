@@ -2,6 +2,7 @@ package com.brt.controllers;
 
 import com.brt.entities.BrtHistory;
 import com.brt.environments.BrtEnvironmentTest;
+import com.brt.environments.BrtSecurityConfigurationTest;
 import com.brt.publishers.BrtToHrsRabbitMQPublisher;
 import com.brt.services.BrtDatabaseService;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(BrtSecurityConfigurationTest.class)
 class BrtControllerTests extends BrtEnvironmentTest {
 
     @Autowired
@@ -102,5 +105,4 @@ class BrtControllerTests extends BrtEnvironmentTest {
         verify(brtDatabaseService, times(1)).getAllBrtHistories();
         verify(brtToHrsRabbitMQPublisher, times(2)).sendCallToHrs(any(BrtHistory.class));
     }
-
 }

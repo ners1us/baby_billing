@@ -86,6 +86,7 @@ class BrtRepositoriesTests extends BrtEnvironmentTest {
         // Arrange
         Client client = new Client();
         client.setClientId("79021038006");
+        client.setPassword("12345");
         client.setTariffId(12);
         client.setBalance(BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_UP));
         brtClientRepository.save(client);
@@ -160,12 +161,14 @@ class BrtRepositoriesTests extends BrtEnvironmentTest {
         // Arrange
         Client client = new Client();
         client.setClientId("79021038006");
+        client.setPassword("12345");
         client.setTariffId(11);
         client.setBalance(BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_UP));
         brtClientRepository.save(client);
 
         Client client1 = new Client();
         client1.setClientId("79021038008");
+        client1.setPassword("123456");
         client1.setTariffId(12);
         client1.setBalance(BigDecimal.valueOf(200).setScale(2, RoundingMode.HALF_UP));
         brtClientRepository.save(client1);
@@ -185,12 +188,14 @@ class BrtRepositoriesTests extends BrtEnvironmentTest {
         // Arrange
         Client client = new Client();
         client.setClientId("79021038006");
+        client.setPassword("12345");
         client.setTariffId(11);
         client.setBalance(BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_UP));
         brtClientRepository.save(client);
 
         Client client1 = new Client();
         client1.setClientId("79021038008");
+        client1.setPassword("123456");
         client1.setTariffId(12);
         client1.setBalance(BigDecimal.valueOf(200).setScale(2, RoundingMode.HALF_UP));
         brtClientRepository.save(client1);
