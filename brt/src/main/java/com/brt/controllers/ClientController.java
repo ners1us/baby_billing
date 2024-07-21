@@ -2,8 +2,14 @@ package com.brt.controllers;
 
 import com.brt.entities.Client;
 import com.brt.services.BrtDatabaseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -25,7 +31,13 @@ public class ClientController {
      * @return ResponseEntity с текущим балансом клиента.
      */
     @GetMapping("/balance")
-    public ResponseEntity<BigDecimal> getBalance(@RequestParam String subscriber) {
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @Operation(summary = "Retrieve client's balance", description = "This method allows to get the client's balance information")
+    @ApiResponse(responseCode = "200", description = "Successful response",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(type = "number")))
+    public ResponseEntity<BigDecimal> getBalance(@Parameter(description = "Client number", required = true)
+                                                 @RequestParam String subscriber) {
         return ResponseEntity.ok(brtDatabaseService.findClientById(subscriber).getBalance());
     }
 
@@ -37,7 +49,15 @@ public class ClientController {
      * @return ResponseEntity с сообщением об успешном пополнении баланса.
      */
     @PostMapping("/deposit")
-    public ResponseEntity<String> depositBalance(@RequestParam String subscriber, @RequestParam BigDecimal amount) {
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @Operation(summary = "Deposit to client's balance", description = "This method allows to deposit a specified amount for an existing client")
+    @ApiResponse(responseCode = "200", description = "Successful response",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(type = "string", example = "Successfully made a deposit.")))
+    public ResponseEntity<String> depositBalance(@Parameter(description = "Client number", required = true)
+                                                 @RequestParam String subscriber,
+                                                 @Parameter(description = "Amount to deposit", required = true)
+                                                 @RequestParam BigDecimal amount) {
         Client client = brtDatabaseService.findClientById(subscriber);
 
         client.setBalance(client.getBalance().add(amount));
