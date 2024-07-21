@@ -4,6 +4,11 @@ import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.cdr_generator.services.CdrService;
 import com.cdr_generator.services.FileManagerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +44,11 @@ public class CdrController {
      * @throws IOException если произошла ошибка ввода-вывода.
      */
     @PostMapping("/generateCdr")
+    @Operation(summary = "Creating and saving CDR files",
+            description = "This method allows generating and saving CDR files")
+    @ApiResponse(responseCode = "200", description = "Successful response",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(type = "string", example = "Successfully generated files")))
     public ResponseEntity<String> generateAndSaveCdr() throws IOException {
         fileManagerService.checkAndCleanDataFolder();
 
@@ -56,6 +66,16 @@ public class CdrController {
      * @return ResponseEntity с информацией о статусе отправки сообщений в RabbitMQ.
      */
     @PostMapping("/publishCdr")
+    @Operation(summary = "Sending CDR files",
+            description = "This method allows sending generated CDR files to the BRT service")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful response",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(type = "string", example = "Messages sent to RabbitMQ..."))),
+            @ApiResponse(responseCode = "400", description = "Error reading files from data folder",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(type = "string", example = "Error reading files from data folder")))
+    })
     public ResponseEntity<String> publishCdr() {
         try {
             List<CdrHistory> cdrHistoryList = fileManagerService.readHistoryFromFile();
