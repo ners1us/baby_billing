@@ -1,13 +1,13 @@
-INSERT INTO clients (client_id, balance, tariff_id)
+INSERT INTO clients (client_id, password, balance, tariff_id)
 VALUES
-    ('79074437331', 10000, 11),
-    ('79025249522', 5000, 12),
-    ('79085342373', 12000, 11),
-    ('79018936284', 3000, 12),
-    ('79092110475', 6000, 11),
-    ('79021038006', 8000, 12),
-    ('79054539427', 2000, 11),
-    ('79019634848', 4000, 12),
-    ('79089990569', 500, 11),
-    ('79033772341', 700, 12)
+    ('79074437331', '$2a$12$UtwRA3HkxV8V7tTsVkULdeX.WHWqF2L2ucbB0ZydVaaroQRrmkzmC', 10000, 11),
+    ('79025249522', '$2a$12$VR1GtA9xEDmyWm485LZtiu10GlOb.GZCc/TosEsDfaImZq..zvkeG', 5000, 12),
+    ('79085342373', '$2a$12$XEdUYn3nZowrOjEHL1E70ObfxtbjPImXSBn4DQ1K8miGPOPM7HSge', 12000, 11),
+    ('79018936284', '$2a$12$e4FNOHxjt26etl288zrf7uOgNWXyCiNiGHnzukdzWL6Jmo1LMetMe', 3000, 12),
+    ('79092110475', '$2a$12$kcoYzSXx3BA0hYlhIe6rwe8W6UD97zzS/4GoPs94mBhCJuWYoAOF6', 6000, 11),
+    ('79021038006', '$2a$12$FtBEUkcf4hKE8QGZDoaeI.ihdRKIHBDzddKMvphAd77KVJC/QlVDS', 8000, 12),
+    ('79054539427', '$2a$12$Y2hiUUjQ/yBmMs9ePIA6Nu7Re4nYkJaShUOKHUXUhnb81SjTEr2jW', 2000, 11),
+    ('79019634848', '$2a$12$ESzX4ydj1CuceAGE6AmeeuK9P0CE2ixecIO46Lucc7naXgcnSQZZO', 4000, 12),
+    ('79089990569', '$2a$12$qeNbWbMNViFoCv9iOm33cejTVVTAxu1t654AyZ424vwxqZrCmfhUS', 500, 11),
+    ('79033772341', '$2a$12$ZOxzu6FZS54Ie1Lq0.KDFOchN0j/mk90zvcqq936LGGT9EZ2XbRom', 700, 12)
     ON CONFLICT (client_id) DO NOTHING;
