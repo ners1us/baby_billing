@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 class HrsServiceTests extends HrsEnvironmentTest {
 
     @Mock
-    private CallCostCalculator callCostCalculator;
+    private CallCostCalculatorService callCostCalculatorService;
 
     @Mock
     private HrsHistoryRepository historyRepository;
@@ -55,7 +55,7 @@ class HrsServiceTests extends HrsEnvironmentTest {
         objectMapper.registerModule(new JavaTimeModule());
 
         hrsService = new HrsServiceImpl(
-                callCostCalculator,
+                callCostCalculatorService,
                 historyRepository,
                 trafficRepository,
                 objectMapper,
@@ -82,8 +82,8 @@ class HrsServiceTests extends HrsEnvironmentTest {
         String jsonData = objectMapper.writeValueAsString(brtHistoryDto);
 
         when(hrsDatabaseService.getTariff(brtHistoryDto.getTariffId())).thenReturn(tariff);
-        when(callCostCalculator.calculateDuration(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(300L);
-        when(callCostCalculator.calculateCallCost(any(BrtHistoryDto.class), any(TariffRules.class), anyLong())).thenReturn(BigDecimal.valueOf(10.0));
+        when(callCostCalculatorService.calculateDuration(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(300L);
+        when(callCostCalculatorService.calculateCallCost(any(BrtHistoryDto.class), any(TariffRules.class), anyLong())).thenReturn(BigDecimal.valueOf(10.0));
 
         // Act
         hrsService.processCallsFromBrt(jsonData);
