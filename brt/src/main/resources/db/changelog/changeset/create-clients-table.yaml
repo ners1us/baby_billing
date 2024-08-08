@@ -19,7 +19,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: balance
-                  type: decimal(19, 2)
+                  type: decimal(38, 2)
                   constraints:
                     nullable: true
               - column:
