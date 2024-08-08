@@ -10,6 +10,7 @@
 - Docker
 - Swagger
 - PostgreSQL
+- Liquibase
 - JUnit 5
 - Mockito
 - Testcontainers
