@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-brt_history
+      author: ners1us
+      changes:
+        - createTable:
+            tableName: brt_history
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: client_id
+                  type: varchar(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: caller_id
+                  type: varchar(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tariff_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: internal
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: decimal(38, 2)
+                  defaultValue: '0.00'

@@ -11,7 +11,7 @@ import com.hrs.models.TariffRules;
 import com.hrs.publishers.HrsToBrtRabbitMQPublisher;
 import com.hrs.repositories.HrsHistoryRepository;
 import com.hrs.repositories.TrafficRepository;
-import com.hrs.services.CallCostCalculator;
+import com.hrs.services.CallCostCalculatorService;
 import com.hrs.services.HrsDatabaseService;
 import com.hrs.services.HrsService;
 import lombok.NonNull;
@@ -31,7 +31,7 @@ import java.util.List;
 public class HrsServiceImpl implements HrsService {
 
     @NonNull
-    private final CallCostCalculator callCostCalculator;
+    private final CallCostCalculatorService callCostCalculatorService;
 
     @NonNull
     private final HrsHistoryRepository historyRepository;
@@ -69,11 +69,11 @@ public class HrsServiceImpl implements HrsService {
             currentMonth = month;
         }
 
-        long duration = callCostCalculator.calculateDuration(brtHistoryDto.getStartTime(), brtHistoryDto.getEndTime());
+        long duration = callCostCalculatorService.calculateDuration(brtHistoryDto.getStartTime(), brtHistoryDto.getEndTime());
         Tariffs tariff = hrsDatabaseService.getTariff(brtHistoryDto.getTariffId());
 
         TariffRules tariffRules = tariff.getTariffRules();
-        BigDecimal cost = callCostCalculator.calculateCallCost(brtHistoryDto, tariffRules, duration);
+        BigDecimal cost = callCostCalculatorService.calculateCallCost(brtHistoryDto, tariffRules, duration);
         hrsDatabaseService.saveCallData(brtHistoryDto, duration, cost, currentMonth);
 
         hrsToBrtRabbitMQPublisher.sendCallCostToBrt(brtHistoryDto, cost);

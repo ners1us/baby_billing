@@ -2,7 +2,7 @@ package com.hrs.services.implementations;
 
 import com.hrs.dto.BrtHistoryDto;
 import com.hrs.models.TariffRules;
-import com.hrs.services.CallCostCalculator;
+import com.hrs.services.CallCostCalculatorService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  * Сервис для вычисления стоимости звонка.
  */
 @Service
-public class CallCostCalculatorImpl implements CallCostCalculator {
+public class CallCostCalculatorServiceImpl implements CallCostCalculatorService {
 
     /**
      * Вычисляет продолжительность звонка в минутах.

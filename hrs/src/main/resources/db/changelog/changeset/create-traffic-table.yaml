@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-traffic
+      author: ners1us
+      changes:
+        - createTable:
+            tableName: traffic
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: client_id
+                  type: varchar(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tariff_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: month
+                  type: int
+              - column:
+                  name: minutes_int_current_month
+                  type: bigint
+              - column:
+                  name: minutes_ext_current_month
+                  type: bigint
