@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tariff_payments_history
+      author: ners1us
+      changes:
+        - createTable:
+            tableName: tariff_payments_history
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: client_id
+                  type: varchar(14)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tariff_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: decimal(38, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: time
+                  type: timestamp
+                  constraints:
+                    nullable: false
