@@ -45,7 +45,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: cost
-                  type: decimal(19, 2)
+                  type: decimal(38, 2)
               - column:
                   name: duration
                   type: bigint
