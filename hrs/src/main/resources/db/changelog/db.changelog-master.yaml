@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-tariffs-table.yaml
+  - include:
+      file: db/changelog/changeset/create-hrs_history-table.yaml
+  - include:
+      file: db/changelog/changeset/create-traffic-table.yaml
+  - include:
+      file: db/changelog/changeset/enrich-tariffs-table.yaml

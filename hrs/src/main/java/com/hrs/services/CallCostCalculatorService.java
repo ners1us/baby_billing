@@ -6,7 +6,7 @@ import com.hrs.models.TariffRules;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public interface CallCostCalculator {
+public interface CallCostCalculatorService {
 
     BigDecimal calculateCallCost(BrtHistoryDto brtHistoryDto, TariffRules tariffRules, long duration);
 

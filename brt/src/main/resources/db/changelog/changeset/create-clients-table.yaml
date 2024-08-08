@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-brt_clients
+      author: ners1us
+      changes:
+        - createTable:
+            tableName: clients
+            columns:
+              - column:
+                  name: client_id
+                  type: varchar(14)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: decimal(38, 2)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: tariff_id
+                  type: int
+                  constraints:
+                    nullable: false
