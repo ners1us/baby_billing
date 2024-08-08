@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tariffs
+      author: ners1us
+      changes:
+        - createTable:
+            tableName: tariffs
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: tariff_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tariff_rules
+                  type: jsonb
+                  constraints:
+                    nullable: false
