@@ -13,7 +13,7 @@ import com.hrs.repositories.HrsHistoryRepository;
 import com.hrs.repositories.TrafficRepository;
 import com.hrs.services.CallCostCalculatorService;
 import com.hrs.services.HrsDatabaseService;
-import com.hrs.services.HrsService;
+import com.hrs.services.HrsProcessorService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class HrsServiceImpl implements HrsService {
+public class HrsProcessorServiceImpl implements HrsProcessorService {
 
     @NonNull
     private final CallCostCalculatorService callCostCalculatorService;

@@ -10,7 +10,7 @@ import com.hrs.models.TariffRules;
 import com.hrs.publishers.HrsToBrtRabbitMQPublisher;
 import com.hrs.repositories.HrsHistoryRepository;
 import com.hrs.repositories.TrafficRepository;
-import com.hrs.services.implementations.HrsServiceImpl;
+import com.hrs.services.implementations.HrsProcessorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class HrsServiceTests extends HrsEnvironmentTest {
+class HrsProcessorServiceTests extends HrsEnvironmentTest {
 
     @Mock
     private CallCostCalculatorService callCostCalculatorService;
@@ -41,7 +41,7 @@ class HrsServiceTests extends HrsEnvironmentTest {
     @Mock
     private HrsToBrtRabbitMQPublisher hrsToBrtRabbitMQPublisher;
 
-    private HrsServiceImpl hrsService;
+    private HrsProcessorServiceImpl hrsService;
 
     private ObjectMapper objectMapper;
 
@@ -54,7 +54,7 @@ class HrsServiceTests extends HrsEnvironmentTest {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
-        hrsService = new HrsServiceImpl(
+        hrsService = new HrsProcessorServiceImpl(
                 callCostCalculatorService,
                 historyRepository,
                 trafficRepository,

@@ -1,6 +1,6 @@
 package com.hrs.consumers;
 
-import com.hrs.services.HrsService;
+import com.hrs.services.HrsProcessorService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class BrtToHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BrtToHrsRabbitMQConsumer.class);
 
-    private final HrsService hrsService;
+    private final HrsProcessorService hrsProcessorService;
 
     /**
      * Обрабатывает сообщения из RabbitMQ от BRT и передает их в микросервис HRS.
@@ -26,7 +26,7 @@ public class BrtToHrsRabbitMQConsumer {
     @RabbitListener(queues = {"${rabbitmq.brt.to.hrs.queue.name}"})
     public void consumeMessage(String brtHistoryJson) {
         try {
-            hrsService.processCallsFromBrt(brtHistoryJson);
+            hrsProcessorService.processCallsFromBrt(brtHistoryJson);
         } catch (Exception e) {
             LOGGER.error("Error processing BrtHistoryDto: {}", e.getMessage());
         }
