@@ -1,5 +1,6 @@
 package com.brt.controllers;
 
+import com.brt.dto.BrtHistoryDto;
 import com.brt.entities.BrtHistory;
 import com.brt.publishers.BrtToHrsRabbitMQPublisher;
 import com.brt.services.BrtDatabaseService;
@@ -42,7 +43,9 @@ public class BrtController {
     public ResponseEntity<String> sendHistoryToHrs(@RequestParam Long historyId) {
         BrtHistory brtHistory = brtDatabaseService.findBrtHistoryById(historyId);
 
-        brtToHrsRabbitMQPublisher.sendCallToHrs(brtHistory);
+        BrtHistoryDto brtHistoryDto = BrtHistoryDto.fromEntity(brtHistory);
+
+        brtToHrsRabbitMQPublisher.sendCallToHrs(brtHistoryDto);
 
         return ResponseEntity.ok("History sent to Hrs successfully.");
     }
@@ -60,7 +63,9 @@ public class BrtController {
     public ResponseEntity<String> sendAllHistoriesToHrs() {
         List<BrtHistory> brtHistories = brtDatabaseService.getAllBrtHistories();
 
-        brtHistories.forEach(brtToHrsRabbitMQPublisher::sendCallToHrs);
+        List<BrtHistoryDto> brtHistoryDtos = BrtHistoryDto.fromEntities(brtHistories);
+
+        brtHistoryDtos.forEach(brtToHrsRabbitMQPublisher::sendCallToHrs);
 
         return ResponseEntity.ok("All histories sent to Hrs successfully.");
     }

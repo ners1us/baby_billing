@@ -1,5 +1,6 @@
 package com.brt.controllers;
 
+import com.brt.dto.BrtHistoryDto;
 import com.brt.entities.BrtHistory;
 import com.brt.environments.BrtEnvironmentTest;
 import com.brt.environments.BrtSecurityConfigurationTest;
@@ -53,7 +54,7 @@ class BrtControllerTests extends BrtEnvironmentTest {
         brtHistory.setCost(BigDecimal.valueOf(5).setScale(2, RoundingMode.HALF_UP));
 
         when(brtDatabaseService.findBrtHistoryById(1L)).thenReturn(brtHistory);
-        doNothing().when(brtToHrsRabbitMQPublisher).sendCallToHrs(any(BrtHistory.class));
+        doNothing().when(brtToHrsRabbitMQPublisher).sendCallToHrs(any(BrtHistoryDto.class));
 
         // Act
         mockMvc.perform(post("/api/brt/sendHistoryToHrs")
@@ -63,7 +64,7 @@ class BrtControllerTests extends BrtEnvironmentTest {
 
         // Assert
         verify(brtDatabaseService, times(1)).findBrtHistoryById(1L);
-        verify(brtToHrsRabbitMQPublisher, times(1)).sendCallToHrs(any(BrtHistory.class));
+        verify(brtToHrsRabbitMQPublisher, times(1)).sendCallToHrs(any(BrtHistoryDto.class));
     }
 
     @Test
@@ -94,7 +95,7 @@ class BrtControllerTests extends BrtEnvironmentTest {
         brtHistories.add(brtHistory2);
 
         when(brtDatabaseService.getAllBrtHistories()).thenReturn(brtHistories);
-        doNothing().when(brtToHrsRabbitMQPublisher).sendCallToHrs(any(BrtHistory.class));
+        doNothing().when(brtToHrsRabbitMQPublisher).sendCallToHrs(any(BrtHistoryDto.class));
 
         // Act
         mockMvc.perform(post("/api/brt/sendAllHistoriesToHrs"))
@@ -103,6 +104,6 @@ class BrtControllerTests extends BrtEnvironmentTest {
 
         // Assert
         verify(brtDatabaseService, times(1)).getAllBrtHistories();
-        verify(brtToHrsRabbitMQPublisher, times(2)).sendCallToHrs(any(BrtHistory.class));
+        verify(brtToHrsRabbitMQPublisher, times(2)).sendCallToHrs(any(BrtHistoryDto.class));
     }
 }

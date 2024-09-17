@@ -1,6 +1,6 @@
 package com.brt.publishers;
 
-import com.brt.entities.BrtHistory;
+import com.brt.dto.BrtHistoryDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
@@ -35,11 +35,11 @@ public class BrtToHrsRabbitMQPublisher {
     /**
      * Отправляет запись BRT в RabbitMQ для сервиса HRS.
      *
-     * @param brtHistory запись BRT для отправки.
+     * @param brtHistoryDto запись BRT для отправки.
      */
-    public void sendCallToHrs(BrtHistory brtHistory) {
+    public void sendCallToHrs(BrtHistoryDto brtHistoryDto) {
         try {
-            String json = objectMapper.writeValueAsString(brtHistory);
+            String json = objectMapper.writeValueAsString(brtHistoryDto);
 
             rabbitTemplate.convertAndSend(exchange, routingKey, json);
         } catch (JsonProcessingException ex) {

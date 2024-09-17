@@ -1,5 +1,6 @@
 package com.brt.controllers;
 
+import com.brt.dto.ClientDto;
 import com.brt.entities.Client;
 import com.brt.services.BrtDatabaseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,18 +37,20 @@ public class AdminController {
             description = "This method retrieves data of all clients")
     @ApiResponse(responseCode = "200", description = "Successful response",
             content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Client.class)))
+                    schema = @Schema(implementation = ClientDto.class)))
 
-    public ResponseEntity<List<Client>> getAllClients() {
+    public ResponseEntity<List<ClientDto>> getAllClients() {
         List<Client> clients = brtDatabaseService.getAllClients();
 
-        return ResponseEntity.ok(clients);
+        List<ClientDto> clientDtos = ClientDto.fromEntities(clients);
+
+        return ResponseEntity.ok(clientDtos);
     }
 
     /**
      * Добавляет нового клиента в базу данных.
      *
-     * @param client информация о новом клиенте.
+     * @param clientDto информация о новом клиенте.
      * @return ResponseEntity с сообщением об успешном добавлении клиента.
      */
     @PostMapping("/addClient")
@@ -57,7 +61,9 @@ public class AdminController {
             content = @Content(mediaType = "application/json",
                     schema = @Schema(type = "string", example = "Client added successfully.")))
 
-    public ResponseEntity<String> addClient(@RequestBody Client client) {
+    public ResponseEntity<String> addClient(@RequestBody ClientDto clientDto) {
+        Client client = ClientDto.toEntity(clientDto);
+
         brtDatabaseService.saveClientToDatabase(client);
 
         return ResponseEntity.ok("Client added successfully.");
