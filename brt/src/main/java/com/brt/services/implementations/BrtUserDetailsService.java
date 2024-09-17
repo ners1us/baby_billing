@@ -20,6 +20,7 @@ public class BrtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String phoneNumber){
         Optional<Client> client = brtClientRepository.findByClientId(phoneNumber);
+
         return client.map(BrtUserDetailsConfiguration::new)
                 .orElseThrow(() -> new NotFoundClientException("Client not found"));
     }
