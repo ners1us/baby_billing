@@ -5,7 +5,7 @@ import com.brt.entities.TariffPaymentHistory;
 
 import java.math.BigDecimal;
 
-public interface BrtService {
+public interface BrtProcessorService {
 
     void processCdr(BrtHistory brtHistory);
 

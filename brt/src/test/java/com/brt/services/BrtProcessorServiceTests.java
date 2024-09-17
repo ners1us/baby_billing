@@ -4,7 +4,7 @@ import com.brt.entities.BrtHistory;
 import com.brt.entities.Client;
 import com.brt.entities.TariffPaymentHistory;
 import com.brt.environments.BrtEnvironmentTest;
-import com.brt.services.implementations.BrtServiceImpl;
+import com.brt.services.implementations.BrtProcessorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class BrtServiceTests extends BrtEnvironmentTest {
+class BrtProcessorServiceTests extends BrtEnvironmentTest {
 
     @Mock
     private BrtDatabaseService brtDatabaseService;
@@ -30,7 +30,7 @@ class BrtServiceTests extends BrtEnvironmentTest {
     private BalanceCalculatorService balanceCalculatorService;
 
     @InjectMocks
-    private BrtServiceImpl brtService;
+    private BrtProcessorServiceImpl brtService;
 
     @BeforeEach
     void setUp() {

@@ -6,7 +6,7 @@ import com.brt.entities.TariffPaymentHistory;
 import com.brt.services.BalanceCalculatorService;
 import com.brt.services.BrtDatabaseService;
 import com.brt.services.BrtHistoryRecordManagerService;
-import com.brt.services.BrtService;
+import com.brt.services.BrtProcessorService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  */
 @Service
 @AllArgsConstructor
-public class BrtServiceImpl implements BrtService {
+public class BrtProcessorServiceImpl implements BrtProcessorService {
 
     private BalanceCalculatorService balanceCalculator;
 

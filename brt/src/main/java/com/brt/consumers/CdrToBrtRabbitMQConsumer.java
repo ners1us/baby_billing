@@ -4,7 +4,7 @@ import com.brt.converters.CdrHistoryMessageConverter;
 import com.brt.dto.CdrHistoryDto;
 import com.brt.entities.BrtHistory;
 import com.brt.services.BrtHistoryRecordManagerService;
-import com.brt.services.BrtService;
+import com.brt.services.BrtProcessorService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CdrToBrtRabbitMQConsumer {
 
-    private final BrtService brtService;
+    private final BrtProcessorService brtProcessorService;
 
     private final BrtHistoryRecordManagerService brtHistoryRecordManagerService;
 
@@ -37,6 +37,6 @@ public class CdrToBrtRabbitMQConsumer {
 
         BrtHistory brtHistory = brtHistoryRecordManagerService.convertToNewHistory(history);
 
-        brtService.processCdr(brtHistory);
+        brtProcessorService.processCdr(brtHistory);
     }
 }

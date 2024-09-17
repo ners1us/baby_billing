@@ -4,7 +4,7 @@ import com.brt.dto.HrsMonthCostDto;
 import com.brt.dto.HrsMonthCostsMessageDto;
 import com.brt.entities.TariffPaymentHistory;
 import com.brt.exceptions.NotFoundClientException;
-import com.brt.services.BrtService;
+import com.brt.services.BrtProcessorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -23,7 +23,7 @@ public class MonthCostsFromHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MonthCostsFromHrsRabbitMQConsumer.class);
 
-    private final BrtService brtService;
+    private final BrtProcessorService brtProcessorService;
 
     /**
      * Обрабатывает полученное сообщение о стоимости месячных тарифов из HRS и передает его сервису BRT для обработки.
@@ -44,7 +44,7 @@ public class MonthCostsFromHrsRabbitMQConsumer {
                     tariffPaymentHistory.setTariffId(monthCost.getTariffId());
                     tariffPaymentHistory.setCost(monthCost.getCost());
                     tariffPaymentHistory.setTime(monthCost.getEndTime());
-                    brtService.processTariffChangeFromHrs(tariffPaymentHistory);
+                    brtProcessorService.processTariffChangeFromHrs(tariffPaymentHistory);
                 }
             } else {
                 LOGGER.error("Received MonthCostsMessage with null monthCosts field");

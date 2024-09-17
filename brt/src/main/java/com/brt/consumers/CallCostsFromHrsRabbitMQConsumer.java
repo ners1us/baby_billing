@@ -2,7 +2,7 @@ package com.brt.consumers;
 
 import com.brt.dto.HrsCallCostDto;
 import com.brt.entities.BrtHistory;
-import com.brt.services.BrtService;
+import com.brt.services.BrtProcessorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -21,7 +21,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CallCostsFromHrsRabbitMQConsumer.class);
 
-    private final BrtService brtService;
+    private final BrtProcessorService brtProcessorService;
 
     /**
      * Обрабатывает полученное сообщение о стоимости вызовов из HRS и передает его сервису BRT для обработки.
@@ -40,7 +40,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
             brtHistory.setCallerId(callCost.getCallerId());
             brtHistory.setStartTime(callCost.getStartTime());
             brtHistory.setEndTime(callCost.getEndTime());
-            brtService.processCostFromHrs(brtHistory, callCost.getCost());
+            brtProcessorService.processCostFromHrs(brtHistory, callCost.getCost());
 
         } catch (JsonProcessingException ex) {
             LOGGER.error("Error processing CallCost to JSON: {}", ex.getMessage());
