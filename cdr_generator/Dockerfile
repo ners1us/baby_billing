@@ -5,7 +5,7 @@ WORKDIR /build/
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-oracle
+EXPOSE 8081
 ARG JAR_FILE=/build/target/*.jar
 COPY --from=build /build/target/cdr_generator-0.0.1-SNAPSHOT.jar cdr_generator.jar
-EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "cdr_generator.jar"]

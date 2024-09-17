@@ -5,7 +5,7 @@ WORKDIR /build/
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-oracle
+EXPOSE 8083
 ARG JAR_FILE=/build/target/*.jar
 COPY --from=build /build/target/hrs-0.0.1-SNAPSHOT.jar hrs.jar
-EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "hrs.jar"]

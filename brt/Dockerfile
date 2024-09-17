@@ -5,7 +5,7 @@ WORKDIR /build/
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-oracle
+EXPOSE 8082
 ARG JAR_FILE=/build/target/*.jar
 COPY --from=build /build/target/brt-0.0.1-SNAPSHOT.jar brt.jar
-EXPOSE 8082
 ENTRYPOINT ["java", "-jar", "brt.jar"]
