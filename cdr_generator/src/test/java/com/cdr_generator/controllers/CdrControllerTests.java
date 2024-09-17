@@ -1,5 +1,6 @@
 package com.cdr_generator.controllers;
 
+import com.cdr_generator.dto.CdrHistoryDto;
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.environments.CdrEnvironmentTest;
@@ -106,6 +107,6 @@ class CdrControllerTests extends CdrEnvironmentTest {
                 .andExpect(content().string("Messages sent to RabbitMQ..."));
 
         // Assert
-        verify(cdrToBrtRabbitMQPublisher).sendMessage(cdrHistory);
+        verify(cdrToBrtRabbitMQPublisher).sendMessage(CdrHistoryDto.fromEntity(cdrHistory));
     }
 }

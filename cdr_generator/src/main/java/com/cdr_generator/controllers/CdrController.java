@@ -1,5 +1,6 @@
 package com.cdr_generator.controllers;
 
+import com.cdr_generator.dto.CdrHistoryDto;
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
 import com.cdr_generator.services.CdrService;
@@ -79,8 +80,10 @@ public class CdrController {
     public ResponseEntity<String> publishCdr() {
         try {
             List<CdrHistory> cdrHistoryList = fileManagerService.readHistoryFromFile();
+            
+            List<CdrHistoryDto> cdrHistoryDtos = CdrHistoryDto.fromEntities(cdrHistoryList);
 
-            cdrHistoryList.forEach(cdrToBrtRabbitMQPublisher::sendMessage);
+            cdrHistoryDtos.forEach(cdrToBrtRabbitMQPublisher::sendMessage);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error reading files from data folder");
