@@ -26,40 +26,40 @@ public class CdrHistoryDto {
         return String.format("%s,%s,%s,%d,%d", type, client.getPhoneNumber(), caller.getPhoneNumber(), startTime, endTime);
     }
 
-    public static CdrHistoryDto fromEntity(CdrHistory bid) {
+    public static CdrHistoryDto fromEntity(CdrHistory cdrHistory) {
         CdrHistoryDto cdrHistoryDto = new CdrHistoryDto();
 
-        cdrHistoryDto.setId(bid.getId());
-        cdrHistoryDto.setType(bid.getType());
-        cdrHistoryDto.setClient(bid.getClient());
-        cdrHistoryDto.setCaller(bid.getCaller());
-        cdrHistoryDto.setStartTime(bid.getStartTime());
-        cdrHistoryDto.setEndTime(bid.getEndTime());
+        cdrHistoryDto.setId(cdrHistory.getId());
+        cdrHistoryDto.setType(cdrHistory.getType());
+        cdrHistoryDto.setClient(cdrHistory.getClient());
+        cdrHistoryDto.setCaller(cdrHistory.getCaller());
+        cdrHistoryDto.setStartTime(cdrHistory.getStartTime());
+        cdrHistoryDto.setEndTime(cdrHistory.getEndTime());
 
         return cdrHistoryDto;
     }
 
-    public static CdrHistory toEntity(CdrHistoryDto bidDto) {
+    public static CdrHistory toEntity(CdrHistoryDto cdrHistoryDto) {
         CdrHistory cdrHistory = new CdrHistory();
 
-        cdrHistory.setId(bidDto.getId());
-        cdrHistory.setType(bidDto.getType());
-        cdrHistory.setClient(bidDto.getClient());
-        cdrHistory.setCaller(bidDto.getCaller());
-        cdrHistory.setStartTime(bidDto.getStartTime());
-        cdrHistory.setEndTime(bidDto.getEndTime());
+        cdrHistory.setId(cdrHistoryDto.getId());
+        cdrHistory.setType(cdrHistoryDto.getType());
+        cdrHistory.setClient(cdrHistoryDto.getClient());
+        cdrHistory.setCaller(cdrHistoryDto.getCaller());
+        cdrHistory.setStartTime(cdrHistoryDto.getStartTime());
+        cdrHistory.setEndTime(cdrHistoryDto.getEndTime());
 
         return cdrHistory;
     }
 
-    public static List<CdrHistoryDto> fromEntities(List<CdrHistory> bids) {
-        return bids.stream()
+    public static List<CdrHistoryDto> fromEntities(List<CdrHistory> cdrHistories) {
+        return cdrHistories.stream()
                 .map(CdrHistoryDto::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    public static List<CdrHistory> toEntities(List<CdrHistoryDto> bidDtos) {
-        return bidDtos.stream()
+    public static List<CdrHistory> toEntities(List<CdrHistoryDto> cdrHistoryDtos) {
+        return cdrHistoryDtos.stream()
                 .map(CdrHistoryDto::toEntity)
                 .collect(Collectors.toList());
     }
