@@ -1,7 +1,6 @@
 package com.cdr_generator.publishers;
 
 import com.cdr_generator.dto.CdrHistoryDto;
-import com.cdr_generator.entities.CdrHistory;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
