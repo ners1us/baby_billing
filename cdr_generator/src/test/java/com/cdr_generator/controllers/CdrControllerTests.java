@@ -5,7 +5,7 @@ import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.entities.Client;
 import com.cdr_generator.environments.CdrEnvironmentTest;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
-import com.cdr_generator.services.CdrService;
+import com.cdr_generator.services.CdrManagerService;
 import com.cdr_generator.services.FileManagerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ class CdrControllerTests extends CdrEnvironmentTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CdrService cdrService;
+    private CdrManagerService cdrManagerService;
 
     @MockBean
     private FileManagerService fileManagerService;
@@ -63,9 +63,9 @@ class CdrControllerTests extends CdrEnvironmentTest {
         cdrHistoryList.add(cdrHistory);
 
         // Act
-        when(cdrService.generateCdr()).thenReturn(CompletableFuture.completedFuture(cdrHistoryList));
+        when(cdrManagerService.generateCdr()).thenReturn(CompletableFuture.completedFuture(cdrHistoryList));
         doNothing().when(fileManagerService).checkAndCleanDataFolder();
-        doNothing().when(cdrService).processCdr(any());
+        doNothing().when(cdrManagerService).processCdr(any());
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/cdr_generator/generateCdr")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -73,8 +73,8 @@ class CdrControllerTests extends CdrEnvironmentTest {
 
         // Assert
         verify(fileManagerService, times(1)).checkAndCleanDataFolder();
-        verify(cdrService, times(1)).generateCdr();
-        verify(cdrService, times(1)).processCdr(any());
+        verify(cdrManagerService, times(1)).generateCdr();
+        verify(cdrManagerService, times(1)).processCdr(any());
     }
 
     @Test

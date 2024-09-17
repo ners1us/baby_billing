@@ -5,7 +5,7 @@ import com.cdr_generator.entities.CdrHistory;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public interface CdrService {
+public interface CdrManagerService {
 
     void processCdr(List<CdrHistory> cdrHistoryList);
 

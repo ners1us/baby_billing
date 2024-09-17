@@ -4,7 +4,7 @@ import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.exceptions.FailedSavingCdrToFileException;
 import com.cdr_generator.exceptions.FailedWritingCdrHistoryToFileException;
 import com.cdr_generator.services.CdrDatabaseService;
-import com.cdr_generator.services.CdrService;
+import com.cdr_generator.services.CdrManagerService;
 import com.cdr_generator.services.FileManagerService;
 import com.cdr_generator.services.RandomGeneratorService;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @Service
 @AllArgsConstructor
-public class CdrServiceImpl implements CdrService {
+public class CdrManagerServiceImpl implements CdrManagerService {
 
     private CdrDatabaseService databaseService;
 

@@ -3,7 +3,7 @@ package com.cdr_generator.controllers;
 import com.cdr_generator.dto.CdrHistoryDto;
 import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.publishers.CdrToBrtRabbitMQPublisher;
-import com.cdr_generator.services.CdrService;
+import com.cdr_generator.services.CdrManagerService;
 import com.cdr_generator.services.FileManagerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -32,7 +32,7 @@ public class CdrController {
 
     private final CdrToBrtRabbitMQPublisher cdrToBrtRabbitMQPublisher;
 
-    private final CdrService cdrService;
+    private final CdrManagerService cdrManagerService;
 
     private final FileManagerService fileManagerService;
 
@@ -53,10 +53,10 @@ public class CdrController {
     public ResponseEntity<String> generateAndSaveCdr() throws IOException {
         fileManagerService.checkAndCleanDataFolder();
 
-        CompletableFuture<List<CdrHistory>> cdrFuture = cdrService.generateCdr();
+        CompletableFuture<List<CdrHistory>> cdrFuture = cdrManagerService.generateCdr();
 
         List<CdrHistory> cdrHistoryList = cdrFuture.join();
-        cdrService.processCdr(cdrHistoryList);
+        cdrManagerService.processCdr(cdrHistoryList);
 
         return ResponseEntity.ok("Successfully generated files");
     }
