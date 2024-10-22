@@ -4,6 +4,10 @@ on:
     branches:
       - main
       - dev
+    paths:
+      - 'cdr_generator/Dockerfile'
+      - 'brt/Dockerfile'
+      - 'hrs/Dockerfile'
 jobs:
   publish_images:
     runs-on: ubuntu-latest
