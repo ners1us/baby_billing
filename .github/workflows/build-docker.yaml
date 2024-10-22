@@ -15,7 +15,7 @@ jobs:
           docker build ./cdr_generator/ -t ners1us/cdr_generator-app:latest
           docker build ./brt/ -t ners1us/brt-app:latest
           docker build ./hrs/ -t ners1us/hrs-app:latest
-      - name: push ners1us/cdr_generator-app image to docker hub
+      - name: push images to docker hub
         run: |
           docker login -u ners1us -p ${{ secrets.DOCKER_HUB_TOKEN }}
           docker push ners1us/cdr_generator-app:latest
