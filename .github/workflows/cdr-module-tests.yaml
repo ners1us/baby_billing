@@ -4,12 +4,12 @@ on:
     branches:
       - '**'
     paths:
-      - 'cdr_generator/**'
+      - 'cdr_generator/src/**'
   pull_request:
     branches:
       - '**'
     paths:
-      - 'cdr_generator/**'
+      - 'cdr_generator/src/**'
 
 jobs:
   test-cdr:

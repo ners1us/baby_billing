@@ -4,12 +4,12 @@ on:
     branches:
       - '**'
     paths:
-      - 'brt/**'
+      - 'brt/src/**'
   pull_request:
     branches:
       - '**'
     paths:
-      - 'brt/**'
+      - 'brt/src/**'
 
 jobs:
   test-brt:

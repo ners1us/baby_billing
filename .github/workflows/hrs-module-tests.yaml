@@ -4,12 +4,12 @@ on:
     branches:
       - '**'
     paths:
-      - 'hrs/**'
+      - 'hrs/src/**'
   pull_request:
     branches:
       - '**'
     paths:
-      - 'hrs/**'
+      - 'hrs/src/**'
 
 jobs:
   test-hrs:
