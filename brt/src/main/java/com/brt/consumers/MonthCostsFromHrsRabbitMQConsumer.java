@@ -44,6 +44,7 @@ public class MonthCostsFromHrsRabbitMQConsumer {
                     tariffPaymentHistory.setTariffId(monthCost.getTariffId());
                     tariffPaymentHistory.setCost(monthCost.getCost());
                     tariffPaymentHistory.setTime(monthCost.getEndTime());
+
                     brtProcessorService.processTariffChangeFromHrs(tariffPaymentHistory);
                 }
             } else {
