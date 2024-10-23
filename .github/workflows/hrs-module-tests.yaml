@@ -1,0 +1,31 @@
+name: Build and Test HRS module
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'hrs/**'
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - 'hrs/**'
+
+jobs:
+  test-hrs:
+    runs-on: ubuntu-latest
+    name: Run HRS Service Module Tests
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run HRS Tests
+        run: |
+          cd hrs
+          mvn test
