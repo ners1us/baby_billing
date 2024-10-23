@@ -100,6 +100,7 @@ public class CdrManagerServiceImpl implements CdrManagerService {
         }
 
         monthCdrHistory.sort(Comparator.comparingLong(CdrHistory::getEndTime));
+
         return monthCdrHistory;
     }
 

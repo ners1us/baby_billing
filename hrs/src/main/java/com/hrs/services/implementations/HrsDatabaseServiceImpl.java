@@ -43,11 +43,13 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
             for (HrsHistory existingHistory : existingHistories) {
                 existingHistory.setCost(cost);
                 existingHistory.setDuration(duration);
+
                 historyRepository.save(existingHistory);
             }
         } else {
             HrsHistory history = new HrsHistory(brtHistoryDto.getClient(), brtHistoryDto.getCallerId(), brtHistoryDto.getStartTime(),
                     brtHistoryDto.getEndTime(), brtHistoryDto.getTariffId(), brtHistoryDto.getInternal(), cost, duration);
+
             historyRepository.save(history);
         }
 
@@ -64,6 +66,7 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
         } else {
             traffic.setMinutesExtCurrentMonth(minutesExtCurrentMonth + duration);
         }
+
         trafficRepository.save(traffic);
     }
 
@@ -76,5 +79,4 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
     public Tariffs getTariff(Integer tariffId) {
         return tariffsRepository.findByTariffId(tariffId);
     }
-
 }
