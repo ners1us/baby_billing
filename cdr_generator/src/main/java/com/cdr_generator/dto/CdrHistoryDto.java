@@ -4,8 +4,8 @@ import com.cdr_generator.entities.CdrHistory;
 import com.cdr_generator.entities.Client;
 import lombok.Data;
 
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.List;
 
 @Data
 public class CdrHistoryDto {

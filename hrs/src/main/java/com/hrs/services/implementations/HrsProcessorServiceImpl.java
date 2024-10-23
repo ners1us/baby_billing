@@ -74,6 +74,7 @@ public class HrsProcessorServiceImpl implements HrsProcessorService {
 
         TariffRules tariffRules = tariff.getTariffRules();
         BigDecimal cost = callCostCalculatorService.calculateCallCost(brtHistoryDto, tariffRules, duration);
+
         hrsDatabaseService.saveCallData(brtHistoryDto, duration, cost, currentMonth);
 
         hrsToBrtRabbitMQPublisher.sendCallCostToBrt(brtHistoryDto, cost);
@@ -108,5 +109,4 @@ public class HrsProcessorServiceImpl implements HrsProcessorService {
             hrsToBrtRabbitMQPublisher.sendMonthCallToBrt(monthCosts);
         }
     }
-
 }

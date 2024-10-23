@@ -26,6 +26,6 @@ public class CdrHistoryMessageConverter implements MessageConverter {
 
     @Override
     public Message toMessage(Object o, MessageProperties messageProperties) {
-        throw new UnsupportedOperationException("Conversion to message is not supported");
+        throw new UnsupportedOperationException("Conversion to message isn't supported");
     }
 }

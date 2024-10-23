@@ -40,6 +40,7 @@ public class CallCostsFromHrsRabbitMQConsumer {
             brtHistory.setCallerId(callCost.getCallerId());
             brtHistory.setStartTime(callCost.getStartTime());
             brtHistory.setEndTime(callCost.getEndTime());
+
             brtProcessorService.processCostFromHrs(brtHistory, callCost.getCost());
 
         } catch (JsonProcessingException ex) {

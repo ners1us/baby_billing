@@ -1,0 +1,31 @@
+name: Build and Test BRT module
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'brt/**'
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - 'brt/**'
+
+jobs:
+  test-brt:
+    runs-on: ubuntu-latest
+    name: Run BRT Service Module Tests
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run BRT Tests
+        run: |
+          cd brt
+          mvn test

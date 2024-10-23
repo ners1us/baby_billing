@@ -2,8 +2,7 @@ name: Build and Publish images to Docker Hub
 on:
   push:
     branches:
-      - main
-      - dev
+      - '**'
     paths:
       - 'cdr_generator/Dockerfile'
       - 'brt/Dockerfile'
@@ -14,11 +13,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
       - name: build images
         run: |
           docker build ./cdr_generator/ -t ners1us/cdr_generator-app:latest
           docker build ./brt/ -t ners1us/brt-app:latest
           docker build ./hrs/ -t ners1us/hrs-app:latest
+
       - name: push images to docker hub
         run: |
           docker login -u ners1us -p ${{ secrets.DOCKER_HUB_TOKEN }}
