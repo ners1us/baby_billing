@@ -19,6 +19,7 @@ jobs:
   test-cdr:
     runs-on: ubuntu-latest
     name: Run CDR Generator Module Tests
+    if: contains(github.event.head_commit.message, 'cdr_generator') || github.event_name == 'pull_request' && github.event.changed_files > 0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,6 +38,7 @@ jobs:
   test-brt:
     runs-on: ubuntu-latest
     name: Run BRT Service Module Tests
+    if: contains(github.event.head_commit.message, 'brt') || github.event_name == 'pull_request' && github.event.changed_files > 0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,6 +57,7 @@ jobs:
   test-hrs:
     runs-on: ubuntu-latest
     name: Run HRS Service Module Tests
+    if: contains(github.event.head_commit.message, 'hrs') || github.event_name == 'pull_request' && github.event.changed_files > 0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
