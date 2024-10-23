@@ -108,5 +108,4 @@ public class HrsProcessorServiceImpl implements HrsProcessorService {
             hrsToBrtRabbitMQPublisher.sendMonthCallToBrt(monthCosts);
         }
     }
-
 }
