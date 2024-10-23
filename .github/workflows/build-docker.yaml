@@ -2,8 +2,7 @@ name: Build and Publish images to Docker Hub
 on:
   push:
     branches:
-      - main
-      - dev
+      - '**'
     paths:
       - 'cdr_generator/Dockerfile'
       - 'brt/Dockerfile'
