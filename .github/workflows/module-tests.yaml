@@ -3,6 +3,17 @@ on:
   push:
     branches:
       - '**'
+    paths:
+      - 'cdr_generator/**'
+      - 'brt/**'
+      - 'hrs/**'
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - 'cdr_generator/**'
+      - 'brt/**'
+      - 'hrs/**'
 
 jobs:
   test-cdr:
