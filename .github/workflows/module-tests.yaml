@@ -19,7 +19,6 @@ jobs:
   test-cdr:
     runs-on: ubuntu-latest
     name: Run CDR Generator Module Tests
-    if: contains(github.event.commits.*.modified, 'cdr_generator/') || contains(github.event.commits.*.added, 'cdr_generator/')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,7 +37,6 @@ jobs:
   test-brt:
     runs-on: ubuntu-latest
     name: Run BRT Service Module Tests
-    if: contains(github.event.commits.*.modified, 'brt/') || contains(github.event.commits.*.added, 'brt/')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -57,7 +55,6 @@ jobs:
   test-hrs:
     runs-on: ubuntu-latest
     name: Run HRS Service Module Tests
-    if: contains(github.event.commits.*.modified, 'hrs/') || contains(github.event.commits.*.added, 'hrs/')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
