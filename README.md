@@ -65,24 +65,6 @@ docker logs baby_billing-brt-app-1
 docker logs baby_billing-hrs-app-1
 ```
 
-## Просмотр логов тестов Симулятора Коммутатора
-
-```bash
-docker logs baby_billing-cdr-tests-1
-```
-
-## Просмотр логов тестов сервиса BRT
-
-```bash
-docker logs baby_billing-brt-tests-1
-```
-
-## Просмотр логов тестов сервиса HRS
-
-```bash
-docker logs baby_billing-hrs-tests-1
-```
-
 ## Очистка кэша
 
 ```bash
