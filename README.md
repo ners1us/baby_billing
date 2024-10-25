@@ -90,7 +90,7 @@ docker system prune -f
   Для сервиса BRT - ```http://localhost:8082/swagger-ui/index.html```.
 - Для вызова endpoint'ов ```admin-controller``` или ```client-controller``` нужно предварительно авторизоваться по адресу ```http://localhost:8082/login```.<br>
   По адресу ```http://localhost:8082/logout``` можно выйти из аккаунта.
-- Данные для использования endpoint'ов ```admin-controller``` (также будет возможность воспользоваться ```client-controller```):
+- Данные для использования endpoint'ов ```admin-controller```:
     - username: admin
     - password: admin
 - Для использования endpoint'ов ```client-controller``` в качестве ```username``` и ```password``` следует передать номер телефона клиента, существующий в базе данных сервиса BRT, в таблице ```clients```.
