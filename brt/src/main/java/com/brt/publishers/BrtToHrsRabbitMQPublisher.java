@@ -3,7 +3,6 @@ package com.brt.publishers;
 import com.brt.dto.BrtHistoryDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +23,9 @@ public class BrtToHrsRabbitMQPublisher {
     @Value("${rabbitmq.brt.to.hrs.key}")
     private String routingKey;
 
-    @NonNull
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    @NonNull
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BrtToHrsRabbitMQPublisher.class);
 

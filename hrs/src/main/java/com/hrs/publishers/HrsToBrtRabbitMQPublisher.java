@@ -31,11 +31,9 @@ public class HrsToBrtRabbitMQPublisher {
     @Value("${rabbitmq.month.hrs.to.brt.key}")
     private String monthRoutingKey;
 
-    @NonNull
     private final ObjectMapper objectMapper;
 
-    @NonNull
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     /**
      * Отправляет данные о месячных затратах на звонки из HRS в BRT.

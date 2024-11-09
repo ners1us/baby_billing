@@ -14,7 +14,6 @@ import com.hrs.repositories.TrafficRepository;
 import com.hrs.services.CallCostCalculatorService;
 import com.hrs.services.HrsDatabaseService;
 import com.hrs.services.HrsProcessorService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,22 +29,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HrsProcessorServiceImpl implements HrsProcessorService {
 
-    @NonNull
     private final CallCostCalculatorService callCostCalculatorService;
 
-    @NonNull
     private final HrsHistoryRepository historyRepository;
 
-    @NonNull
     private final TrafficRepository trafficRepository;
 
-    @NonNull
     private final ObjectMapper objectMapper;
 
-    @NonNull
     private final HrsDatabaseService hrsDatabaseService;
 
-    @NonNull
     private final HrsToBrtRabbitMQPublisher hrsToBrtRabbitMQPublisher;
 
     private int currentMonth;

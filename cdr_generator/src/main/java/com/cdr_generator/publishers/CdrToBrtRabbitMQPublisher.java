@@ -1,7 +1,6 @@
 package com.cdr_generator.publishers;
 
 import com.cdr_generator.dto.CdrHistoryDto;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,6 @@ public class CdrToBrtRabbitMQPublisher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrToBrtRabbitMQPublisher.class);
 
-    @NonNull
     private final RabbitTemplate rabbitTemplate;
     /**
      * Отправляет сообщение с записью CDR в RabbitMQ.
