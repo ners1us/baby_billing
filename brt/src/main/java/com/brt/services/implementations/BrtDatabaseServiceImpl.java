@@ -80,12 +80,12 @@ public class BrtDatabaseServiceImpl implements BrtDatabaseService {
     /**
      * Находит запись BRT по заданным атрибутам.
      *
-     * @param client номер телефона клиента.
-     * @param callerId номер телефона звонящего.
+     * @param client    номер телефона клиента.
+     * @param callerId  номер телефона звонящего.
      * @param startTime время начала звонка.
-     * @param endTime время окончания звонка.
-     * @throws NotFoundBrtHistoryException если запись не найдена.
+     * @param endTime   время окончания звонка.
      * @return запись BRT, найденная в базе данных.
+     * @throws NotFoundBrtHistoryException если запись не найдена.
      */
     public BrtHistory findBrtHistoryByAttributes(String client, String callerId, LocalDateTime startTime, LocalDateTime endTime) {
         return brtHistoryRepository.findByClientAndCallerIdAndStartTimeAndEndTime(client, callerId, startTime, endTime).orElseThrow(() -> new NotFoundBrtHistoryException("Could not find brt history"));

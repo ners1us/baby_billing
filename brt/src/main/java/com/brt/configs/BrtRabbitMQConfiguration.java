@@ -112,6 +112,7 @@ public class BrtRabbitMQConfiguration {
         ObjectMapper objectMapper = new ObjectMapper();
         return new Jackson2JsonMessageConverter(objectMapper);
     }
+
     @Bean
     public CdrHistoryMessageConverter cdrHistoryMessageConverter(ObjectMapper objectMapper) {
         return new CdrHistoryMessageConverter(objectMapper);

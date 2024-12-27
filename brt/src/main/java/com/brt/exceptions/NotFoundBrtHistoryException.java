@@ -2,7 +2,8 @@ package com.brt.exceptions;
 
 public class NotFoundBrtHistoryException extends RuntimeException {
 
-    public NotFoundBrtHistoryException() {}
+    public NotFoundBrtHistoryException() {
+    }
 
     public NotFoundBrtHistoryException(String message) {
         super(message);

@@ -36,4 +36,5 @@ public class Client {
     @Column(name = "balance")
     @Schema(description = "Balance of a Client", type = "number", format = "double", example = "10000.00")
     private BigDecimal balance;
+
 }

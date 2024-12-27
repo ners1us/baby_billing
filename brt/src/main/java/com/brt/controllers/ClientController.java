@@ -45,7 +45,7 @@ public class ClientController {
      * Пополняет баланс клиента на указанную сумму.
      *
      * @param subscriber номер клиента.
-     * @param amount сумма для пополнения баланса.
+     * @param amount     сумма для пополнения баланса.
      * @return ResponseEntity с сообщением об успешном пополнении баланса.
      */
     @PostMapping("/deposit")

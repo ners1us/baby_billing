@@ -18,7 +18,7 @@ public class BrtUserDetailsService implements UserDetailsService {
     private final BrtClientRepository brtClientRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String phoneNumber){
+    public UserDetails loadUserByUsername(String phoneNumber) {
         Optional<Client> client = brtClientRepository.findByClientId(phoneNumber);
 
         return client.map(BrtUserDetailsConfiguration::new)

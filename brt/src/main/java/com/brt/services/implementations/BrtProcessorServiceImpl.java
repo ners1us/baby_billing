@@ -39,7 +39,7 @@ public class BrtProcessorServiceImpl implements BrtProcessorService {
      * Обновляет запись истории в базе данных BRT, вычисляет и обновляет баланс клиента.
      *
      * @param brtHistory запись истории вызова в формате BRT.
-     * @param cost стоимость вызова.
+     * @param cost       стоимость вызова.
      */
     public void processCostFromHrs(BrtHistory brtHistory, BigDecimal cost) {
         BrtHistory existingHistory = brtDatabaseService.findBrtHistoryByAttributes(brtHistory.getClient(), brtHistory.getCallerId(), brtHistory.getStartTime(), brtHistory.getEndTime());
