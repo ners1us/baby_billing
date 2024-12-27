@@ -72,7 +72,7 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
      * Генерирует случайное время начала вызова в заданном диапазоне времени.
      *
      * @param startTime начальное время диапазона.
-     * @param endTime конечное время диапазона.
+     * @param endTime   конечное время диапазона.
      * @return случайное время начала вызова.
      */
     private long generateRandomStartTime(long startTime, long endTime) {
@@ -82,7 +82,7 @@ public class RandomGeneratorServiceImpl implements RandomGeneratorService {
     /**
      * Генерирует случайное время окончания вызова в заданном диапазоне продолжительности.
      *
-     * @param startTime время начала вызова.
+     * @param startTime   время начала вызова.
      * @param maxDuration максимальная продолжительность вызова.
      * @return случайное время окончания вызова.
      */

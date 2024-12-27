@@ -85,7 +85,7 @@ public class CdrManagerServiceImpl implements CdrManagerService {
      * Генерирует историю звонков CDR за месяц.
      *
      * @param startTime начальное время для генерации звонков.
-     * @param numCalls количество звонков, которые нужно сгенерировать (каждый звонок и обратный ему звонок).
+     * @param numCalls  количество звонков, которые нужно сгенерировать (каждый звонок и обратный ему звонок).
      * @return список CdrHistory, представляющий историю звонков за месяц, отсортированный по времени завершения звонков.
      */
     private List<CdrHistory> generateCdrForMonth(long startTime, int numCalls) {

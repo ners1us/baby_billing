@@ -23,30 +23,30 @@ public class CdrToBrtRabbitMQConfiguration {
     private String cdrToBrtRoutingKey;
 
     @Bean
-    public Queue cdrQueue(){
+    public Queue cdrQueue() {
         return new Queue(cdrToBrtQueue);
     }
 
     @Bean
-    public TopicExchange topicExchange(){
+    public TopicExchange topicExchange() {
         return new TopicExchange(exchange);
     }
 
     @Bean
-    public Binding bindingCdr(){
+    public Binding bindingCdr() {
         return BindingBuilder.bind(cdrQueue())
                 .to(topicExchange())
                 .with(cdrToBrtRoutingKey);
     }
 
     @Bean
-    public MessageConverter converter(){
+    public MessageConverter converter() {
         ObjectMapper objectMapper = new ObjectMapper();
         return new Jackson2JsonMessageConverter(objectMapper);
     }
 
     @Bean
-    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory){
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;

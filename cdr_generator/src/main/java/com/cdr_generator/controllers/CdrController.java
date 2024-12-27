@@ -80,7 +80,7 @@ public class CdrController {
     public ResponseEntity<String> publishCdr() {
         try {
             List<CdrHistory> cdrHistoryList = fileManagerService.readHistoryFromFile();
-            
+
             List<CdrHistoryDto> cdrHistoryDtos = CdrHistoryDto.fromEntities(cdrHistoryList);
 
             cdrHistoryDtos.forEach(cdrToBrtRabbitMQPublisher::sendMessage);

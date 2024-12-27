@@ -1,7 +1,8 @@
 package com.cdr_generator.exceptions;
 
 public class FailedOpeningCdrFileException extends RuntimeException {
-    public FailedOpeningCdrFileException() {}
+    public FailedOpeningCdrFileException() {
+    }
 
     public FailedOpeningCdrFileException(String message) {
         super(message);

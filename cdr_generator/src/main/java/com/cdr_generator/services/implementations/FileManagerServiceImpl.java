@@ -24,7 +24,7 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Проверяет существование и очищает папку данных.
      */
-    public void checkAndCleanDataFolder(){
+    public void checkAndCleanDataFolder() {
         File dataFolder = new File("data");
 
         if (dataFolder.isDirectory()) {
@@ -79,7 +79,7 @@ public class FileManagerServiceImpl implements FileManagerService {
     /**
      * Разбивает список истории на файлы с заданным количеством вызовов.
      *
-     * @param cdrHistoryList список истории, который необходимо разделить.
+     * @param cdrHistoryList  список истории, который необходимо разделить.
      * @param maxCallsPerFile максимальное количество вызовов в одном файле.
      * @return список списков истории, разбитой на файлы.
      */
@@ -95,8 +95,8 @@ public class FileManagerServiceImpl implements FileManagerService {
      * Сохраняет CDR в файл.
      *
      * @param cdrHistoryList список объектов History, которые необходимо сохранить.
-     * @param fileName имя файла, в который нужно сохранить CDR.
-     * @throws FailedOpeningCdrFileException если не удается открыть файл для записи.
+     * @param fileName       имя файла, в который нужно сохранить CDR.
+     * @throws FailedOpeningCdrFileException          если не удается открыть файл для записи.
      * @throws FailedWritingCdrHistoryToFileException если происходит ошибка при записи истории CDR в файл.
      */
     public void saveCdrToFile(List<CdrHistory> cdrHistoryList, String fileName) {

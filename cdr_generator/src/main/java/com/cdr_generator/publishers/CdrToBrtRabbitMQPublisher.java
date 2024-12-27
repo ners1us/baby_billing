@@ -24,6 +24,7 @@ public class CdrToBrtRabbitMQPublisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(CdrToBrtRabbitMQPublisher.class);
 
     private final RabbitTemplate rabbitTemplate;
+
     /**
      * Отправляет сообщение с записью CDR в RabbitMQ.
      *
