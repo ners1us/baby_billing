@@ -51,7 +51,7 @@ public class HrsToBrtRabbitMQPublisher {
      * Отправляет данные о стоимости звонка из HRS в BRT.
      *
      * @param brtHistoryDto объект BrtHistoryDto, представляющий историю звонка.
-     * @param cost стоимость звонка.
+     * @param cost          стоимость звонка.
      * @throws JsonProcessingException если произошла ошибка при преобразовании в JSON.
      */
     public void sendCallCostToBrt(BrtHistoryDto brtHistoryDto, BigDecimal cost) throws JsonProcessingException {

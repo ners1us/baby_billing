@@ -19,7 +19,7 @@ public class CallCostCalculatorServiceImpl implements CallCostCalculatorService 
      * Вычисляет продолжительность звонка в минутах.
      *
      * @param startTime время начала звонка.
-     * @param endTime время окончания звонка.
+     * @param endTime   время окончания звонка.
      * @return продолжительность звонка в минутах.
      */
     public long calculateDuration(LocalDateTime startTime, LocalDateTime endTime) {
@@ -32,8 +32,8 @@ public class CallCostCalculatorServiceImpl implements CallCostCalculatorService 
      * Вычисляет стоимость звонка на основе истории звонка и правил тарификации.
      *
      * @param brtHistoryDto объект BrtHistoryDto, представляющий историю звонка.
-     * @param tariffRules правила тарификации для данного звонка.
-     * @param duration продолжительность звонка в минутах.
+     * @param tariffRules   правила тарификации для данного звонка.
+     * @param duration      продолжительность звонка в минутах.
      * @return стоимость звонка.
      */
     public BigDecimal calculateCallCost(BrtHistoryDto brtHistoryDto, TariffRules tariffRules, long duration) {

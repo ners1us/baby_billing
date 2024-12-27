@@ -31,9 +31,9 @@ public class HrsDatabaseServiceImpl implements HrsDatabaseService {
      * Сохраняет данные о звонке в базу данных HRS.
      *
      * @param brtHistoryDto данные о звонке от BRT.
-     * @param duration продолжительность звонка в минутах.
-     * @param cost стоимость звонка.
-     * @param currentMonth текущий месяц.
+     * @param duration      продолжительность звонка в минутах.
+     * @param cost          стоимость звонка.
+     * @param currentMonth  текущий месяц.
      */
     public void saveCallData(BrtHistoryDto brtHistoryDto, long duration, BigDecimal cost, int currentMonth) {
         List<HrsHistory> existingHistories = historyRepository.findByClientIdAndCallerIdAndStartTimeAndEndTime(

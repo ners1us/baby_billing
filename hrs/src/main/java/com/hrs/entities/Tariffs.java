@@ -24,4 +24,5 @@ public class Tariffs {
     @Convert(converter = TariffRulesConverter.class)
     @ColumnTransformer(write = "?::jsonb")
     private TariffRules tariffRules;
+
 }
