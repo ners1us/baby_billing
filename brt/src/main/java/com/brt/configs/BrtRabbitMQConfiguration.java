@@ -24,6 +24,9 @@ public class BrtRabbitMQConfiguration {
     @Value("${rabbitmq.exchange.brt-hrs.name}")
     private String brtHrsExchangeName;
 
+    @Value("${rabbitmq.exchange.brt-hrs.name}")
+    private String hrsBrtExchangeName;
+
     @Value("${rabbitmq.cdr.to.brt.key}")
     private String cdrToBrtRoutingKey;
 
@@ -35,9 +38,6 @@ public class BrtRabbitMQConfiguration {
 
     @Value("${rabbitmq.call.hrs.to.brt.queue.name}")
     private String callQueueName;
-
-    @Value("${rabbitmq.exchange.brt-hrs.name}")
-    private String exchangeName;
 
     @Value("${rabbitmq.month.hrs.to.brt.key}")
     private String monthRoutingKey;

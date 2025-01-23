@@ -17,7 +17,7 @@ public class CdrToBrtRabbitMQConfiguration {
     private String cdrToBrtQueue;
 
     @Value("${rabbitmq.exchange.cdr-brt.name}")
-    private String exchange;
+    private String cdrBrtExchangeName;
 
     @Value("${rabbitmq.cdr.to.brt.key}")
     private String cdrToBrtRoutingKey;
