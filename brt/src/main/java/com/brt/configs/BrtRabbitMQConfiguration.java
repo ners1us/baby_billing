@@ -2,10 +2,7 @@ package com.brt.configs;
 
 import com.brt.converters.CdrHistoryMessageConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,18 +56,18 @@ public class BrtRabbitMQConfiguration {
     }
 
     @Bean
-    public TopicExchange cdrBrtExchange() {
-        return new TopicExchange(cdrBrtExchangeName);
+    public DirectExchange cdrBrtExchange() {
+        return new DirectExchange(cdrBrtExchangeName);
     }
 
     @Bean
-    public TopicExchange brtHrsExchange() {
-        return new TopicExchange(brtHrsExchangeName);
+    public DirectExchange brtHrsExchange() {
+        return new DirectExchange(brtHrsExchangeName);
     }
 
     @Bean
-    public TopicExchange hrsBrtExchange() {
-        return new TopicExchange(exchangeName);
+    public DirectExchange hrsBrtExchange() {
+        return new DirectExchange(hrsBrtExchangeName);
     }
 
     @Bean

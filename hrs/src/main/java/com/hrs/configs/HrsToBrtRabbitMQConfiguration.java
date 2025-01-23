@@ -1,9 +1,6 @@
 package com.hrs.configs;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,26 +45,26 @@ public class HrsToBrtRabbitMQConfiguration {
     }
 
     @Bean
-    public TopicExchange hrsExchange() {
-        return new TopicExchange(exchangeName);
+    public DirectExchange hrsBrtExchange() {
+        return new DirectExchange(exchangeName);
     }
 
     @Bean
-    public TopicExchange brtHrsExchange() {
-        return new TopicExchange(exchangeName);
+    public DirectExchange brtHrsExchange() {
+        return new DirectExchange(exchangeName);
     }
 
     @Bean
     public Binding monthHrsToBrtBinding() {
         return BindingBuilder.bind(monthHrsQueue()).
-                to(hrsExchange())
+                to(hrsBrtExchange())
                 .with(monthRoutingKey);
     }
 
     @Bean
     public Binding callHrsToBrtBinding() {
         return BindingBuilder.bind(callHrsQueue()).
-                to(hrsExchange())
+                to(hrsBrtExchange())
                 .with(callRoutingKey);
     }
 

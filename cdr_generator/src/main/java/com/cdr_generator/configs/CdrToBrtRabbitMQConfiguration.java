@@ -28,14 +28,14 @@ public class CdrToBrtRabbitMQConfiguration {
     }
 
     @Bean
-    public TopicExchange topicExchange() {
-        return new TopicExchange(exchange);
+    public DirectExchange cdrBrtExchange() {
+        return new DirectExchange(cdrBrtExchangeName);
     }
 
     @Bean
     public Binding bindingCdr() {
         return BindingBuilder.bind(cdrQueue())
-                .to(topicExchange())
+                .to(cdrBrtExchange())
                 .with(cdrToBrtRoutingKey);
     }
 
