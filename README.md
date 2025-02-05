@@ -65,12 +65,6 @@ docker logs baby_billing-brt-app-1
 docker logs baby_billing-hrs-app-1
 ```
 
-## Очистка кэша
-
-```bash
-docker system prune -f
-```
-
 ## Данные для авторизации в БД
 
 - ### Для базы данных Симулятора Коммутатора (PostgreSQL, порт - 5432):
